@@ -1,11 +1,12 @@
 package motelRoom.entity.addressEntity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Entity
 @Data
@@ -22,5 +23,29 @@ public class ProvinceEntity {
     private String name;
     @Column(name = "_code")
     private String code;
+
+    /**relationship one province many district**/
+         @OneToMany(
+                        cascade = CascadeType.ALL,
+                         mappedBy = "provinces"
+                )
+         @EqualsAndHashCode.Exclude
+         @ToString.Exclude
+         @JsonManagedReference
+         @JsonIgnore
+         private Collection<DistrictEntity> district
+                 = new ArrayList<DistrictEntity>();
+
+    /**relationship one province many ward**/
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            mappedBy = "provinces"
+    )
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonManagedReference
+    @JsonIgnore
+    private Collection<WardEntity> ward
+            = new ArrayList<WardEntity>();
 
 }
