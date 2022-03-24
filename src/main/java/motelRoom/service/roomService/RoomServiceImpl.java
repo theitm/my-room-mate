@@ -1,32 +1,63 @@
 package motelRoom.service.roomService;
 
+import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
+import motelRoom.entity.RoomEntity;
 import motelRoom.mapper.RoomMapper;
 import motelRoom.repository.RoomRepository;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class RoomServiceImpl implements RoomService{
+public class RoomServiceImpl implements RoomService {
 
-   private final RoomRepository repository;
-   private final RoomMapper mapper;
+    private final RoomRepository roomRepository;
+    private final RoomMapper roomMapper;
 
-   public RoomServiceImpl(RoomRepository repository, RoomMapper mapper){
-       this.repository = repository;
-       this.mapper = mapper;
-   }
-
-    @Override
-    public List<RoomDetailDto> getAllRoom() {
-        return mapper.fromEntitiesToDto(repository.findAll());
+    public RoomServiceImpl(RoomRepository roomRepository, RoomMapper roomMapper) {
+        this.roomRepository = roomRepository;
+        this.roomMapper = roomMapper;
     }
 
-    @Override
-    public RoomDetailDto getById(UUID id) {
-       RoomDetailDto dto = mapper.fromEntityToDetailDto(repository.getById(id));
-        return dto;
+
+/** Tạo room */
+    public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
+        RoomEntity roomEntity = roomMapper.fromRoomCreateDto(roomCreateDto);
+        RoomEntity roomEntityCreate = roomRepository.save(roomEntity);
+        RoomDetailDto roomDetailDto = null;
+        if(roomEntityCreate != null){
+            roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntityCreate);
+        }
+        return roomDetailDto;
     }
+
+
+    public RoomDetailDto findById(UUID id) {
+        RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomRepository.getById(id));
+        return roomDetailDto;
+    }
+/** cập nhật room **/
+
+    public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto) {
+        RoomEntity roomEntity = roomMapper.fromRoomCreateDto(roomCreateDto);
+        roomEntity.setRoom_id(id);
+        roomRepository.save(roomEntity);
+        RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity);
+        return roomDetailDto;
+    }
+
+
+    public void deleteById(UUID id) {
+        roomRepository.deleteById(id);
+    }
+
+
+    public List<RoomDetailDto> findAll() {
+        return roomMapper.fromEntityToDto(roomRepository.findAll());
+    }
+
+
 }

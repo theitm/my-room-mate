@@ -1,39 +1,56 @@
 package motelRoom.controller;
 
 
+import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
+import motelRoom.service.roomService.RoomService;
 import motelRoom.service.roomService.RoomServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/room")
+@RequestMapping("/room")
 public class RoomController {
 //    @Autowired
-    public final RoomServiceImpl service;
+    private final RoomService roomService;
 
-    public RoomController(RoomServiceImpl service) {
-        this.service = service;
+    public RoomController(RoomService roomService) {
+        this.roomService = roomService;
     }
-
-    @GetMapping("/getAll")
-    public List<RoomDetailDto> getAll()
+    /** Tạo mới một room **/
+    @PostMapping
+    public ResponseEntity<RoomDetailDto> createRoom(@RequestBody RoomCreateDto roomCreateDto){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomService.createRoom(roomCreateDto));
+    }
+    /** Lấy tất cả room **/
+    @GetMapping
+    public List<RoomDetailDto> findAll()
     {
-        return service.getAllRoom();
+        return roomService.findAll();
     }
-
+    /** Lấy room theo id **/
     @GetMapping("/{id}")
     public ResponseEntity<RoomDetailDto> findById(@PathVariable UUID id){
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.getById(id));
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomService.findById(id));
     }
-
+    /** Xóa một room **/
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@PathVariable UUID id) {
+        roomService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+    /** Update một room **/
+    @PutMapping("/{id}")
+    public ResponseEntity<RoomDetailDto> update(@PathVariable UUID id,
+                                                @RequestBody RoomCreateDto roomCreateDto)
+    {
+        RoomDetailDto roomDetailDto = roomService.updateRoom(id, roomCreateDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomDetailDto);
+    }
 
 
 
