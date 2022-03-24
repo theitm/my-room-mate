@@ -46,5 +46,11 @@ public class WaitingListServiceImpl implements WaitingListService{
         return waitingListDetailDto;
     }
 
+    @Override
+    public Void Delete(UUID id) {
+        repository.deleteById(id);
+        return null;
+    }
+
 
 }

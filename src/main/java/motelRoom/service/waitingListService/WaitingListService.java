@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface WaitingListService {
-    public List<WaitingListDetailDto> getAllWaitingList();
-    public WaitingListDetailDto getById(UUID id);
-    public WaitingListDetailDto addWaitingList(WaitingListCreateDto createDto);
+    List<WaitingListDetailDto> getAllWaitingList();
+    WaitingListDetailDto getById(UUID id);
+    WaitingListDetailDto addWaitingList(WaitingListCreateDto createDto);
+    Void Delete(UUID id);
+
 }

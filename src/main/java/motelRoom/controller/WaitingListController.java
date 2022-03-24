@@ -17,7 +17,7 @@ public class WaitingListController {
     @Autowired
     WaitingListServiceImpl service;
 
-    @GetMapping("/getAll")
+    @GetMapping("")
     public List<WaitingListDetailDto> getAll()
     {
         return service.getAllWaitingList();
@@ -29,11 +29,17 @@ public class WaitingListController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.getById(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public WaitingListDetailDto addWaitingList(@RequestBody WaitingListCreateDto createDto)
     {
         //return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.addWaitingList(createDto));
         return service.addWaitingList(createDto);
+    }
+    @DeleteMapping("/{id}")
+    public Void DeleteWaitingList(@PathVariable(name = "id") UUID id)
+    {
+        service.Delete(id);
+        return null;
     }
 
 }
