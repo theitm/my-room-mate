@@ -53,10 +53,7 @@ public class DocumentServiceImpl implements DocumentService {
 
     }
 
-    @Override
-    public List<DocumentDetailDto> finAllRoomId(String room_id) {
-        return mapper.fromListEntityToDto(documentRepository.myCustomQuery2(room_id));
-    }
+
 
 
 }
