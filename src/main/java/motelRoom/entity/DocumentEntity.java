@@ -26,10 +26,13 @@ public class DocumentEntity {
     private UUID doccument_id;
 
 
-
+    @Column(name = "room_id")
     private String room_id;
+    @Column(name = "url_room")
     private String url_room;
+    @Column(name = "evaluation_id")
     private String evaluation_id;
+    @Column(name = "url_evaluation")
     private String url_evaluation;
 
 

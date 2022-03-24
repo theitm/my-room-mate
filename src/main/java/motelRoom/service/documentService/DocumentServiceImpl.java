@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -51,5 +52,11 @@ public class DocumentServiceImpl implements DocumentService {
     public void deleteById(UUID id) {
 
     }
+
+    @Override
+    public List<DocumentDetailDto> finAllRoomId(String room_id) {
+        return mapper.fromListEntityToDto(documentRepository.myCustomQuery2(room_id));
+    }
+
 
 }

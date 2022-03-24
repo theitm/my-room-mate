@@ -18,4 +18,7 @@ public interface DocumentService {
     DocumentDetailDto updateDocument(UUID id, DocumentCreateDto documentCreateDto);
     void deleteById(UUID id);
 
+    List<DocumentDetailDto> finAllRoomId(String room_id);
+
+
 }
