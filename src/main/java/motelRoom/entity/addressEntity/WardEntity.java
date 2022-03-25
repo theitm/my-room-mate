@@ -1,5 +1,6 @@
 package motelRoom.entity.addressEntity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,13 +30,6 @@ public class WardEntity {
     @JoinColumn(name = "_district_id",insertable = false,updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private DistrictEntity districts;
-
-
-    /**relationship district with ward**/
-    @ManyToOne
-    @JoinColumn(name = "_province_id",insertable = false,updatable = false)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private ProvinceEntity provinces;
+    @JsonBackReference
+    private DistrictEntity districtEntity;
 }

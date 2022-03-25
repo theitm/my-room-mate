@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class ProvinceServiceImpl implements ProvinceService {
-    private  final ProvinceRepository provinceRepository;
+    private final ProvinceRepository provinceRepository;
     private final ProvinceMapper provinceMapper;
 
     public ProvinceServiceImpl(ProvinceRepository provinceRepository, ProvinceMapper provinceMapper) {
@@ -19,16 +19,20 @@ public class ProvinceServiceImpl implements ProvinceService {
 
     /**
      * Show list provinces
+     *
      * @return
      */
-    public List<ProvinceDetailDto> findAll() {return  provinceMapper.fromEntityToDto(provinceRepository.findAll());}
+    public List<ProvinceDetailDto> findAll() {
+        return provinceMapper.fromEntityToDto(provinceRepository.findAll());
+    }
 
     /**
      * Show province with id
+     *
      * @param id
      * @return
      */
-    public ProvinceDetailDto findById(Integer id){
+    public ProvinceDetailDto findById(Integer id) {
         ProvinceDetailDto provinceDetailDto = provinceMapper.fromEntityToDetailDto(provinceRepository.getById(id));
         return provinceDetailDto;
     }

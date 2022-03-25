@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import motelRoom.entity.addressEntity.WardEntity;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Setter
 @Getter
@@ -16,4 +18,5 @@ public class DistrictCreateDto implements Serializable {
     private String name;
     private String prefix;
     private Integer province_id;
+    private List<WardEntity> wardEntities;
 }

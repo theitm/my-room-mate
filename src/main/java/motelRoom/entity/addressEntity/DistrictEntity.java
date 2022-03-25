@@ -1,12 +1,11 @@
 package motelRoom.entity.addressEntity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -31,17 +30,16 @@ public class DistrictEntity {
     @JoinColumn(name = "_province_id",insertable = false,updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private ProvinceEntity provinces;
+    @JsonBackReference
+    private ProvinceEntity provinceEntity;
 
     /**relationship one district many ward **/
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "districts"
-    )
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "_district_id", referencedColumnName = "id", insertable=false, updatable=false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonManagedReference
-    @JsonIgnore
-    private Collection<WardEntity> ward
+    private List<WardEntity> wardEntities
             = new ArrayList<WardEntity>();
+
+
 }
