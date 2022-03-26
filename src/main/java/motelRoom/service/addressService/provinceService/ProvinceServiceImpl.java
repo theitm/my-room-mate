@@ -24,7 +24,7 @@ public class ProvinceServiceImpl implements ProvinceService {
     public List<ProvinceDetailDto> findAll() {return  provinceMapper.fromEntityToDto(provinceRepository.findAll());}
 
     /**
-     * Show province with id
+     * Show province by id
      * @param id
      * @return
      */

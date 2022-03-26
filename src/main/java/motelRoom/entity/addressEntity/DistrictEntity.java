@@ -1,5 +1,6 @@
 package motelRoom.entity.addressEntity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -7,6 +8,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,31 +19,28 @@ import java.util.Collection;
 public class DistrictEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private Integer id;
-    @Column(name="_name")
-    private String name;
-    @Column(name="_prefix")
-    private String prefix;
-    @Column(name="_province_id")
+    @Column(name="district_id")
+    private Integer district_id;
+    @Column(name="name_district")
+    private String name_district;
+    @Column(name="prefix_district")
+    private String prefix_district;
+    @Column(name="province_id")
     private String province_id;
 
     /**relationship many district one province**/
     @ManyToOne
-    @JoinColumn(name = "_province_id",insertable = false,updatable = false)
+    @JoinColumn(name = "province_id",insertable = false,updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private ProvinceEntity provinces;
+    @JsonBackReference
+    private ProvinceEntity provinceEntity;
 
     /**relationship one district many ward **/
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            mappedBy = "districts"
-    )
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "district_id", referencedColumnName = "district_id", insertable=false, updatable=false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @JsonManagedReference
-    @JsonIgnore
-    private Collection<WardEntity> ward
+    private List<WardEntity> wards
             = new ArrayList<WardEntity>();
 }
