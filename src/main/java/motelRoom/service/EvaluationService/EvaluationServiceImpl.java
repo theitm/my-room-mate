@@ -2,9 +2,9 @@ package motelRoom.service.EvaluationService;
 
 import motelRoom.dto.valuation.EvaluationCreateDto;
 import motelRoom.dto.valuation.EvaluationDetailDto;
+import motelRoom.entity.EvaluationEntity;
 import motelRoom.mapper.EvaluationMapper;
 import motelRoom.repository.EvaluationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,40 +12,52 @@ import java.util.UUID;
 
 @Service
 public class EvaluationServiceImpl implements EvaluationService{
-    @Autowired
     private final EvaluationRepository evaluationRepository;
-    @Autowired
-    private final motelRoom.mapper.EvaluationMapper EvaluationMapper;
+    private final EvaluationMapper evaluationMapper;
 
-    public EvaluationServiceImpl(EvaluationRepository evaluatitonRepository, EvaluationMapper evaluationMapper, EvaluationRepository evaluationRepository, EvaluationMapper evaluationMapper1){
-        this.evaluationRepository = evaluationRepository;
-        this.EvaluationMapper = evaluationMapper;
+    public EvaluationServiceImpl(EvaluationRepository evaluationRepository, EvaluationMapper evaluationMapper){
+        this.evaluationRepository=evaluationRepository;
+        this.evaluationMapper=evaluationMapper;
 
 
     }
 
     @Override
-    public EvaluationDetailDto createEvaluation(EvaluationCreateDto createDto) {
-        return null;
-    }
+    public EvaluationDetailDto createEvaluation(EvaluationCreateDto evaluationCreateDto) {
+            EvaluationEntity evaluationEntity = evaluationMapper.fromEvaluationCreateDto(evaluationCreateDto);
+            EvaluationEntity evaluationEntityCreate = evaluationRepository.save(evaluationEntity);
+            EvaluationDetailDto evaluationDetailDto = null;
+            if(evaluationEntityCreate != null){
+                evaluationDetailDto = evaluationMapper.fromEntityToDetailDto(evaluationEntity);
 
+            }
+            return evaluationDetailDto;
+        }
+
+     //get theo id
     @Override
     public EvaluationDetailDto findById(UUID id) {
-        return null;
-    }
+        return  evaluationMapper.fromEntityToDetailDto(evaluationRepository.getById(id));
+       // get all
+     }
+   @Override
+ public List<EvaluationDetailDto> findAll() {
+     return evaluationMapper.fromEntitiesToDtos(evaluationRepository.findAll());
+ }
 
-    @Override
-    public List<EvaluationDetailDto> findById() {
-        return null;
-    }
-
-    @Override
-    public EvaluationDetailDto UpdateEvaluation(UUID id, EvaluationCreateDto evaluationCreateDto) {
-        return null;
-    }
 
     @Override
     public void deleteById(UUID id) {
+        evaluationRepository.deleteById(id);
+    }
+
+
+    public EvaluationDetailDto updateEvaluation(UUID id, EvaluationCreateDto evaluationCreateDto) {
+        EvaluationEntity documentEntity = evaluationMapper.fromEvaluationCreateDto(evaluationCreateDto);
+        documentEntity.setId(id);
+        evaluationRepository.save(documentEntity);
+        EvaluationDetailDto documentDetailDto = evaluationMapper.fromEntityToDetailDto(documentEntity);
+        return documentDetailDto;
 
     }
 }

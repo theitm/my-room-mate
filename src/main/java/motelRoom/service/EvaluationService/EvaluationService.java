@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.UUID;
 
 public interface EvaluationService {
-    EvaluationDetailDto createEvaluation(EvaluationCreateDto createDto);
+
+    EvaluationDetailDto createEvaluation(EvaluationCreateDto evaluationCreateDto);
     EvaluationDetailDto findById(UUID id) ;
-    List<EvaluationDetailDto> findById();
-    EvaluationDetailDto UpdateEvaluation(UUID id, EvaluationCreateDto evaluationCreateDto);
+
+    List<EvaluationDetailDto> findAll();
+
+    EvaluationDetailDto updateEvaluation(UUID id, EvaluationCreateDto evaluationCreateDto);
     void deleteById(UUID id);
 
 }

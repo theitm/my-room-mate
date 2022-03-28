@@ -4,17 +4,22 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EvaluationDetailDto implements Serializable {
-    private String Evaluation_id;
-    private String rom_id;
-    private String used_id;
-    private String rate;
+    private UUID evaluation_id;
+    private UUID room_id;
+    private UUID user_id;
+    private Float rate;
     private String comment_rate;
-    private String time_rate;
+    private Date time_rate;
 }

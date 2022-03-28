@@ -2,19 +2,22 @@ package motelRoom.controller;
 
 import motelRoom.dto.valuation.EvaluationCreateDto;
 import motelRoom.dto.valuation.EvaluationDetailDto;
-import motelRoom.service.EvaluationService.EvaluationService;
+import motelRoom.service.EvaluationService.EvaluationServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("v1/api/evaluation")
-public class EvaluationController {
-    private final EvaluationService evaluationService;
+public class EvaluationController{
+    @Autowired
+    private final EvaluationServiceImpl evaluationService;
 
-    public EvaluationController(EvaluationService evaluationService) {
+    public EvaluationController(EvaluationServiceImpl evaluationService) {
         this.evaluationService = evaluationService;
     }
     @PostMapping
@@ -23,9 +26,30 @@ public class EvaluationController {
 
     }
     @GetMapping("/{id}")
-    public ResponseEntity<EvaluationDetailDto > findById(@PathVariable UUID id) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(evaluationService.findById(id));
+    public ResponseEntity<EvaluationDetailDto> findById(@PathVariable UUID id) {
+        return ResponseEntity.ok(evaluationService.findById(id));
     }
+/**.....get all evaluation...........**/
+
+    @GetMapping
+    public List<EvaluationDetailDto> findAll(){
+        return evaluationService.findAll();
+    }
+
+/**.........update evaluation....**/
+    @PutMapping("/{id}")
+    public ResponseEntity<EvaluationDetailDto> update(@PathVariable UUID id,@RequestBody EvaluationCreateDto evaluationCreateDto){
+        EvaluationDetailDto evaluationDetailDto = evaluationService.updateEvaluation(id, evaluationCreateDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(evaluationDetailDto);
+
+    }
+    /**......delete evaluation....**/
+    @DeleteMapping("{id}")
+    public ResponseEntity deleteById(@PathVariable UUID id){
+        evaluationService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
 
     }
 

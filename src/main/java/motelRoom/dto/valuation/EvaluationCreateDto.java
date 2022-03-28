@@ -6,14 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EvaluationCreateDto implements Serializable {
-    private String Evaluation_id;
-    private String rom_id;
-    private String used_id;
+    private UUID evaluation_id;
+    private UUID room_id;
+    private UUID user_id;
     private String rate;
     private String comment_rate;
     private String time_rate;
