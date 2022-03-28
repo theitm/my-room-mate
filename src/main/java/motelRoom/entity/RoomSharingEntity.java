@@ -1,4 +1,38 @@
 package motelRoom.entity;
 
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Builder
+@Table(name = "room_sharing")
+@Data
 public class RoomSharingEntity {
+
+    @Id
+    @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "sharing_id", columnDefinition = "CHAR(40)")
+    @Type(type = "uuid-char")
+    private UUID sharing_id;
+
+    @Column( name = "room_id")
+    @Type( type = "uuid-char")
+    private UUID room_id;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sharing_id", referencedColumnName = "sharing_id", insertable=false, updatable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<SharingDetailEntity> sharingDetailEntities
+            =new ArrayList<SharingDetailEntity>();
+
 }
