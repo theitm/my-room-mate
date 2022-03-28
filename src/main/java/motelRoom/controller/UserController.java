@@ -21,6 +21,7 @@ public class UserController {
     /** ---------------- GET USER BY ID ------------------------ */
     @GetMapping("/info/{id}")
     public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id){
+        //viet them de test commit
         return ResponseEntity.ok(userService.findById(id));
     }
 
