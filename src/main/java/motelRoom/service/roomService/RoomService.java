@@ -8,14 +8,12 @@ import java.util.List;
 import java.util.UUID;
 
 public interface RoomService {
-    RoomDetailDto createRoom(RoomCreateDto roomCreateDto);
+
     RoomDetailDto findById(UUID id);
     RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto);
-
 
     void deleteById(UUID id);
 
     List<RoomDetailDto> findAll();
-
-
+    RoomDetailDto createRoom(RoomCreateDto roomCreateDto);
 }

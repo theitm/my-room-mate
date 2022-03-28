@@ -24,28 +24,32 @@ public class RoomServiceImpl implements RoomService {
 
 
 /** Tạo room */
-    public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
-        RoomEntity roomEntity = roomMapper.fromRoomCreateDto(roomCreateDto);
-        RoomEntity roomEntityCreate = roomRepository.save(roomEntity);
-        RoomDetailDto roomDetailDto = null;
-        if(roomEntityCreate != null){
-            roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntityCreate);
-        }
-        return roomDetailDto;
-    }
 
+@Override
+public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
+    RoomEntity roomEntity = roomMapper.fromDtoCreateEntity(roomCreateDto);
+    RoomEntity roomEntity1 = roomRepository.save(roomEntity);
+    RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity1);
+    return roomDetailDto;
+}
+    /** Tim room theo id */
 
     public RoomDetailDto findById(UUID id) {
         RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomRepository.getById(id));
         return roomDetailDto;
     }
-/** cập nhật room **/
 
-    public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto) {
-        RoomEntity roomEntity = roomMapper.fromRoomCreateDto(roomCreateDto);
-        roomEntity.setRoom_id(id);
-        roomRepository.save(roomEntity);
-        RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity);
+    @Override
+
+
+    /** cập nhật room **/
+    public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto){
+        RoomEntity roomEntity = roomMapper.fromDtoCreateEntity(roomCreateDto);
+        RoomEntity roomEntity1 = roomRepository.save(roomEntity);
+        RoomDetailDto roomDetailDto = null;
+        if(roomEntity1 != null) {
+            roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity1);
+        }
         return roomDetailDto;
     }
 
@@ -58,6 +62,7 @@ public class RoomServiceImpl implements RoomService {
     public List<RoomDetailDto> findAll() {
         return roomMapper.fromEntityToDto(roomRepository.findAll());
     }
+
 
 
 }

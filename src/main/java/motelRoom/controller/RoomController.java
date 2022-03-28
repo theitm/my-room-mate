@@ -23,9 +23,11 @@ public class RoomController {
     }
     /** Tạo mới một room **/
     @PostMapping
-    public ResponseEntity<RoomDetailDto> createRoom(@RequestBody RoomCreateDto roomCreateDto){
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomService.createRoom(roomCreateDto));
+    public RoomDetailDto createRoom(@RequestBody RoomCreateDto roomCreateDto)
+    {
+        return roomService.createRoom(roomCreateDto);
     }
+
     /** Lấy tất cả room **/
     @GetMapping
     public List<RoomDetailDto> findAll()
@@ -45,13 +47,12 @@ public class RoomController {
     }
     /** Update một room **/
     @PutMapping("/{id}")
-    public ResponseEntity<RoomDetailDto> update(@PathVariable UUID id,
-                                                @RequestBody RoomCreateDto roomCreateDto)
-    {
+    public ResponseEntity<RoomDetailDto> updateRoom(@PathVariable UUID id,
+                                                    @RequestBody RoomCreateDto roomCreateDto) {
         RoomDetailDto roomDetailDto = roomService.updateRoom(id, roomCreateDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomDetailDto);
-    }
 
+    }
 
 
 }

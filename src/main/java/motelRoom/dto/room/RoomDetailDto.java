@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@Data
 public class RoomDetailDto implements Serializable {
     private UUID room_id;
     private UUID user_id;
