@@ -16,9 +16,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapperr) {
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
-        this.userMapper = userMapperr;
+        this.userMapper = userMapper;
     }
 
     /**
@@ -27,10 +27,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetailDto createUser(UserCreateDto userCreateDto) {
         UserEntity userEntity = userMapper.fromUserEntityCreateDtoToEntity(userCreateDto);
-        UserEntity CreateUser = userRepository.save(userEntity);
+        UserEntity createdUser = userRepository.save(userEntity);
         UserDetailDto userDetailDto =null;
-        if (CreateUser != null){
-            userDetailDto = userMapper.fromUserEntityToUserCrateDto(CreateUser);
+        if (createdUser != null) {
+            userDetailDto = userMapper.fromUserEntityToUserCrateDto(createdUser);
         }
         return userDetailDto;
     }
@@ -40,8 +40,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserDetailDto findById(UUID id) {
-        UserDetailDto userDetailDto= userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
-        return userDetailDto;
+        return userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
     }
 
 
