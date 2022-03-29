@@ -29,11 +29,14 @@ public class WaitingListController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.getById(id));
     }
 
+
+
+
     @PostMapping("")
-    public WaitingListDetailDto addWaitingList(@RequestBody WaitingListCreateDto createDto)
+    public ResponseEntity<WaitingListDetailDto > addWaitingList(@RequestBody WaitingListCreateDto createDto)
     {
-        //return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.addWaitingList(createDto));
-        return service.addWaitingList(createDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.addWaitingList(createDto));
+       // return service.addWaitingList(createDto);
     }
     @DeleteMapping("/{id}")
     public Void DeleteWaitingList(@PathVariable(name = "id") UUID id)

@@ -13,6 +13,7 @@ public interface WaitingListMapper {
 //    List<CommodityDetailDto> fromEntityToDto(List<CommodityEntity> commodityEntities);
 
     WaitingListEntity fromDtoCreateEntity(WaitingListCreateDto waitingListCreateDto);
+    WaitingListEntity fromDtoToEntity(WaitingListDetailDto waitingListDetailDto);
     WaitingListDetailDto fromEntityToDetailDto(WaitingListEntity waitingListEntity);
 
     List<WaitingListDetailDto> fromEntitiesToDto(List<WaitingListEntity> waitingListEntities);
