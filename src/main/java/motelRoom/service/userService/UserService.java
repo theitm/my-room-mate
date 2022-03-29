@@ -5,6 +5,7 @@ import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
 
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -13,5 +14,6 @@ public interface UserService {
     UserDetailDto createUser(UserCreateDto userCreateDto);
     UserDetailDto findById(UUID id);
 
-//    UserDetailDto login(UserLogin userLogin);
+    List<UserLogin> findAllACC();
+
 }
