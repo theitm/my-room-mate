@@ -3,7 +3,10 @@ package motelRoom.controller;
 
 import motelRoom.dto.roomSharing.RoomSharingCreateDto;
 import motelRoom.dto.roomSharing.RoomSharingDetailDto;
+import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
+import motelRoom.entity.RoomSharingEntity;
 import motelRoom.service.roomSharingService.RoomSharingService;
+import motelRoom.service.sharingDetailService.SharingDetailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +33,14 @@ public class RoomSharingController {
 
     @GetMapping("/{sharing_id}")
     public ResponseEntity<RoomSharingDetailDto> findById(@PathVariable UUID sharing_id) {
-        return ResponseEntity.ok(roomSharingService.findById(sharing_id));
+        ResponseEntity responseEntity = ResponseEntity.ok(roomSharingService.findById(sharing_id));
+        return responseEntity;
     }
 
     @PostMapping
     public ResponseEntity<RoomSharingDetailDto> createRoomSharing(@RequestBody RoomSharingCreateDto roomSharingCreateDto) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingService.createRoomSharing(roomSharingCreateDto));
+        ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingService.createRoomSharing(roomSharingCreateDto));
+        return responseEntity;
     }
 
     @PutMapping("/{sharing_id}")

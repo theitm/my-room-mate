@@ -27,7 +27,7 @@ public class SharingDetailController {
         return sharingDetailService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{sharing_detail_id}")
     public ResponseEntity<SharingDetailDetailDto> findById(@PathVariable UUID sharing_detail_id) {
         return ResponseEntity.ok(sharingDetailService.findById(sharing_detail_id));
     }
@@ -37,13 +37,13 @@ public class SharingDetailController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailService.createSharingDetail(sharingDetailCreateDto));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{sharing_detail_id}")
     public ResponseEntity<SharingDetailDetailDto> updateSharingDetail(@PathVariable UUID sharing_detail_id, @RequestBody SharingDetailCreateDto sharingDetailCreateDto) {
         SharingDetailDetailDto sharingDetailDetailDto = sharingDetailService.updateSharingDetail(sharing_detail_id, sharingDetailCreateDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailDetailDto);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{sharing_detail_id}")
     public ResponseEntity deleteById(@PathVariable UUID sharing_detail_id) {
         sharingDetailService.deleteById(sharing_detail_id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
