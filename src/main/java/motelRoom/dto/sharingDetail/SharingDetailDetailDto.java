@@ -13,6 +13,6 @@ public class SharingDetailDetailDto implements Serializable {
     private UUID sharing_detail_id;
     private UUID sharing_id;
     private UUID user_id;
-    private Enum role;;
+    private String role;;
 
 }

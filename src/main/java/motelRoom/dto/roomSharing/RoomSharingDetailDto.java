@@ -18,5 +18,5 @@ import java.util.UUID;
 public class RoomSharingDetailDto implements Serializable {
     private UUID sharing_id;
     private UUID room_id;
-    private List<SharingDetailDetailDto> sharingDetailEntities;
+    private List<SharingDetailDetailDto> sharingDetails;
 }

@@ -32,7 +32,7 @@ public class RoomSharingEntity {
     @JoinColumn(name = "sharing_id", referencedColumnName = "sharing_id", insertable=false, updatable=false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    private List<SharingDetailEntity> sharingDetailEntities
+    private List<SharingDetailEntity> sharingDetails
             =new ArrayList<SharingDetailEntity>();
 
 }

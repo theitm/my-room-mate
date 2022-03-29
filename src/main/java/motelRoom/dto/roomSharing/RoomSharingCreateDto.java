@@ -4,6 +4,7 @@ import lombok.*;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,8 +12,8 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomSharingCreateDto  {
+public class RoomSharingCreateDto implements Serializable {
 
     private UUID room_id;
-    private List<SharingDetailCreateDto> sharingDetailEntities;
+    private List<SharingDetailCreateDto> sharingDetails;
 }

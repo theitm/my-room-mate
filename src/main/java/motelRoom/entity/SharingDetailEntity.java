@@ -33,7 +33,7 @@ public class SharingDetailEntity {
     private UUID user_id;
 
     @Column(name = "roles")
-    private Enum role;;
+    private String role;;
 
     @ManyToOne
     @JoinColumn(name = "sharing_id",insertable = false,updatable = false)

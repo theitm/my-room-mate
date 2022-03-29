@@ -7,7 +7,6 @@ import motelRoom.entity.RoomSharingEntity;
 import motelRoom.mapper.RoomSharingMapper;
 import motelRoom.repository.RoomSharingRepository;
 import motelRoom.service.sharingDetailService.SharingDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,11 +14,8 @@ import java.util.UUID;
 @Service
 public class RoomSharingServiceImpl implements RoomSharingService{
 
-    @Autowired
     private final RoomSharingRepository roomSharingRepository;
-    @Autowired
     private final RoomSharingMapper roomSharingMapper;
-
     private final SharingDetailService sharingDetailService;
 
 
@@ -33,7 +29,6 @@ public class RoomSharingServiceImpl implements RoomSharingService{
 
     @Override
     public RoomSharingDetailDto findById(UUID sharing_id) {
-
         RoomSharingDetailDto roomSharingDetailDto = roomSharingMapper.fromEntityToDto(roomSharingRepository.getById(sharing_id));
         return roomSharingDetailDto;
     }
@@ -46,6 +41,7 @@ public class RoomSharingServiceImpl implements RoomSharingService{
     @Override
     public RoomSharingDetailDto updateRoomSharing(UUID sharing_id, RoomSharingCreateDto roomSharingCreateDto) {
         RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
+        roomSharingEntity.setSharingDetails(null);
         roomSharingEntity.setSharing_id(sharing_id);
         roomSharingRepository.save(roomSharingEntity);
         RoomSharingDetailDto roomSharingDetailDto = roomSharingMapper.fromEntityToDto(roomSharingEntity);
@@ -60,9 +56,8 @@ public class RoomSharingServiceImpl implements RoomSharingService{
     @Override
     public RoomSharingDetailDto createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
         RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
-        roomSharingEntity.setSharingDetailEntities(null);
         RoomSharingEntity roomSharingCreateEntity = roomSharingRepository.save(roomSharingEntity);
-        for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetailEntities()){
+        for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetails()){
             sharingDetailCreateDto.setSharing_id(roomSharingCreateEntity.getSharing_id());
             sharingDetailService.createSharingDetail(sharingDetailCreateDto);
         }
