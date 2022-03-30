@@ -46,11 +46,11 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-//    @DeleteMapping("/user/{user_id}")
-//    public ResponseEntity delete1(@PathVariable UUID user_id){
-//        roomService.deleteByUserID(user_id);
-//        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-//    }
+    @DeleteMapping("/user/{user_id}")
+    public ResponseEntity delete1(@PathVariable UUID user_id){
+        roomService.deleteByUserId(user_id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
 
     /** Update một room **/
     @PutMapping("/{id}")

@@ -35,7 +35,7 @@ public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
 
     @Override
     public void deleteByUserId(UUID user_id) {
-
+        roomRepository.deleteById(user_id);
     }
 
 
