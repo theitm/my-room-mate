@@ -14,10 +14,10 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PutMapping("/ChangePassword/{username}")
-    public void ChangePassword (@PathVariable(name = "username") String username)
+    @PutMapping("/ForgotPassword/{username}")
+    public void ForgotPassword(@PathVariable(name = "username") String username)
     {
-        userService.ChangePassword(username);
+        userService.ForgotPassword(username);
     }
 
 }
