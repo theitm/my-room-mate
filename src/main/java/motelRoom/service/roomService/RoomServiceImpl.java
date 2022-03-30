@@ -32,12 +32,25 @@ public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
     RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity1);
     return roomDetailDto;
 }
+
+    @Override
+    public void deleteByUserId(UUID user_id) {
+
+    }
+
+
     /** Tim room theo id */
 
     public RoomDetailDto findById(UUID id) {
         RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomRepository.getById(id));
         return roomDetailDto;
     }
+
+    @Override
+    public List<RoomDetailDto> findByUserId(UUID user_id) {
+        return roomMapper.fromEntitíesToDto(roomRepository.findRoomByUserId(user_id));
+    }
+
 
     @Override
 
@@ -53,16 +66,14 @@ public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
         return roomDetailDto;
     }
 
-
+/** Xoa room **/
     public void deleteById(UUID id) {
+
         roomRepository.deleteById(id);
     }
 
-
+/** Get all room **/
     public List<RoomDetailDto> findAll() {
-        return roomMapper.fromEntityToDto(roomRepository.findAll());
+        return roomMapper.fromEntitíesToDto(roomRepository.findAll());
     }
-
-
-
 }

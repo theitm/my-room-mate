@@ -24,8 +24,13 @@ public class RoomEntity {
     @Column(name = "room_id", columnDefinition = "CHAR(40)")
     @Type(type = "uuid-char")
     private UUID room_id;
+
+
+    @Type(type = "uuid-char")
     @Column(name="user_id")
     private UUID user_id;
+
+
     @Column(name="province_id")
     private String province_id;
     @Column(name = "district_id")
