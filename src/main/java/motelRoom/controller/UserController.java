@@ -28,7 +28,6 @@ public class UserController {
     /** ---------------- CREATE NEW USER ------------------------ */
     @PostMapping("/signup")
     public ResponseEntity<UserDetailDto> createUser(@RequestBody UserCreateDto userCreateDto) {
-        //avahshj
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 }

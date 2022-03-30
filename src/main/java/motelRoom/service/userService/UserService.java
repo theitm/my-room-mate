@@ -2,8 +2,6 @@ package motelRoom.service.userService;
 
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
-import motelRoom.dto.user.UserLogin;
-
 
 import java.util.UUID;
 

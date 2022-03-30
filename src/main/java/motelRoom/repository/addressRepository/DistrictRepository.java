@@ -1,4 +1,9 @@
 package motelRoom.repository.addressRepository;
 
-public interface DistrictRepository {
+import motelRoom.entity.addressEntity.DistrictEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DistrictRepository extends JpaRepository<DistrictEntity,Integer> {
 }
