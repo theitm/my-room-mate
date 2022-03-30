@@ -5,6 +5,7 @@ import motelRoom.dto.valuation.EvaluationDetailDto;
 import motelRoom.entity.EvaluationEntity;
 import motelRoom.mapper.EvaluationMapper;
 import motelRoom.repository.EvaluationRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class EvaluationServiceImpl implements EvaluationService{
      }
    @Override
  public List<EvaluationDetailDto> findAll() {
-     return evaluationMapper.fromEntitiesToDtos(evaluationRepository.findAll());
+     return evaluationMapper.fromEntitiesToDto(evaluationRepository.findAll());
  }
 
 
@@ -59,5 +60,14 @@ public class EvaluationServiceImpl implements EvaluationService{
         EvaluationDetailDto documentDetailDto = evaluationMapper.fromEntityToDetailDto(documentEntity);
         return documentDetailDto;
 
+    }
+    @Override
+    public void  SaveUpdate(UUID id,    EvaluationCreateDto createDto){
+        EvaluationEntity entity = evaluationRepository.findById(id).orElse(null);
+        if(entity == null){
+            return;
+        }
+        BeanUtils.copyProperties(createDto, entity);
+        evaluationRepository.saveAndFlush(entity);
     }
 }

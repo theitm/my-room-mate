@@ -21,5 +21,5 @@ public class EvaluationDetailDto implements Serializable {
     private UUID user_id;
     private Float rate;
     private String comment_rate;
-    private Date time_rate;
+    private String time_rate;
 }

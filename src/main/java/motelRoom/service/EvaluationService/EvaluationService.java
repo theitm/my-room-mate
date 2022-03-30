@@ -15,5 +15,5 @@ public interface EvaluationService {
 
     EvaluationDetailDto updateEvaluation(UUID id, EvaluationCreateDto evaluationCreateDto);
     void deleteById(UUID id);
-
+    public void SaveUpdate(UUID id, EvaluationCreateDto createDto);
 }

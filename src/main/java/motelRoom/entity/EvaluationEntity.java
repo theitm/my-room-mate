@@ -39,7 +39,7 @@ public class EvaluationEntity {
     @Column(name="comment_rate")
     private String comment_rate;
     @Column(name = "time_rate")
-    private Date time_rate;
+    private String time_rate;
 
     public void setId(UUID id) {
     }

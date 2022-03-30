@@ -29,20 +29,17 @@ public class EvaluationController{
     public ResponseEntity<EvaluationDetailDto> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(evaluationService.findById(id));
     }
-/**.....get all evaluation...........**/
+    /**.....get all evaluation...........**/
 
     @GetMapping
     public List<EvaluationDetailDto> findAll(){
         return evaluationService.findAll();
     }
 
-/**.........update evaluation....**/
-    @PutMapping("/{id}")
-    public ResponseEntity<EvaluationDetailDto> update(@PathVariable UUID id,@RequestBody EvaluationCreateDto evaluationCreateDto){
-        EvaluationDetailDto evaluationDetailDto = evaluationService.updateEvaluation(id, evaluationCreateDto);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(evaluationDetailDto);
+   /**.........update evaluation....**/
 
-    }
+
+
     /**......delete evaluation....**/
     @DeleteMapping("{id}")
     public ResponseEntity deleteById(@PathVariable UUID id){
@@ -50,6 +47,10 @@ public class EvaluationController{
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
+    @PutMapping("/{id}")
+    public void update(@RequestBody EvaluationCreateDto evaluationCreateDto, @PathVariable UUID id) {
+        evaluationService.SaveUpdate(id ,evaluationCreateDto);
+    }
 
     }
 

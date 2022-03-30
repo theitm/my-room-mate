@@ -11,7 +11,7 @@ import java.util.List;
 public interface EvaluationMapper {
     EvaluationEntity fromEvaluationCreateDto(EvaluationCreateDto evaluationCreateDto);
     EvaluationDetailDto fromEntityToDetailDto(EvaluationEntity evaluationEntity);
-    List<EvaluationDetailDto> fromEntitiesToDtos(List<EvaluationEntity> evaluationEntities);
+    List<EvaluationDetailDto> fromEntitiesToDto(List<EvaluationEntity> evaluationEntities);
 
 
 }
