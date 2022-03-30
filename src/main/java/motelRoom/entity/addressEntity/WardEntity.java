@@ -25,7 +25,7 @@ public class WardEntity {
     @Column(name = "district_id")
     private Integer district_id;
 
-    /**relationship district with ward**/
+    /**relationship many ward one district**/
     @ManyToOne
     @JoinColumn(name = "district_id",insertable = false,updatable = false)
     @EqualsAndHashCode.Exclude
