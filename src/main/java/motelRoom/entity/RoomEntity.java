@@ -1,13 +1,10 @@
 package motelRoom.entity;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -43,6 +40,4 @@ public class RoomEntity {
     private String description_room;
     @Column(name="status_room")
     private Integer status_room;
-
-
 }
