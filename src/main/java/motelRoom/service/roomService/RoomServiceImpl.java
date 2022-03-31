@@ -1,13 +1,10 @@
 package motelRoom.service.roomService;
-
 import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.entity.RoomEntity;
 import motelRoom.mapper.RoomMapper;
 import motelRoom.repository.RoomRepository;
 import org.springframework.stereotype.Service;
-
-
 import java.util.List;
 import java.util.UUID;
 
