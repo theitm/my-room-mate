@@ -12,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 public class RoomDetailDto implements Serializable {
+    private UUID room_id;
     private UUID user_id;
     private Integer province_id;
     private Integer district_id;
