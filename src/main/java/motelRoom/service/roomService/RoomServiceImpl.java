@@ -22,57 +22,49 @@ public class RoomServiceImpl implements RoomService {
         this.roomMapper = roomMapper;
     }
 
+    /** Create room */
+    @Override
+    public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
+        RoomEntity roomEntity = roomMapper.fromDtoCreateEntity(roomCreateDto);
+        RoomEntity roomEntity1 = roomRepository.save(roomEntity);
+        RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity1);
+        return roomDetailDto;
+    }
 
-/** Tạo room */
-
-@Override
-public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
-    RoomEntity roomEntity = roomMapper.fromDtoCreateEntity(roomCreateDto);
-    RoomEntity roomEntity1 = roomRepository.save(roomEntity);
-    RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity1);
-    return roomDetailDto;
-}
-
+    /** Delete room by user_id */
     @Override
     public void deleteByUserId(UUID user_id) {
         roomRepository.deleteById(user_id);
     }
 
-
-    /** Tim room theo id */
-
+    /** Get by id */
     public RoomDetailDto findById(UUID id) {
         RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomRepository.getById(id));
         return roomDetailDto;
     }
 
+    /** Get by user_id */
     @Override
     public List<RoomDetailDto> findByUserId(UUID user_id) {
         return roomMapper.fromEntitíesToDto(roomRepository.findRoomByUserId(user_id));
     }
 
-
+    /** Update room **/
     @Override
-
-
-    /** cập nhật room **/
     public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto){
         RoomEntity roomEntity = roomMapper.fromDtoCreateEntity(roomCreateDto);
-        RoomEntity roomEntity1 = roomRepository.save(roomEntity);
-        RoomDetailDto roomDetailDto = null;
-        if(roomEntity1 != null) {
-            roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity1);
-        }
+        roomEntity.setRoom_id(id);
+        roomRepository.save(roomEntity);
+        RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity);
         return roomDetailDto;
     }
 
-/** Xoa room **/
+    /** Delete room **/
     public void deleteById(UUID id) {
-
         roomRepository.deleteById(id);
     }
 
-/** Get all room **/
+    /** Get all room **/
     public List<RoomDetailDto> findAll() {
         return roomMapper.fromEntitíesToDto(roomRepository.findAll());
     }

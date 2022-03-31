@@ -29,14 +29,12 @@ public class RoomEntity {
     @Type(type = "uuid-char")
     @Column(name="user_id")
     private UUID user_id;
-
-
     @Column(name="province_id")
-    private String province_id;
+    private Integer province_id;
     @Column(name = "district_id")
-    private String district_id;
+    private Integer district_id;
     @Column(name="ward_id")
-    private String ward_id;
+    private Integer ward_id;
     @Column(name="street")
     private String street;
     @Column(name = "price")
