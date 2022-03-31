@@ -1,23 +1,18 @@
 package motelRoom.controller;
 
-
 import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.service.roomService.RoomService;
-import motelRoom.service.roomService.RoomServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/room")
 public class RoomController {
-
     private final RoomService roomService;
-
     public RoomController(RoomService roomService) {
         this.roomService = roomService;
     }
