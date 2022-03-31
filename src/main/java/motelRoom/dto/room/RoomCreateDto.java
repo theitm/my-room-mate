@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.UUID;
 @Data
 public class RoomCreateDto implements Serializable {
-    private UUID room_id;
     private UUID user_id;
     private Integer province_id;
     private Integer district_id;
