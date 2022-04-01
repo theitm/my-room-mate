@@ -19,11 +19,11 @@ public class ProvinceController {
         this.provinceService = provinceService;
     }
 
-    /** ---------------- GET ALL PROVINCE ------------------------ */
+    /** GET ALL PROVINCE **/
     @GetMapping
     public List<ProvinceDetailDto> findAll() {return provinceService.findAll();}
 
-    /** ---------------- GET PROVINCE BY ID ------------------------ */
+    /** GET PROVINCE BY ID **/
     @GetMapping("/{id}")
     public ResponseEntity<ProvinceDetailDto> findById(@PathVariable Integer id){
         return ResponseEntity.ok(provinceService.findById(id));

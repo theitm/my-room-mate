@@ -1,13 +1,10 @@
 package motelRoom.entity;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -24,14 +21,15 @@ public class RoomEntity {
     @Column(name = "room_id", columnDefinition = "CHAR(40)")
     @Type(type = "uuid-char")
     private UUID room_id;
+    @Type(type = "uuid-char")
     @Column(name="user_id")
     private UUID user_id;
     @Column(name="province_id")
-    private String province_id;
+    private Integer province_id;
     @Column(name = "district_id")
-    private String district_id;
+    private Integer district_id;
     @Column(name="ward_id")
-    private String ward_id;
+    private Integer ward_id;
     @Column(name="street")
     private String street;
     @Column(name = "price")
@@ -42,6 +40,4 @@ public class RoomEntity {
     private String description_room;
     @Column(name="status_room")
     private Integer status_room;
-
-
 }
