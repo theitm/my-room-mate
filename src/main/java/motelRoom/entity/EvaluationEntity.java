@@ -11,7 +11,7 @@ import javax.lang.model.element.Name;
 import javax.persistence.*;
 import java.time.DateTimeException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,21 +25,27 @@ public class EvaluationEntity {
     @Id
     @GeneratedValue (generator = "uuid2",strategy = GenerationType.IDENTITY)
     @GenericGenerator(name ="uuid2",strategy = "uuid2")
-    @Column(name = "evaluation_id", columnDefinition = "VARCHAR(40)")
+    @Column(name = "evaluation_id", columnDefinition = "VARCHAR(36)")
+
     @Type(type = "uuid-char")
     private UUID evaluation_id;
+
     @Column(name="room_id")
     @Type(type = "uuid-char")
     private UUID room_id;
+
     @Column(name="user_id")
     @Type(type = "uuid-char")
     private UUID user_id;
+
     @Column(name = "rate")
     private Float rate;
+
     @Column(name="comment_rate")
     private String comment_rate;
+
     @Column(name = "time_rate")
-    private String time_rate;
+    private Date time_rate;
 
     public void setId(UUID id) {
     }

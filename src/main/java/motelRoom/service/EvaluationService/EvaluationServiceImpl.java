@@ -22,7 +22,7 @@ public class EvaluationServiceImpl implements EvaluationService{
 
 
     }
-
+    //post
     @Override
     public EvaluationDetailDto createEvaluation(EvaluationCreateDto evaluationCreateDto) {
             EvaluationEntity evaluationEntity = evaluationMapper.fromEvaluationCreateDto(evaluationCreateDto);
@@ -39,30 +39,24 @@ public class EvaluationServiceImpl implements EvaluationService{
     @Override
     public EvaluationDetailDto findById(UUID id) {
         return  evaluationMapper.fromEntityToDetailDto(evaluationRepository.getById(id));
-       // get all
+
      }
-   @Override
- public List<EvaluationDetailDto> findAll() {
+
+     // get all
+    @Override
+    public List<EvaluationDetailDto> findAll() {
      return evaluationMapper.fromEntitiesToDto(evaluationRepository.findAll());
- }
+    }
 
-
+    //delete
     @Override
     public void deleteById(UUID id) {
         evaluationRepository.deleteById(id);
     }
 
-
-    public EvaluationDetailDto updateEvaluation(UUID id, EvaluationCreateDto evaluationCreateDto) {
-        EvaluationEntity documentEntity = evaluationMapper.fromEvaluationCreateDto(evaluationCreateDto);
-        documentEntity.setId(id);
-        evaluationRepository.save(documentEntity);
-        EvaluationDetailDto documentDetailDto = evaluationMapper.fromEntityToDetailDto(documentEntity);
-        return documentDetailDto;
-
-    }
+    //update
     @Override
-    public void  SaveUpdate(UUID id,    EvaluationCreateDto createDto){
+    public void saveUpdate(UUID id, EvaluationCreateDto createDto){
         EvaluationEntity entity = evaluationRepository.findById(id).orElse(null);
         if(entity == null){
             return;

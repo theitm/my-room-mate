@@ -18,27 +18,30 @@ public class EvaluationController{
     private final EvaluationServiceImpl evaluationService;
 
     public EvaluationController(EvaluationServiceImpl evaluationService) {
+
         this.evaluationService = evaluationService;
     }
+
+
+    /**.....get all id evaluation...........**/
+    @GetMapping("/{id}")
+    public ResponseEntity<EvaluationDetailDto> findById(@PathVariable UUID id) {
+        return ResponseEntity.ok(evaluationService.findById(id));
+    }
+
+    /**.....get all evaluation...........**/
+    @GetMapping
+    public List<EvaluationDetailDto> findAll(){
+
+        return evaluationService.findAll();
+    }
+
+    /**.....post evaluation...........**/
     @PostMapping
     public ResponseEntity<EvaluationDetailDto> create(@RequestBody EvaluationCreateDto createDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(evaluationService.createEvaluation(createDto));
 
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<EvaluationDetailDto> findById(@PathVariable UUID id) {
-        return ResponseEntity.ok(evaluationService.findById(id));
-    }
-    /**.....get all evaluation...........**/
-
-    @GetMapping
-    public List<EvaluationDetailDto> findAll(){
-        return evaluationService.findAll();
-    }
-
-   /**.........update evaluation....**/
-
-
 
     /**......delete evaluation....**/
     @DeleteMapping("{id}")
@@ -47,10 +50,11 @@ public class EvaluationController{
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
+    /**.........update evaluation....**/
     @PutMapping("/{id}")
     public void update(@RequestBody EvaluationCreateDto evaluationCreateDto, @PathVariable UUID id) {
-        evaluationService.SaveUpdate(id ,evaluationCreateDto);
+        evaluationService.saveUpdate(id ,evaluationCreateDto);
     }
 
-    }
+}
 

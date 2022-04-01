@@ -1,11 +1,9 @@
 package motelRoom.dto.valuation;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.UUID;
 
 @Getter
@@ -13,11 +11,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EvaluationCreateDto implements Serializable {
-    private UUID evaluation_id;
+
+    //Create thi khong can evaluation_id
+    //private UUID evaluation_id;
     private UUID room_id;
     private UUID user_id;
-    private String rate;
+    private Float rate;
     private String comment_rate;
-    private String time_rate;
+    private Date time_rate;
 
 }

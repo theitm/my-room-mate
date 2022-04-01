@@ -13,7 +13,7 @@ public interface EvaluationService {
 
     List<EvaluationDetailDto> findAll();
 
-    EvaluationDetailDto updateEvaluation(UUID id, EvaluationCreateDto evaluationCreateDto);
+
     void deleteById(UUID id);
-    public void SaveUpdate(UUID id, EvaluationCreateDto createDto);
+    public void saveUpdate(UUID id, EvaluationCreateDto createDto);
 }
