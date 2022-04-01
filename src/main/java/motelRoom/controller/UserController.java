@@ -15,9 +15,9 @@ public class UserController {
     }
 
     @PutMapping("/ForgotPassword/{username}")
-    public void ForgotPassword(@PathVariable(name = "username") String username)
+    public String ForgotPassword(@PathVariable(name = "username") String username)
     {
-        userService.ForgotPassword(username);
+       return userService.ForgotPassword(username);
     }
 
 }

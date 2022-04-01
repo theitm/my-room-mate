@@ -11,7 +11,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.Random;
 
-
 @Service
 public class UserServiceImpl implements UserService{
     @Autowired
@@ -19,13 +18,12 @@ public class UserServiceImpl implements UserService{
     @Autowired
     JavaMailSender javaMailSender;
 
-
     @Override
-    public void ForgotPassword(String username) {
+    public String ForgotPassword(String username) {
         UserEntity entity = userRepository.findByUsername(username);
-        if(entity == null )
+        if (entity == null)
         {
-            return;
+            return null;
         }
         String newPassword = GenPass();
         entity.setPasswords(newPassword);
@@ -35,6 +33,7 @@ public class UserServiceImpl implements UserService{
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+        return entity.getUsername();
     }
 
     String GenPass()
