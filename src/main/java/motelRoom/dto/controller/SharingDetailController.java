@@ -1,4 +1,4 @@
-package motelRoom.controller;
+package motelRoom.dto.controller;
 
 public class SharingDetailController {
 }

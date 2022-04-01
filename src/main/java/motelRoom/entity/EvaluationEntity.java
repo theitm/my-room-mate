@@ -24,14 +24,14 @@ import java.util.UUID;
 public class EvaluationEntity {
     @Id
     @GeneratedValue (generator = "uuid2",strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name ="uuid2",strategy = "uuid2")
+    @GenericGenerator(name = "uuid2",strategy = "uuid2")
     @Column(name = "evaluation_id", columnDefinition = "VARCHAR(40)")
     @Type(type = "uuid-char")
     private UUID evaluation_id;
-    @Column(name="room_id")
+    @Column(name = "room_id")
     @Type(type = "uuid-char")
     private UUID room_id;
-    @Column(name="user_id")
+    @Column(name = "user_id")
     @Type(type = "uuid-char")
     private UUID user_id;
     @Column(name = "rate")
@@ -39,8 +39,6 @@ public class EvaluationEntity {
     @Column(name="comment_rate")
     private String comment_rate;
     @Column(name = "time_rate")
-    private String time_rate;
+    private Date time_rate;
 
-    public void setId(UUID id) {
-    }
 }
