@@ -23,26 +23,21 @@ public class WaitingListController {
         return service.getAllWaitingList();
     }
 
-
     @GetMapping("/{id}")
-    public ResponseEntity<WaitingListDetailDto > findById(@PathVariable UUID id) {
+    public ResponseEntity<WaitingListDetailDto> findById(@PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.getById(id));
     }
 
-
-
-
     @PostMapping("")
-    public ResponseEntity<WaitingListDetailDto > addWaitingList(@RequestBody WaitingListCreateDto createDto)
+    public ResponseEntity<WaitingListDetailDto> addWaitingList(@RequestBody WaitingListCreateDto createDto)
     {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.addWaitingList(createDto));
-       // return service.addWaitingList(createDto);
     }
+
     @DeleteMapping("/{id}")
-    public Void DeleteWaitingList(@PathVariable(name = "id") UUID id)
+    public void DeleteWaitingList(@PathVariable(name = "id") UUID id)
     {
         service.Delete(id);
-        return null;
     }
 
 }

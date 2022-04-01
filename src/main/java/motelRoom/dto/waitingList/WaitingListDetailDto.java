@@ -10,4 +10,5 @@ public class WaitingListDetailDto implements Serializable {
     private UUID waiting_list_id;
     private UUID user_id;
     private UUID room_id;
+
 }

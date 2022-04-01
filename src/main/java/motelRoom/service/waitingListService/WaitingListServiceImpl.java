@@ -14,9 +14,9 @@ import java.util.UUID;
 @Service
 public class WaitingListServiceImpl implements WaitingListService{
     @Autowired
-    private final WaitingListRepository repository;
+    private  WaitingListRepository repository;
     @Autowired
-    private final WaitingListMapper mapper;
+    private WaitingListMapper mapper;
 
     public WaitingListServiceImpl(WaitingListRepository repository, WaitingListMapper mapper) {
         this.repository = repository;
@@ -32,8 +32,7 @@ public class WaitingListServiceImpl implements WaitingListService{
     @Override
     public WaitingListDetailDto getById(UUID id)
     {
-        WaitingListDetailDto dto = mapper.fromEntityToDetailDto(repository.getById(id));
-        return dto;
+        return mapper.fromEntityToDetailDto(repository.getById(id));
     }
 
     @Override
@@ -41,17 +40,11 @@ public class WaitingListServiceImpl implements WaitingListService{
     {
         WaitingListEntity waitingListEntity = mapper.fromDtoCreateEntity(waitingListCreateDto);
         WaitingListEntity waitingListEntity2 = repository.save(waitingListEntity);
-
-        WaitingListDetailDto waitingListDetailDto = mapper.fromEntityToDetailDto(waitingListEntity2);
-        return waitingListDetailDto;
+        return mapper.fromEntityToDetailDto(waitingListEntity2);
     }
 
     @Override
-    public Void Delete(UUID id) {
+    public void Delete(UUID id) {
         repository.deleteById(id);
-        return null;
     }
-
-
-
 }
