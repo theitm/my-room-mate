@@ -16,7 +16,6 @@ import java.util.UUID;
 public class WaitingListController {
     @Autowired
     WaitingListServiceImpl service;
-
     @GetMapping("")
     public List<WaitingListDetailDto> getAll()
     {
@@ -25,7 +24,7 @@ public class WaitingListController {
 
     @GetMapping("/{id}")
     public ResponseEntity<WaitingListDetailDto> findById(@PathVariable UUID id) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(service.getById(id));
+        return ResponseEntity.ok(service.getById(id));
     }
 
     @PostMapping("")
