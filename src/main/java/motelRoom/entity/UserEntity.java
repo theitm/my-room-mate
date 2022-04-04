@@ -19,6 +19,7 @@ import java.util.UUID;
 
 @Table(name = "table_user")
 public class UserEntity {
+
     @Id
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
