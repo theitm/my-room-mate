@@ -14,9 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DistrictDetailDto implements Serializable {
-    private Integer district_id;
-    private String name_district;
-    private String prefix_district;
-    private Integer province_id;
+    private Integer districtId;
+    private String districtName;
+    private String districtPrefix;
+    private Integer provinceId;
     List<WardEntity> wards;
 }

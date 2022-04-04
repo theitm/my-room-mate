@@ -15,15 +15,15 @@ public class WardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ward_id")
-    private Integer ward_id;
+    private Integer wardId;
     @Column(name="name_ward")
-    private String name_ward;
+    private String wardName;
     @Column(name="prefix_ward")
-    private String prefix_ward;
+    private String wardPrefix;
     @Column(name="province_id")
-    private String province_id;
+    private String provinceId;
     @Column(name = "district_id")
-    private Integer district_id;
+    private Integer districtId;
 
     /**relationship many ward one district**/
     @ManyToOne
