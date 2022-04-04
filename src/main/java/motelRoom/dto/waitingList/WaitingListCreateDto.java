@@ -6,6 +6,6 @@ import java.util.UUID;
 
 @Data
 public class WaitingListCreateDto {
-    private UUID user_id;
-    private UUID room_id;
+    private UUID userId;
+    private UUID roomId;
 }

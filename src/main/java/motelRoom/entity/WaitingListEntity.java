@@ -13,11 +13,13 @@ public class WaitingListEntity {
     @Id
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "VARCHAR(40)")
+    @Column(columnDefinition = "VARCHAR(40)", name = "waiting_list_id")
     @Type(type = "uuid-char")
-    private UUID waiting_list_id;
+    private UUID id;
+    @Column(name = "user_id")
     @Type(type = "uuid-char")
-    private UUID user_id;
+    private UUID userId;
+    @Column(name = "room_id")
     @Type(type = "uuid-char")
-    private UUID room_id;
+    private UUID roomId;
 }
