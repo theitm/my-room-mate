@@ -2,23 +2,18 @@ package motelRoom.service.documentService;
 
 import motelRoom.dto.document.DocumentCreateDto;
 import motelRoom.dto.document.DocumentDetailDto;
-import motelRoom.entity.DocumentEntity;
-
 import java.util.List;
 import java.util.UUID;
 
 public interface DocumentService {
-
-
+    /**.....service  create  document...........**/
     DocumentDetailDto createDocument(DocumentCreateDto documentCreateDto);
+    /**.....service  show list all document...........**/
     List<DocumentDetailDto> findAll();
-
-
-
-    DocumentDetailDto updateDocument(UUID id, DocumentCreateDto documentCreateDto);
+    /**.....service delete by id document...........**/
     void deleteById(UUID id);
-
-    List<DocumentDetailDto> finAllRoomId(String room_id);
-
-
+    /**.....service find by room_id document...........**/
+    List<DocumentDetailDto>finAllRoomId(UUID room_id);
+    /**.....service update by id document...........**/
+    public void saveUpdate(UUID id, DocumentCreateDto createDto);
 }
