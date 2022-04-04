@@ -50,7 +50,7 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto){
         RoomEntity roomEntity = roomMapper.fromDtoCreateEntity(roomCreateDto);
-        roomEntity.setRoom_id(id);
+        roomEntity.setRoomId(id);
         roomRepository.save(roomEntity);
         RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity);
         return roomDetailDto;
