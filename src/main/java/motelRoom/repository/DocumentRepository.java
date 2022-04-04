@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @Repository
 public interface DocumentRepository extends JpaRepository <DocumentEntity, UUID> {
-
-    
+    /**.....Query to find document by room_id ...........**/
+    @Query("SELECT u from DocumentEntity u where u.room_id = :room_id")
+    List<DocumentEntity> myCustomQuery2(@Param("room_id") UUID room_id);
 }
