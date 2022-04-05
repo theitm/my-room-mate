@@ -10,17 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-
     @Service
     public class EvaluationServiceImpl implements EvaluationService{
         private final EvaluationRepository evaluationRepository;
         private final EvaluationMapper evaluationMapper;
-
     public EvaluationServiceImpl(EvaluationRepository evaluationRepository, EvaluationMapper evaluationMapper){
-        this.evaluationRepository=evaluationRepository;
-        this.evaluationMapper=evaluationMapper;
+        this.evaluationRepository = evaluationRepository;
+        this.evaluationMapper = evaluationMapper;
     }
-
         /**.....new evaluation.....**/
     @Override
     public EvaluationDetailDto createEvaluation(EvaluationCreateDto evaluationCreateDto) {
@@ -32,25 +29,21 @@ import java.util.UUID;
             }
             return evaluationDetailDto;
         }
-
-        /**.....get evaluation theo id.....**/
+        /**.....get evaluation by id.....**/
     @Override
     public EvaluationDetailDto findById(UUID id) {
         return  evaluationMapper.fromEntityToDetailDto(evaluationRepository.getById(id));
      }
-
         /**.....get evaluation all.....**/
     @Override
     public List<EvaluationDetailDto> findAll() {
          return evaluationMapper.fromEntitiesToDto(evaluationRepository.findAll());
     }
-
-        /**..... Xoa evaluation theo id.....**/
+        /**..... Delete evaluation by id.....**/
     @Override
     public void deleteById(UUID id) {
         evaluationRepository.deleteById(id);
     }
-
         /**.....Update evaluation.....**/
     @Override
     public void saveUpdate(UUID id, EvaluationCreateDto createDto){

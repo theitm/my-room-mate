@@ -36,7 +36,7 @@ public class EvaluationEntity {
     private UUID user_id;
     @Column(name = "rate")
     private Float rate;
-    @Column(name="comment_rate")
+    @Column(name = "comment_rate")
     private String comment_rate;
     @Column(name = "time_rate")
     private Date time_rate;
