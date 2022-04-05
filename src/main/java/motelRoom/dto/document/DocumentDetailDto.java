@@ -8,9 +8,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DocumentDetailDto implements Serializable {
-    private UUID doccument_id;
-    private UUID room_id;
-    private String url_room;
-    private UUID evaluation_id;
-    private String url_evaluation;
+    private UUID documentId;
+    private UUID roomId;
+    private String urlRoom;
+    private UUID evaluationId;
+    private String urlEvaluation;
 }

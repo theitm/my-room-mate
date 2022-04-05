@@ -18,13 +18,12 @@ public class DocumentController {
     /**.....get all document...........**/
     @GetMapping
     public List<DocumentDetailDto> findAll(){
-
         return documentService.findAll();
     }
     /**.....get all by id document...........**/
-    @GetMapping("/{room_id}")
-    public List<DocumentDetailDto> findById(@PathVariable UUID room_id){
-        return (documentService.finAllRoomId(room_id));
+    @GetMapping("/{roomId}")
+    public List<DocumentDetailDto> findById(@PathVariable UUID roomId){
+        return (documentService.finAllRoomId(roomId));
     }
     /**.....post document...........**/
     @PostMapping
@@ -39,7 +38,7 @@ public class DocumentController {
     }
     /**.....delete document...........**/
     @DeleteMapping("/delete/{id}")
-    public String  deleteDocument(@PathVariable(name = "id") UUID id){
+    public String deleteDocument(@PathVariable(name = "id") UUID id){
         documentService.deleteById(id);
         return "Delete successfully: " +id;
     }

@@ -17,15 +17,15 @@ public class DocumentEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "doccument_id", columnDefinition = "CHAR(40)")
     @Type(type = "uuid-char")
-    private UUID doccument_id;
+    private UUID documentId;
     @Type(type = "uuid-char")
     @Column(name = "room_id")
-    private UUID room_id;
+    private UUID roomId;
     @Column(name = "url_room")
-    private String url_room;
+    private String urlRoom;
     @Type(type = "uuid-char")
     @Column(name = "evaluation_id")
-    private UUID evaluation_id;
+    private UUID evaluationId;
     @Column(name = "url_evaluation")
-    private String url_evaluation;
+    private String urlEvaluation;
 }

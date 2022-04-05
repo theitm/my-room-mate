@@ -45,8 +45,8 @@ public class DocumentServiceImpl implements DocumentService {
     }
     /**.....serviceimpl find by room_id document...........**/
     @Override
-    public List<DocumentDetailDto> finAllRoomId(UUID room_id) {
-        return mapper.fromListEntityToDto(documentRepository.myCustomQuery2(room_id));
+    public List<DocumentDetailDto> finAllRoomId(UUID roomId) {
+        return mapper.fromListEntityToDto(documentRepository.myCustomQuery2(roomId));
     }
     /**.....serviceimpl update by id document...........**/
     @Override
