@@ -30,6 +30,6 @@ public class UserController {
     @PutMapping("/ForgotPassword/{username}")
     public String ForgotPassword(@PathVariable(name = "username") String username)
     {
-        return userService.ForgotPassword(username);
+        return userService.forgotPassword(username);
     }
 }

@@ -10,6 +10,6 @@ public interface WaitingListService {
     List<WaitingListDetailDto> getAllWaitingList();
     WaitingListDetailDto getById(UUID id);
     WaitingListDetailDto addWaitingList(WaitingListCreateDto createDto);
-    void Delete(UUID id);
+    void deleteWaitingList(UUID id);
 
 }

@@ -11,5 +11,4 @@ public interface WaitingListMapper {
     WaitingListEntity fromDtoCreateEntity(WaitingListCreateDto waitingListCreateDto);
     WaitingListDetailDto fromEntityToDetailDto(WaitingListEntity waitingListEntity);
     List<WaitingListDetailDto> fromEntitiesToDto(List<WaitingListEntity> waitingListEntities);
-
 }

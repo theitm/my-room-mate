@@ -9,5 +9,5 @@ import java.util.UUID;
 public interface UserService {
     UserDetailDto createUser(UserCreateDto userCreateDto);
     UserDetailDto findById(UUID id);
-    String ForgotPassword(String username);
+    String forgotPassword(String username);
 }

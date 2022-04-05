@@ -22,19 +22,16 @@ public class WaitingListServiceImpl implements WaitingListService{
         this.repository = repository;
         this.mapper = mapper;
     }
-
     @Override
     public List<WaitingListDetailDto> getAllWaitingList()
     {
         return mapper.fromEntitiesToDto(repository.findAll());
     }
-
     @Override
     public WaitingListDetailDto getById(UUID id)
     {
         return mapper.fromEntityToDetailDto(repository.getById(id));
     }
-
     @Override
     public WaitingListDetailDto addWaitingList(WaitingListCreateDto waitingListCreateDto)
     {
@@ -42,9 +39,8 @@ public class WaitingListServiceImpl implements WaitingListService{
         WaitingListEntity waitingListEntity2 = repository.save(waitingListEntity);
         return mapper.fromEntityToDetailDto(waitingListEntity2);
     }
-
     @Override
-    public void Delete(UUID id) {
+    public void deleteWaitingList(UUID id) {
         repository.deleteById(id);
     }
 }

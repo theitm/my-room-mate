@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserMapper userMapper;
     /**
-     * Tạo mới 1 User
+     * Create 1 User
      */
     @Override
     public UserDetailDto createUser(UserCreateDto userCreateDto) {
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * lấy thông tin 1 User theo id
+     * get 1 User by id
      */
     @Override
     public UserDetailDto findById(UUID id) {
@@ -46,15 +46,16 @@ public class UserServiceImpl implements UserService{
     }
     /**
      * Forgot Password
+     * send new password to username(email)
      */
     @Override
-    public String ForgotPassword(String username) {
+    public String forgotPassword(String username) {
         UserEntity entity = userRepository.findByUsername(username);
         if (entity == null)
         {
             return null;
         }
-        String newPassword = GenPass(); //generate new password
+        String newPassword = generateNewPassword(); //generate new password
         entity.setPassword(newPassword); //set new password
         userRepository.saveAndFlush(entity);
         try {
@@ -67,7 +68,7 @@ public class UserServiceImpl implements UserService{
     /**
      * generate new password
      */
-    String GenPass()
+    String generateNewPassword()
     {
         String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%&";
         Random rnd = new Random();
@@ -77,7 +78,7 @@ public class UserServiceImpl implements UserService{
         return sb.toString();
     }
     /**
-     * send mail new password for user
+     * send mail new password for user(email)
      */
     void sendMail(String mail,String password) throws MessagingException {
         MimeMessage mailMessage = javaMailSender.createMimeMessage();
