@@ -18,27 +18,32 @@ public class EvaluationController {
     public EvaluationController(EvaluationServiceImpl evaluationService) {
         this.evaluationService = evaluationService;
     }
+
     /**.....New evaluation.....**/
     @PostMapping
     public ResponseEntity<EvaluationDetailDto> create(@RequestBody EvaluationCreateDto createDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(evaluationService.createEvaluation(createDto));
     }
+
     /** .....Get evaluation by id.....**/
     @GetMapping("/{id}")
     public ResponseEntity<EvaluationDetailDto> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(evaluationService.findById(id));
     }
+
     /**.....Get all evaluation.....**/
     @GetMapping
     public List<EvaluationDetailDto> findAll() {
         return evaluationService.findAll();
     }
+
     /**.....Delete evaluation.....**/
     @DeleteMapping("{id}")
     public ResponseEntity deleteById(@PathVariable UUID id) {
         evaluationService.deleteById(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
+
     /**.....Update evaluation.....**/
     @PutMapping("/{id}")
     public void update(@RequestBody EvaluationCreateDto evaluationCreateDto, @PathVariable UUID id) {

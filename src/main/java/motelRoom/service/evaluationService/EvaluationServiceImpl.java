@@ -18,6 +18,7 @@ import java.util.UUID;
         this.evaluationRepository = evaluationRepository;
         this.evaluationMapper = evaluationMapper;
     }
+
         /**.....new evaluation.....**/
     @Override
     public EvaluationDetailDto createEvaluation(EvaluationCreateDto evaluationCreateDto) {
@@ -29,21 +30,25 @@ import java.util.UUID;
             }
             return evaluationDetailDto;
         }
+
         /**.....get evaluation by id.....**/
     @Override
     public EvaluationDetailDto findById(UUID id) {
         return  evaluationMapper.fromEntityToDetailDto(evaluationRepository.getById(id));
      }
+
         /**.....get evaluation all.....**/
     @Override
     public List<EvaluationDetailDto> findAll() {
          return evaluationMapper.fromEntitiesToDto(evaluationRepository.findAll());
     }
+
         /**..... Delete evaluation by id.....**/
     @Override
     public void deleteById(UUID id) {
         evaluationRepository.deleteById(id);
     }
+
         /**.....Update evaluation.....**/
     @Override
     public void saveUpdate(UUID id, EvaluationCreateDto createDto){

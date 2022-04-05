@@ -27,18 +27,17 @@ public class EvaluationEntity {
     @GenericGenerator(name = "uuid2",strategy = "uuid2")
     @Column(name = "evaluation_id", columnDefinition = "VARCHAR(40)")
     @Type(type = "uuid-char")
-    private UUID evaluation_id;
+    private UUID evaluationId;
     @Column(name = "room_id")
     @Type(type = "uuid-char")
-    private UUID room_id;
+    private UUID roomId;
     @Column(name = "user_id")
     @Type(type = "uuid-char")
-    private UUID user_id;
+    private UUID userId;
     @Column(name = "rate")
     private Float rate;
     @Column(name = "comment_rate")
-    private String comment_rate;
+    private String commentRate;
     @Column(name = "time_rate")
-    private Date time_rate;
-
+    private Date timeRate;
 }

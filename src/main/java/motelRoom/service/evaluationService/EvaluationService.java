@@ -11,5 +11,5 @@ public interface EvaluationService {
     EvaluationDetailDto findById(UUID id) ;
     List<EvaluationDetailDto> findAll();
     void deleteById(UUID id);
-    public void saveUpdate(UUID id, EvaluationCreateDto createDto);
+    void saveUpdate(UUID id, EvaluationCreateDto createDto);
 }
