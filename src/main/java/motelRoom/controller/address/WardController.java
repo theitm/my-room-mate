@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ward")
+@RequestMapping("v1/api/ward")
 public class WardController {
     private final WardService wardService;
 
