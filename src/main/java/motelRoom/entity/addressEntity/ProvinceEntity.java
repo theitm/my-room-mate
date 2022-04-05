@@ -20,7 +20,7 @@ public class ProvinceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "province_id")
-    private Integer provinceId;
+    private int provinceId;
     @Column(name = "name_province")
     private String provinceName;
     @Column(name = "code_province")
@@ -33,7 +33,4 @@ public class ProvinceEntity {
     @ToString.Exclude
     private List<DistrictEntity> districts
             = new ArrayList<DistrictEntity>();
-
-
-
 }

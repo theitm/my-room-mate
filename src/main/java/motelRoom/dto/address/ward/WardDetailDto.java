@@ -12,9 +12,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WardDetailDto implements Serializable {
-    private Integer wardId;
+    private int wardId;
     private String wardName;
     private String wardPrefix;
-    private Integer provinceId;
-    private Integer districtId;
+    private int provinceId;
+    private int districtId;
 }
