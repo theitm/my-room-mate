@@ -25,11 +25,11 @@ public class RoomEntity {
     @Column(name="user_id")
     private UUID userId;
     @Column(name="province_id")
-    private Integer provinceId;
+    private int provinceId;
     @Column(name = "district_id")
-    private Integer districtId;
+    private int districtId;
     @Column(name="ward_id")
-    private Integer wardId;
+    private int wardId;
     @Column(name="street")
     private String street;
     @Column(name = "price")
@@ -39,5 +39,5 @@ public class RoomEntity {
     @Column(name = "description_room")
     private String descriptionRoom;
     @Column(name="status_room")
-    private Integer statusRoom;
+    private int statusRoom;
 }

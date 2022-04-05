@@ -14,9 +14,9 @@ import java.util.UUID;
 public class RoomDetailDto implements Serializable {
     private UUID roomId;
     private UUID userId;
-    private Integer provinceId;
-    private Integer districtId;
-    private Integer wardId;
+    private int provinceId;
+    private int districtId;
+    private int wardId;
     private String street;
     private float price;
     private float capacity;
