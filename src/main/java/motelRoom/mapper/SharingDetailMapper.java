@@ -14,4 +14,5 @@ public interface SharingDetailMapper {
     SharingDetailDetailDto fromEntityToDto (SharingDetailEntity sharingDetailEntity);
     List<SharingDetailDetailDto> fromListEntityToDto(List<SharingDetailEntity> sharingDetailEntities);
 
+    SharingDetailEntity fromSharingDetailUpdateDto(SharingDetailDetailDto sharingDetailDetailDto);
 }

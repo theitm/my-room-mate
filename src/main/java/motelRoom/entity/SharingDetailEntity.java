@@ -36,7 +36,7 @@ public class SharingDetailEntity {
     private String role;;
 
     @ManyToOne
-    @JoinColumn(name = "sharing_id",insertable = false,updatable = false)
+    @JoinColumn(name = "sharing_id", insertable = false, updatable = false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference

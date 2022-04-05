@@ -3,13 +3,16 @@ package motelRoom.service.roomSharingService;
 import motelRoom.dto.roomSharing.RoomSharingCreateDto;
 import motelRoom.dto.roomSharing.RoomSharingDetailDto;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
+import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
 import motelRoom.entity.RoomSharingEntity;
 import motelRoom.mapper.RoomSharingMapper;
 import motelRoom.repository.RoomSharingRepository;
 import motelRoom.service.sharingDetailService.SharingDetailService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 @Service
 public class RoomSharingServiceImpl implements RoomSharingService{
@@ -38,29 +41,51 @@ public class RoomSharingServiceImpl implements RoomSharingService{
         return roomSharingMapper.fromListEntityToDto(roomSharingRepository.findAll());
     }
 
+
+
     @Override
-    public RoomSharingDetailDto updateRoomSharing(UUID sharing_id, RoomSharingCreateDto roomSharingCreateDto) {
-        RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
-        roomSharingEntity.setSharingDetails(null);
+    public RoomSharingDetailDto updateRoomSharing(UUID sharing_id, RoomSharingDetailDto roomSharingDetailDto) {
+        RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingDetailDto);
         roomSharingEntity.setSharing_id(sharing_id);
+        if(roomSharingEntity == null){
+            return null;
+        }
         roomSharingRepository.save(roomSharingEntity);
-        RoomSharingDetailDto roomSharingDetailDto = roomSharingMapper.fromEntityToDto(roomSharingEntity);
-        return roomSharingDetailDto;
+        for (SharingDetailDetailDto sharingDetailDetailDto : roomSharingDetailDto.getSharingDetails()){
+            sharingDetailDetailDto.setSharing_id(roomSharingEntity.getSharing_id());
+            sharingDetailService.updateSharingDetail(sharing_id,sharingDetailDetailDto);
+        }
+        RoomSharingDetailDto roomSharingDetailDtoUpdate = roomSharingMapper.fromEntityToDto(roomSharingEntity);
+        return roomSharingDetailDtoUpdate;
     }
 
+//    @Override
+//    public RoomSharingDetailDto updateRoomSharing(UUID sharing_id, RoomSharingCreateDto roomSharingCreateDto) {
+//        RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
+////        roomSharingEntity.setSharingDetails(null);
+//        roomSharingEntity.setSharing_id(sharing_id);
+//        roomSharingRepository.save(roomSharingEntity);
+//        RoomSharingDetailDto roomSharingDetailDto = roomSharingMapper.fromEntityToDto(roomSharingEntity);
+//        return roomSharingDetailDto;
+//    }
+
+
     @Override
-    public void deleteById(UUID sharing_id) {
+    public String deleteById(UUID sharing_id) {
+
         roomSharingRepository.deleteById(sharing_id);
+        return "Deleted";
     }
 
     @Override
-    public RoomSharingDetailDto createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
+    public String createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
         RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
         RoomSharingEntity roomSharingCreateEntity = roomSharingRepository.save(roomSharingEntity);
         for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetails()){
             sharingDetailCreateDto.setSharing_id(roomSharingCreateEntity.getSharing_id());
             sharingDetailService.createSharingDetail(sharingDetailCreateDto);
         }
-        return null;
+
+        return "Created";
     }
 }

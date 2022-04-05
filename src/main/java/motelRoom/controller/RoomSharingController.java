@@ -42,12 +42,22 @@ public class RoomSharingController {
         ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingService.createRoomSharing(roomSharingCreateDto));
         return responseEntity;
     }
-
+//
+//    @PutMapping("/{sharing_id}")
+////    public ResponseEntity<RoomSharingDetailDto> updateRoomSharing(@PathVariable UUID sharing_id, @RequestBody RoomSharingCreateDto roomSharingCreateDto) {
+////        RoomSharingDetailDto roomSharingDetailDto = roomSharingService.updateRoomSharing(sharing_id, roomSharingCreateDto);
+////        return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingDetailDto);
+////    }
+//    public void updateRoomSharing(@RequestBody RoomSharingCreateDto roomSharingCreateDto, @PathVariable UUID sharing_id) {
+//        roomSharingService.updateRoomSharing(sharing_id, roomSharingCreateDto);
+//    }
     @PutMapping("/{sharing_id}")
-    public ResponseEntity<RoomSharingDetailDto> updateRoomSharing(@PathVariable UUID sharing_id, @RequestBody RoomSharingCreateDto roomSharingCreateDto) {
-        RoomSharingDetailDto roomSharingDetailDto = roomSharingService.updateRoomSharing(sharing_id, roomSharingCreateDto);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingDetailDto);
+    public ResponseEntity<RoomSharingDetailDto> update(@PathVariable UUID sharing_id,
+                                                      @RequestBody RoomSharingDetailDto roomSharingDetailDto) {
+        RoomSharingDetailDto roomSharingDetailDtoUpdate = roomSharingService.updateRoomSharing(sharing_id, roomSharingDetailDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingDetailDtoUpdate);
     }
+
 
     @DeleteMapping("/{sharing_id}")
     public ResponseEntity deleteById(@PathVariable UUID sharing_id) {

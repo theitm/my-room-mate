@@ -28,7 +28,7 @@ public class RoomSharingEntity {
     @Type( type = "uuid-char")
     private UUID room_id;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "sharing_id", referencedColumnName = "sharing_id", insertable=false, updatable=false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

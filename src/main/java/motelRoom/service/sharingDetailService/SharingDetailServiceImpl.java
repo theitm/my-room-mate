@@ -2,9 +2,11 @@ package motelRoom.service.sharingDetailService;
 
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
+import motelRoom.entity.RoomSharingEntity;
 import motelRoom.entity.SharingDetailEntity;
 import motelRoom.mapper.SharingDetailMapper;
 import motelRoom.repository.SharingDetailRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,16 +49,33 @@ public class SharingDetailServiceImpl implements SharingDetailService{
     }
 
     @Override
-    public SharingDetailDetailDto updateSharingDetail(UUID sharing_detail_id,SharingDetailCreateDto sharingDetailCreateDto) {
-        SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailCreateDto(sharingDetailCreateDto);
+    public SharingDetailDetailDto updateSharingDetail(UUID sharing_detail_id, SharingDetailDetailDto sharingDetailDetailDto) {
+        SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailUpdateDto(sharingDetailDetailDto);
         sharingDetailEntity.setSharing_detail_id(sharing_detail_id);
+        if(sharingDetailEntity == null){
+            return null;
+        }
         sharingDetailRepository.save(sharingDetailEntity);
-        SharingDetailDetailDto sharingDetailDetailDto = sharingDetailMapper.fromEntityToDto(sharingDetailEntity);
-        return sharingDetailDetailDto;
+        SharingDetailDetailDto sharingDetailDetailDtoUpdate = sharingDetailMapper.fromEntityToDto(sharingDetailEntity);
+        return sharingDetailDetailDtoUpdate;
     }
 
+
+//    @Override
+//    public void updateSharingDetail(UUID sharing_detail_id,SharingDetailCreateDto sharingDetailCreateDto) {
+//        SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailCreateDto(sharingDetailCreateDto);
+//        sharingDetailEntity.setSharing_detail_id(sharing_detail_id);
+//        sharingDetailRepository.save(sharingDetailEntity);
+//        SharingDetailDetailDto sharingDetailDetailDto = sharingDetailMapper.fromEntityToDto(sharingDetailEntity);
+//        return sharingDetailDetailDto;
+//    }
+
+
+
     @Override
-    public void deleteById(UUID sharing_detail_id) {
+    public String deleteById(UUID sharing_detail_id) {
+
         sharingDetailRepository.deleteById(sharing_detail_id);
+        return "Deleted";
     }
 }

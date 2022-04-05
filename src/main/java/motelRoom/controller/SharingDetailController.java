@@ -1,5 +1,6 @@
 package motelRoom.controller;
 
+import motelRoom.dto.roomSharing.RoomSharingCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
 import motelRoom.service.sharingDetailService.SharingDetailService;
@@ -37,10 +38,20 @@ public class SharingDetailController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailService.createSharingDetail(sharingDetailCreateDto));
     }
 
+//    @PutMapping("/{sharing_detail_id}")
+////    public ResponseEntity<SharingDetailDetailDto> updateSharingDetail(@PathVariable UUID sharing_detail_id, @RequestBody SharingDetailCreateDto sharingDetailCreateDto) {
+////        SharingDetailDetailDto sharingDetailDetailDto = sharingDetailService.updateSharingDetail(sharing_detail_id, sharingDetailCreateDto);
+////        return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailDetailDto);
+////    }
+//    public void updateSharingDetail(@RequestBody SharingDetailCreateDto sharingDetailCreateDto, @PathVariable UUID sharing_detail_id) {
+//        sharingDetailService.updateSharingDetail(sharing_detail_id, sharingDetailCreateDto);
+//    }
+
     @PutMapping("/{sharing_detail_id}")
-    public ResponseEntity<SharingDetailDetailDto> updateSharingDetail(@PathVariable UUID sharing_detail_id, @RequestBody SharingDetailCreateDto sharingDetailCreateDto) {
-        SharingDetailDetailDto sharingDetailDetailDto = sharingDetailService.updateSharingDetail(sharing_detail_id, sharingDetailCreateDto);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailDetailDto);
+    public ResponseEntity<SharingDetailDetailDto> update(@PathVariable UUID sharing_detail_id,
+                                                      @RequestBody SharingDetailDetailDto sharingDetailDetailDto) {
+        SharingDetailDetailDto sharingDetailDetailDtoUpdate = sharingDetailService.updateSharingDetail(sharing_detail_id, sharingDetailDetailDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailDetailDtoUpdate);
     }
 
     @DeleteMapping("/{sharing_detail_id}")

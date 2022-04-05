@@ -10,7 +10,7 @@ public interface RoomSharingService {
 
     RoomSharingDetailDto findById(UUID sharing_id);
     List<RoomSharingDetailDto> getAllRoomSharing();
-    RoomSharingDetailDto updateRoomSharing(UUID sharing_id, RoomSharingCreateDto roomSharingCreateDto);
-    void deleteById(UUID sharing_id);
-    RoomSharingDetailDto createRoomSharing(RoomSharingCreateDto roomSharingCreateDto);
+    RoomSharingDetailDto updateRoomSharing(UUID sharing_id, RoomSharingDetailDto roomSharingDetailDto);
+    String deleteById(UUID sharing_id);
+    String createRoomSharing(RoomSharingCreateDto roomSharingCreateDto);
 }
