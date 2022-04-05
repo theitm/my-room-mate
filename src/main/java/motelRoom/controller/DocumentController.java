@@ -33,13 +33,14 @@ public class DocumentController {
     }
     /**.....put document...........**/
     @PutMapping("/{id}")
-    public void update(@RequestBody DocumentCreateDto documentCreateDto, @PathVariable UUID id) {
+    public String update(@RequestBody DocumentCreateDto documentCreateDto, @PathVariable UUID id) {
         documentService.saveUpdate(id ,documentCreateDto);
+        return "Update successfully: " +id;
     }
     /**.....delete document...........**/
     @DeleteMapping("/delete/{id}")
     public String  deleteDocument(@PathVariable(name = "id") UUID id){
         documentService.deleteById(id);
-        return "Xoa thanh cong: " +id;
+        return "Delete successfully: " +id;
     }
 }
