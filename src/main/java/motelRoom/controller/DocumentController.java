@@ -18,7 +18,6 @@ public class DocumentController {
     /**.....get all document...........**/
     @GetMapping
     public List<DocumentDetailDto> findAll(){
-
         return documentService.findAll();
     }
     /**.....get all by id document...........**/
@@ -39,7 +38,7 @@ public class DocumentController {
     }
     /**.....delete document...........**/
     @DeleteMapping("/delete/{id}")
-    public String  deleteDocument(@PathVariable(name = "id") UUID id){
+    public String deleteDocument(@PathVariable(name = "id") UUID id){
         documentService.deleteById(id);
         return "Delete successfully: " +id;
     }
