@@ -1,4 +1,4 @@
-package motelRoom.dto.controller;
+package motelRoom.controller;
 
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;

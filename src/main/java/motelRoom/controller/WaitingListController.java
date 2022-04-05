@@ -1,4 +1,4 @@
-package motelRoom.dto.controller;
+package motelRoom.controller;
 
 public class WaitingListController {
 }

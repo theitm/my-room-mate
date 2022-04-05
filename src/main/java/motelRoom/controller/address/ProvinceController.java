@@ -1,4 +1,4 @@
-package motelRoom.dto.controller.address;
+package motelRoom.controller.address;
 
 import motelRoom.dto.address.province.ProvinceDetailDto;
 import motelRoom.service.addressService.provinceService.ProvinceService;

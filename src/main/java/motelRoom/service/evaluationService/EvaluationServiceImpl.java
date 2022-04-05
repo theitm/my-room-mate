@@ -1,4 +1,4 @@
-package motelRoom.service.EvaluationService;
+package motelRoom.service.evaluationService;
 
 import motelRoom.dto.evaluation.EvaluationCreateDto;
 import motelRoom.dto.evaluation.EvaluationDetailDto;
