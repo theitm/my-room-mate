@@ -22,10 +22,10 @@ public class DocumentEntity {
     @Column(name = "room_id")
     private UUID roomId;
     @Column(name = "url_room")
-    private String urlRoom;
+    private String roomUrl;
     @Type(type = "uuid-char")
     @Column(name = "evaluation_id")
     private UUID evaluationId;
     @Column(name = "url_evaluation")
-    private String urlEvaluation;
+    private String evaluationUrl;
 }

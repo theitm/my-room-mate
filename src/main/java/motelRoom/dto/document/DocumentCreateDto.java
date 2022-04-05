@@ -8,7 +8,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DocumentCreateDto {
     private UUID roomId;
-    private String urlRoom;
+    private String roomUrl;
     private UUID evaluationId;
-    private String urlEvaluation;
+    private String evaluationUrl;
 }

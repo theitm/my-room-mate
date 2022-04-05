@@ -10,7 +10,7 @@ import java.util.UUID;
 public class DocumentDetailDto implements Serializable {
     private UUID documentId;
     private UUID roomId;
-    private String urlRoom;
+    private String roomUrl;
     private UUID evaluationId;
-    private String urlEvaluation;
+    private String evaluationUrl;
 }
