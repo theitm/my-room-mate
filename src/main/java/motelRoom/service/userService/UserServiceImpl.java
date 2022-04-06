@@ -1,5 +1,7 @@
 package motelRoom.service.userService;
 
+import freemarker.template.Configuration;
+import freemarker.template.TemplateException;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.entity.UserEntity;
@@ -12,17 +14,26 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService{
+    private static final String CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+    @Autowired
+    Configuration configuration; //config for freemarker
     @Autowired
     UserRepository userRepository;
     @Autowired
     JavaMailSender javaMailSender;
     @Autowired
     UserMapper userMapper;
+
     /**
      * Create 1 User
      */
@@ -44,13 +55,14 @@ public class UserServiceImpl implements UserService{
     public UserDetailDto findById(UUID id) {
         return userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
     }
+
     /**
      * Forgot Password
      * send new password to username(email)
      */
     @Override
     public String forgotPassword(String username) {
-        UserEntity entity = userRepository.findByUsername(username);
+        UserEntity entity = userRepository.findByUsername(username); //tìm user trong DB bằng username
         if (entity == null)
         {
             return null;
@@ -59,34 +71,49 @@ public class UserServiceImpl implements UserService{
         entity.setPassword(newPassword); //set new password
         userRepository.saveAndFlush(entity);
         try {
-            sendMail(username,newPassword); //send mail to email(username)
+            sendmail(entity, newPassword);
         } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return entity.getUsername();
     }
+
     /**
      * generate new password
      */
     String generateNewPassword()
     {
-        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%&";
         Random rnd = new Random();
         StringBuilder sb = new StringBuilder(8);
         for (int i = 0; i < 8; i++)
-            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+            sb.append(CHARS.charAt(rnd.nextInt(CHARS.length())));
         return sb.toString();
     }
+
     /**
      * send mail new password for user(email)
      */
-    void sendMail(String mail,String password) throws MessagingException {
-        MimeMessage mailMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper messageHelper = new MimeMessageHelper(mailMessage, true); //multipart true
-        messageHelper.setTo(mail); //set mailto
-        messageHelper.setSubject("Your new password");
-        messageHelper.setText("Hi <b>" + mail +"</b>" +
-                                "\nYour new password <p style=\"color:DeepSkyBlue\"><b>" + password + "</b></p>", true);
-        javaMailSender.send(mailMessage);
+    public void sendmail(UserEntity entity, String password) throws MessagingException, TemplateException, IOException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
+        helper.setSubject("Your new password");
+        helper.setTo(entity.getUsername()); //username is email
+        helper.setFrom("noreply@TroNhanh.xyz");
+        String content = getEmailContent(entity.getFullName(),password); //
+        helper.setText(content, true); //allow send HTML
+        javaMailSender.send(mimeMessage);
+    }
+    /**
+     * convert template and variable to string
+     */
+    String getEmailContent(String fullName,String password) throws IOException, TemplateException {
+        StringWriter stringWriter = new StringWriter();
+        Map<String, String> model = new HashMap<>(); //transmission data to template HTML
+        model.put("fullName", fullName);
+        model.put("password",password);
+        configuration.getTemplate("templateForgotPassword.ftlh").process(model,stringWriter);
+        return stringWriter.getBuffer().toString();
     }
 }
