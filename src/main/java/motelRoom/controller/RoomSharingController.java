@@ -51,6 +51,8 @@ public class RoomSharingController {
 //    public void updateRoomSharing(@RequestBody RoomSharingCreateDto roomSharingCreateDto, @PathVariable UUID sharing_id) {
 //        roomSharingService.updateRoomSharing(sharing_id, roomSharingCreateDto);
 //    }
+
+
     @PutMapping("/{sharing_id}")
     public ResponseEntity<RoomSharingDetailDto> update(@PathVariable UUID sharing_id,
                                                       @RequestBody RoomSharingDetailDto roomSharingDetailDto) {
@@ -58,6 +60,12 @@ public class RoomSharingController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingDetailDtoUpdate);
     }
 
+
+
+//    @PutMapping("/{sharing_id}")
+//    public void updateRoomSharing(@RequestBody RoomSharingDetailDto roomSharingDetailDto, @PathVariable UUID sharing_id) {
+//        roomSharingService.updateRoomSharing(sharing_id, roomSharingDetailDto);
+//    }
 
     @DeleteMapping("/{sharing_id}")
     public ResponseEntity deleteById(@PathVariable UUID sharing_id) {

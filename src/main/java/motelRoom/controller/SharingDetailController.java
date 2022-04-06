@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/sharing_detail")
+@RequestMapping("/sharing_detail")
 
 public class SharingDetailController {
 
@@ -58,5 +58,11 @@ public class SharingDetailController {
     public ResponseEntity deleteById(@PathVariable UUID sharing_detail_id) {
         sharingDetailService.deleteById(sharing_detail_id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+    @GetMapping("sharing_id/{sharing_id}")
+    public List<SharingDetailDetailDto> findSDBySharingId(@PathVariable UUID sharing_id)
+    {
+        return (sharingDetailService.findSDBySharingId(sharing_id));
     }
 }

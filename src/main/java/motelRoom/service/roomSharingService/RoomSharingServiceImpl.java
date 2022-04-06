@@ -5,12 +5,15 @@ import motelRoom.dto.roomSharing.RoomSharingDetailDto;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
 import motelRoom.entity.RoomSharingEntity;
+import motelRoom.entity.SharingDetailEntity;
 import motelRoom.mapper.RoomSharingMapper;
 import motelRoom.repository.RoomSharingRepository;
 import motelRoom.service.sharingDetailService.SharingDetailService;
+import motelRoom.service.sharingDetailService.SharingDetailServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -58,21 +61,28 @@ public class RoomSharingServiceImpl implements RoomSharingService{
         RoomSharingDetailDto roomSharingDetailDtoUpdate = roomSharingMapper.fromEntityToDto(roomSharingEntity);
         return roomSharingDetailDtoUpdate;
     }
-
-//    @Override
-//    public RoomSharingDetailDto updateRoomSharing(UUID sharing_id, RoomSharingCreateDto roomSharingCreateDto) {
-//        RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
-////        roomSharingEntity.setSharingDetails(null);
+//    public void updateRoomSharing(UUID sharing_id, RoomSharingDetailDto roomSharingDetailDto){
+//        RoomSharingEntity roomSharingEntity = roomSharingRepository.findById(sharing_id).orElse(null);
 //        roomSharingEntity.setSharing_id(sharing_id);
-//        roomSharingRepository.save(roomSharingEntity);
-//        RoomSharingDetailDto roomSharingDetailDto = roomSharingMapper.fromEntityToDto(roomSharingEntity);
-//        return roomSharingDetailDto;
+//        if(roomSharingEntity == null){
+//            return;
+//        }
+//        for (SharingDetailDetailDto sharingDetailDetailDto : roomSharingDetailDto.getSharingDetails()){
+//            sharingDetailDetailDto.setSharing_id(roomSharingEntity.getSharing_id());
+//            sharingDetailService.updateSharingDetail(sharing_id,sharingDetailDetailDto);
+//        }
+//        BeanUtils.copyProperties(roomSharingDetailDto, roomSharingEntity);
+//        roomSharingRepository.saveAndFlush(roomSharingEntity);
 //    }
 
 
     @Override
     public String deleteById(UUID sharing_id) {
-
+        RoomSharingEntity roomSharingEntity = new RoomSharingEntity();
+        for (SharingDetailEntity sharingDetailDetailDto : roomSharingEntity.getSharingDetails()){
+            sharingDetailDetailDto.setSharing_id(roomSharingEntity.getSharing_id());
+            sharingDetailService.deleteById(sharing_id);
+        }
         roomSharingRepository.deleteById(sharing_id);
         return "Deleted";
     }
@@ -82,10 +92,10 @@ public class RoomSharingServiceImpl implements RoomSharingService{
         RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
         RoomSharingEntity roomSharingCreateEntity = roomSharingRepository.save(roomSharingEntity);
         for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetails()){
+            sharingDetailCreateDto.setRole("Key");
             sharingDetailCreateDto.setSharing_id(roomSharingCreateEntity.getSharing_id());
             sharingDetailService.createSharingDetail(sharingDetailCreateDto);
         }
-
         return "Created";
     }
 }

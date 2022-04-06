@@ -73,9 +73,13 @@ public class SharingDetailServiceImpl implements SharingDetailService{
 
 
     @Override
-    public String deleteById(UUID sharing_detail_id) {
-
-        sharingDetailRepository.deleteById(sharing_detail_id);
+    public String deleteById(UUID sharing_id) {
+        sharingDetailRepository.deleteById(sharing_id);
         return "Deleted";
+    }
+
+    @Override
+    public List<SharingDetailDetailDto> findSDBySharingId(UUID sharing_id) {
+        return sharingDetailMapper.fromListEntityToDto(sharingDetailRepository.findSDBySharingId(sharing_id));
     }
 }

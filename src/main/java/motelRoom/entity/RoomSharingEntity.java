@@ -1,6 +1,7 @@
 package motelRoom.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -29,6 +30,7 @@ public class RoomSharingEntity {
     private UUID room_id;
 
     @OneToMany(fetch = FetchType.LAZY)
+    @Cascade(value= {org.hibernate.annotations.CascadeType.ALL, org.hibernate.annotations.CascadeType.DELETE})
     @JoinColumn(name = "sharing_id", referencedColumnName = "sharing_id", insertable=false, updatable=false)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

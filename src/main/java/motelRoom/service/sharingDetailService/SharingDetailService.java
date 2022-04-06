@@ -13,4 +13,5 @@ public interface SharingDetailService {
     List<SharingDetailDetailDto> findAll();
     SharingDetailDetailDto updateSharingDetail(UUID sharing_detail_id, SharingDetailDetailDto sharingDetailDetailDto);
     String deleteById(UUID sharing_detail_id);
+    List<SharingDetailDetailDto> findSDBySharingId(UUID sharing_id);
 }
