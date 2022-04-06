@@ -28,22 +28,10 @@ public class RoomServiceImpl implements RoomService {
         return roomDetailDto;
     }
 
-    /** Delete room by user_id */
-    @Override
-    public void deleteByUserId(UUID user_id) {
-        roomRepository.deleteById(user_id);
-    }
-
     /** Get by id */
     public RoomDetailDto findById(UUID id) {
         RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomRepository.getById(id));
         return roomDetailDto;
-    }
-
-    /** Get by user_id */
-    @Override
-    public List<RoomDetailDto> findByUserId(UUID user_id) {
-        return roomMapper.fromEntitíesToDto(roomRepository.findRoomByUserId(user_id));
     }
 
     /** Update room **/
