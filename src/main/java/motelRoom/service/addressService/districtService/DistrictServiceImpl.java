@@ -1,6 +1,7 @@
 package motelRoom.service.addressService.districtService;
 
 import motelRoom.dto.address.district.DistrictDetailDto;
+import motelRoom.dto.responseObject.CustomException;
 import motelRoom.mapper.addressMapper.DistrictMapper;
 import motelRoom.repository.addressRepository.DistrictRepository;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,12 @@ public class DistrictServiceImpl implements DistrictService {
      * @return
      */
     public DistrictDetailDto findById(Integer id){
-        DistrictDetailDto districtDetailDto = districtMapper.fromEntityToDetailDto(districtRepository.getById(id));
-        return districtDetailDto;
+        try {
+            return districtMapper.fromEntityToDetailDto(districtRepository.getById(id));
+        }
+        catch (Exception e)
+        {
+            throw new CustomException("can't find district with id: " + id);
+        }
     }
 }

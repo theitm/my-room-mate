@@ -1,6 +1,7 @@
 package motelRoom.service.addressService.wardService;
 
 import motelRoom.dto.address.ward.WardDetailDto;
+import motelRoom.dto.responseObject.CustomException;
 import motelRoom.mapper.addressMapper.WardMapper;
 import motelRoom.repository.addressRepository.WardRepository;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,13 @@ public class WardServiceImpl implements WardService{
      * @return
      */
     public WardDetailDto findById(Integer id){
-        WardDetailDto wardDetailDto = wardMapper.fromEntityToDetailDto(wardRepository.getById(id));
-        return wardDetailDto;
+
+        if(wardRepository.existsById(id))
+        {
+            return  wardMapper.fromEntityToDetailDto(wardRepository.getById(id));
+        }
+        else {
+            throw new CustomException("can't find ward with id: " + id);
+        }
     }
 }
