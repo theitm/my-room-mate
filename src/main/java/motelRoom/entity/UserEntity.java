@@ -51,4 +51,5 @@ public class UserEntity {
 
     @Column(name = "url_avatar")
     private String avatarUrl;
+
 }
