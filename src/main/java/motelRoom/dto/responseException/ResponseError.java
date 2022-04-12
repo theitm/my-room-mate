@@ -1,4 +1,4 @@
-package motelRoom.dto.responseObject;
+package motelRoom.dto.responseException;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

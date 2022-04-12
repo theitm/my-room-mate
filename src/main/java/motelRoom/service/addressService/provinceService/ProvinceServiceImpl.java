@@ -1,8 +1,7 @@
 package motelRoom.service.addressService.provinceService;
 
 import motelRoom.dto.address.province.ProvinceDetailDto;
-import motelRoom.dto.responseObject.CustomException;
-import motelRoom.dto.responseObject.ResponseError;
+import motelRoom.service.exceptionService.NotFoundException;
 import motelRoom.mapper.addressMapper.ProvinceMapper;
 import motelRoom.repository.addressRepository.ProvinceRepository;
 import org.springframework.stereotype.Service;
@@ -36,7 +35,7 @@ public class ProvinceServiceImpl implements ProvinceService {
         }
         catch (Exception e)
         {
-            throw new CustomException("can't find province with id: " + id);
+            throw new NotFoundException("can't find province with id: " + id);
         }
       }
 
