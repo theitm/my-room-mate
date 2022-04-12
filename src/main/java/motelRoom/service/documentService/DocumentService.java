@@ -15,5 +15,5 @@ public interface DocumentService {
     /**.....service find by room_id document...........**/
     List<DocumentDetailDto>finAllRoomId(UUID roomId);
     /**.....service update by id document...........**/
-    public void saveUpdate(UUID id, DocumentCreateDto createDto);
+    void saveUpdate(UUID id, DocumentCreateDto createDto);
 }
