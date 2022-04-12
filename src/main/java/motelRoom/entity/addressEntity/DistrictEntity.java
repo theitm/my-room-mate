@@ -20,13 +20,13 @@ public class DistrictEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="district_id")
-    private Integer district_id;
+    private int districtId;
     @Column(name="name_district")
-    private String name_district;
+    private String districtName;
     @Column(name="prefix_district")
-    private String prefix_district;
+    private String districtPrefix;
     @Column(name="province_id")
-    private String province_id;
+    private int provinceId;
 
     /**relationship many district one province**/
     @ManyToOne
