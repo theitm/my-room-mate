@@ -29,7 +29,7 @@ public class RoomSharingEntity {
     @Type( type = "uuid-char")
     private UUID room_id;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @Cascade(value= {org.hibernate.annotations.CascadeType.DELETE})
     @JoinColumn(name = "sharing_id", referencedColumnName = "sharing_id", insertable=false, updatable=false)
     @EqualsAndHashCode.Exclude

@@ -60,18 +60,6 @@ public class SharingDetailServiceImpl implements SharingDetailService{
         return sharingDetailDetailDtoUpdate;
     }
 
-
-//    @Override
-//    public void updateSharingDetail(UUID sharing_detail_id,SharingDetailCreateDto sharingDetailCreateDto) {
-//        SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailCreateDto(sharingDetailCreateDto);
-//        sharingDetailEntity.setSharing_detail_id(sharing_detail_id);
-//        sharingDetailRepository.save(sharingDetailEntity);
-//        SharingDetailDetailDto sharingDetailDetailDto = sharingDetailMapper.fromEntityToDto(sharingDetailEntity);
-//        return sharingDetailDetailDto;
-//    }
-
-
-
     @Override
     public String deleteById(UUID sharing_id) {
         sharingDetailRepository.deleteById(sharing_id);

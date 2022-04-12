@@ -1,6 +1,7 @@
 package motelRoom.controller;
 
 import motelRoom.dto.roomSharing.RoomSharingCreateDto;
+import motelRoom.dto.roomSharing.RoomSharingDetailDto;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
 import motelRoom.service.sharingDetailService.SharingDetailService;
@@ -22,31 +23,25 @@ public class SharingDetailController {
         this.sharingDetailService = sharingDetailService;
     }
 
-
+    /** Get all sharing_detail **/
     @GetMapping
     public List<SharingDetailDetailDto> findAll(){
         return sharingDetailService.findAll();
     }
 
+    /** Get sharing_detail by sharing_detail_id **/
     @GetMapping("/{sharing_detail_id}")
     public ResponseEntity<SharingDetailDetailDto> findById(@PathVariable UUID sharing_detail_id) {
         return ResponseEntity.ok(sharingDetailService.findById(sharing_detail_id));
     }
 
+    /** Create sharing_detail **/
     @PostMapping
     public ResponseEntity<SharingDetailDetailDto> addRoomSharing(@RequestBody SharingDetailCreateDto sharingDetailCreateDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailService.createSharingDetail(sharingDetailCreateDto));
     }
 
-//    @PutMapping("/{sharing_detail_id}")
-////    public ResponseEntity<SharingDetailDetailDto> updateSharingDetail(@PathVariable UUID sharing_detail_id, @RequestBody SharingDetailCreateDto sharingDetailCreateDto) {
-////        SharingDetailDetailDto sharingDetailDetailDto = sharingDetailService.updateSharingDetail(sharing_detail_id, sharingDetailCreateDto);
-////        return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailDetailDto);
-////    }
-//    public void updateSharingDetail(@RequestBody SharingDetailCreateDto sharingDetailCreateDto, @PathVariable UUID sharing_detail_id) {
-//        sharingDetailService.updateSharingDetail(sharing_detail_id, sharingDetailCreateDto);
-//    }
-
+    /** Update sharing_detail **/
     @PutMapping("/{sharing_detail_id}")
     public ResponseEntity<SharingDetailDetailDto> update(@PathVariable UUID sharing_detail_id,
                                                          @RequestBody SharingDetailDetailDto sharingDetailDetailDto) {
@@ -54,12 +49,14 @@ public class SharingDetailController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailDetailDtoUpdate);
     }
 
+    /** Delete sharing_detail by sharing_detail_id **/
     @DeleteMapping("/{sharing_detail_id}")
     public ResponseEntity deleteById(@PathVariable UUID sharing_detail_id) {
         sharingDetailService.deleteById(sharing_detail_id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
+    /** Get sharing_detail by sharing_id**/
     @GetMapping("sharing_id/{sharing_id}")
     public List<SharingDetailDetailDto> findSDBySharingId(@PathVariable UUID sharing_id)
     {

@@ -1,5 +1,6 @@
 package motelRoom.service.sharingDetailService;
 
+import motelRoom.dto.roomSharing.RoomSharingDetailDto;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
 
