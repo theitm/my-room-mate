@@ -1,6 +1,7 @@
 package motelRoom.service.addressService.provinceService;
 
 import motelRoom.dto.address.province.ProvinceDetailDto;
+import motelRoom.service.exceptionService.NotFoundException;
 import motelRoom.mapper.addressMapper.ProvinceMapper;
 import motelRoom.repository.addressRepository.ProvinceRepository;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,13 @@ public class ProvinceServiceImpl implements ProvinceService {
      * @return
      */
     public ProvinceDetailDto findById(Integer id){
-        ProvinceDetailDto provinceDetailDto = provinceMapper.fromEntityToDetailDto(provinceRepository.getById(id));
-        return provinceDetailDto;
-    }
+        try {
+            return provinceMapper.fromEntityToDetailDto(provinceRepository.getById(id));
+        }
+        catch (Exception e)
+        {
+            throw new NotFoundException("can't find province with id: " + id);
+        }
+      }
+
 }
