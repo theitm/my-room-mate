@@ -55,7 +55,7 @@ public class RoomSharingController {
 
     @PutMapping("/{sharing_id}")
     public ResponseEntity<RoomSharingDetailDto> update(@PathVariable UUID sharing_id,
-                                                      @RequestBody RoomSharingDetailDto roomSharingDetailDto) {
+                                                       @RequestBody RoomSharingDetailDto roomSharingDetailDto) {
         RoomSharingDetailDto roomSharingDetailDtoUpdate = roomSharingService.updateRoomSharing(sharing_id, roomSharingDetailDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingDetailDtoUpdate);
     }

@@ -49,7 +49,7 @@ public class SharingDetailController {
 
     @PutMapping("/{sharing_detail_id}")
     public ResponseEntity<SharingDetailDetailDto> update(@PathVariable UUID sharing_detail_id,
-                                                      @RequestBody SharingDetailDetailDto sharingDetailDetailDto) {
+                                                         @RequestBody SharingDetailDetailDto sharingDetailDetailDto) {
         SharingDetailDetailDto sharingDetailDetailDtoUpdate = sharingDetailService.updateSharingDetail(sharing_detail_id, sharingDetailDetailDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailDetailDtoUpdate);
     }

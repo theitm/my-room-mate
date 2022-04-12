@@ -10,6 +10,4 @@ import java.util.List;
 import java.util.UUID;
 @Repository
 public interface RoomSharingRepository extends JpaRepository<RoomSharingEntity, UUID> {
-//    @Query("SELECT u from SharingDetailEntity u where u.sharing_id = :id")
-//    List<RoomSharingEntity> findSD_idByRS(@Param("id") UUID sharing_id);
 }

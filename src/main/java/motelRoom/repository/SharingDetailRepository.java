@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.UUID;
 @Repository
 public interface SharingDetailRepository extends JpaRepository<SharingDetailEntity, UUID> {
-//    Integer deleteBySharingId(UUID sharing_id);
     @Query("SELECT u from SharingDetailEntity u where u.sharing_id = :sharing_detail_id")
     List<SharingDetailEntity> findSDBySharingId(@Param("sharing_detail_id") UUID sharing_id);
 }
