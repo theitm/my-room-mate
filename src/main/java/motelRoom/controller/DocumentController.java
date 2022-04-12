@@ -1,9 +1,7 @@
 package motelRoom.controller;
 import motelRoom.dto.document.DocumentCreateDto;
 import motelRoom.dto.document.DocumentDetailDto;
-import motelRoom.dto.documentError.DocumentError;
 import motelRoom.dto.documentError.ResponseObject;
-import motelRoom.dto.responseException.ResponseError;
 import motelRoom.entity.DocumentEntity;
 import motelRoom.repository.DocumentRepository;
 import motelRoom.service.documentService.DocumentService;
@@ -42,27 +40,32 @@ public class DocumentController {
     }
     /**.....post document...........**/
     @PostMapping
-    ResponseEntity<ResponseObject> insertProduct(@RequestBody DocumentCreateDto documentCreateDto) {
-        //2 products must not have the same name !
-        List<DocumentEntity> foundProducts = repository.finByDocumentURL(documentCreateDto.getRoomUrl().trim());
-        if(foundProducts.size() > 0) {
-            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
-                    new ResponseObject("Failed", "Document name already taken", "")
-            );
-        }
+    ResponseEntity<ResponseObject> insertDocument(@RequestBody DocumentCreateDto documentCreateDto) {
+        if (documentCreateDto.getRoomId() != null && documentCreateDto.getRoomUrl() != null &&
+                documentCreateDto.getEvaluationId() != null && documentCreateDto.getEvaluationUrl() != null)
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("OK", "Insert Document successfully", documentService.createDocument(documentCreateDto))
+                new ResponseObject("OK", "Insert Document Successfully", documentService.createDocument(documentCreateDto))
         );
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                new ResponseObject("Failed", "Document Value Passed Is Empty", ""));
     }
     /**.....put document...........**/
     @PutMapping("/{id}")
-    public String update(@RequestBody DocumentCreateDto documentCreateDto, @PathVariable UUID id) {
-        documentService.saveUpdate(id ,documentCreateDto);
-        return "Update successfully: " +id;
+     ResponseEntity <ResponseObject> updateDocument(@RequestBody DocumentCreateDto documentCreateDto, @PathVariable UUID id ) {
+        Optional<DocumentEntity> createDto = repository.findById(id);
+        if (createDto.isPresent()) {
+            documentService.saveUpdate(id, documentCreateDto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
+                    new ResponseObject("Failed", "Document Value Passed Is Empty", ""));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("Ok", "PUT Document Successfully", documentCreateDto));
     }
     /**.....delete document...........**/
     @DeleteMapping("/delete/{id}")
-    public void deleteDocument(@PathVariable(name = "id") UUID id){
+    public String deleteDocument(@PathVariable(name = "id") UUID id){
         documentService.deleteById(id);
+        return "Delete successfully: " +id;
     }
 }
