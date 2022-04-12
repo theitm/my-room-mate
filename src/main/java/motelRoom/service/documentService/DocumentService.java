@@ -13,7 +13,7 @@ public interface DocumentService {
     /**.....service delete by id document...........**/
     void deleteById(UUID id);
     /**.....service find by room_id document...........**/
-    List<DocumentDetailDto>finAllRoomId(UUID roomId);
+    List<DocumentDetailDto> finAllRoomId(UUID roomId);
     /**.....service update by id document...........**/
     void saveUpdate(UUID id, DocumentCreateDto createDto);
 }

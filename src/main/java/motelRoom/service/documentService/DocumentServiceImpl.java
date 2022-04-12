@@ -5,6 +5,7 @@ import motelRoom.dto.document.DocumentDetailDto;
 import motelRoom.entity.DocumentEntity;
 import motelRoom.mapper.DocumentMapper;
 import motelRoom.repository.DocumentRepository;
+import motelRoom.service.exceptionService.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,13 @@ public class DocumentServiceImpl implements DocumentService {
     /**.....serviceimpl delete by id document...........**/
     @Override
     public void deleteById(UUID id) {
-        documentRepository.deleteById(id);
+        try {
+            documentRepository.deleteById(id);
+        }
+        catch (Exception e)
+        {
+            throw new NotFoundException("can't delete document with id: " + id);
+        }
     }
     /**.....serviceimpl find by room_id document...........**/
     @Override
