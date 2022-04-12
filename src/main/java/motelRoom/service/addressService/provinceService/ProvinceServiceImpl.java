@@ -5,7 +5,6 @@ import motelRoom.service.exceptionService.NotFoundException;
 import motelRoom.mapper.addressMapper.ProvinceMapper;
 import motelRoom.repository.addressRepository.ProvinceRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -17,7 +16,6 @@ public class ProvinceServiceImpl implements ProvinceService {
         this.provinceRepository = provinceRepository;
         this.provinceMapper = provinceMapper;
     }
-
     /**
      * Show list provinces
      * @return
@@ -38,5 +36,4 @@ public class ProvinceServiceImpl implements ProvinceService {
             throw new NotFoundException("can't find province with id: " + id);
         }
       }
-
 }
