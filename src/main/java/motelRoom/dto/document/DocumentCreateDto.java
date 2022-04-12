@@ -1,19 +1,14 @@
 package motelRoom.dto.document;
-
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-
+import java.util.UUID;
+@Data
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class DocumentCreateDto {
-
-
-    private String room_id;
-    private String  url_room;
-    private String evaluation_id;
-    private String  url_evaluation;
+    private UUID roomId;
+    private String roomUrl;
+    private UUID evaluationId;
+    private String evaluationUrl;
 }

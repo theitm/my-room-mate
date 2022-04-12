@@ -1,44 +1,45 @@
 package motelRoom.controller;
-
-
 import motelRoom.dto.document.DocumentCreateDto;
 import motelRoom.dto.document.DocumentDetailDto;
-import motelRoom.entity.DocumentEntity;
 import motelRoom.repository.DocumentRepository;
 import motelRoom.service.documentService.DocumentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.UUID;
 @RestController
-@RequestMapping(value = "/Document")
+@RequestMapping(value = "/document")
 public class DocumentController {
-
     private final DocumentService documentService;
-    private final DocumentRepository repository;
-
     public DocumentController(DocumentService documentService, DocumentRepository repository) {
         this.documentService = documentService;
-
-        this.repository = repository;
     }
-
+    /**.....get all document...........**/
     @GetMapping
     public List<DocumentDetailDto> findAll(){
         return documentService.findAll();
     }
-
+    /**.....get all by id document...........**/
+    @GetMapping("/{roomId}")
+    public List<DocumentDetailDto> findById(@PathVariable UUID roomId){
+        return (documentService.finAllRoomId(roomId));
+    }
+    /**.....post document...........**/
     @PostMapping
-    public ResponseEntity<DocumentDetailDto> create(@RequestBody DocumentCreateDto documentCreateDto){
+    public ResponseEntity<DocumentDetailDto> createDocument(@RequestBody DocumentCreateDto documentCreateDto){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(documentService.createDocument(documentCreateDto));
     }
-
-    @GetMapping("/{room_id}")
-    public List<DocumentDetailDto> findById(@PathVariable String room_id){
-        return (documentService.finAllRoomId(room_id));
+    /**.....put document...........**/
+    @PutMapping("/{id}")
+    public String update(@RequestBody DocumentCreateDto documentCreateDto, @PathVariable UUID id) {
+        documentService.saveUpdate(id ,documentCreateDto);
+        return "Update successfully: " +id;
     }
-
-
+    /**.....delete document...........**/
+    @DeleteMapping("/delete/{id}")
+    public String deleteDocument(@PathVariable(name = "id") UUID id){
+        documentService.deleteById(id);
+        return "Delete successfully: " +id;
+    }
 }
