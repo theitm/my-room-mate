@@ -4,6 +4,7 @@ import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.entity.RoomEntity;
 import motelRoom.mapper.RoomMapper;
 import motelRoom.repository.RoomRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
@@ -37,11 +38,13 @@ public class RoomServiceImpl implements RoomService {
     /** Update room **/
     @Override
     public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto){
-        RoomEntity roomEntity = roomMapper.fromDtoCreateEntity(roomCreateDto);
-        roomEntity.setRoomId(id);
-        roomRepository.save(roomEntity);
-        RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity);
-        return roomDetailDto;
+        RoomEntity roomEntity = roomRepository.findById(id).orElse(null);
+        if(roomEntity == null){
+            return null;
+        }
+        BeanUtils.copyProperties(roomCreateDto, roomEntity);
+        roomRepository.saveAndFlush(roomEntity);
+        return roomMapper.fromEntityToDetailDto(roomEntity);
     }
 
     /** Delete room **/
