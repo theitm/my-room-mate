@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.UUID;
 
@@ -17,6 +16,12 @@ public class UserServiceJWT implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Override phương thức trong class UserDetailsService
+     * @param username
+     * @return UserDetailsImpl là implements của UserDetails (UserDetails là đối tượng Spring security sử dụng để authen và authorize)
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username){
         /**Kiểm tra xem user có tồn tại hay không?*/
@@ -26,6 +31,7 @@ public class UserServiceJWT implements UserDetailsService {
         }
         return new CustomUserDetails(userEntity);
     }
+
     /** JWTAuthenticationFilter sẽ sử dụng hàm này*/
     @Transactional
     public UserDetails loadUserById(UUID id) {

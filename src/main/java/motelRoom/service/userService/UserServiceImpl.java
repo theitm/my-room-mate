@@ -2,7 +2,6 @@ package motelRoom.service.userService;
 
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
-
 import motelRoom.dto.user.UserLogin;
 import motelRoom.entity.UserEntity;
 import motelRoom.mapper.UserMapper;
@@ -42,20 +41,19 @@ public class UserServiceImpl implements UserService {
         return userDetailDto;
     }
 
-
     /**
      * lấy thông tin 1 User theo id
      */
     @Override
     public UserDetailDto findById(UUID id) {
-        UserDetailDto userDetailDto= userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
-        return userDetailDto;
+        return userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
     }
 
+    /**
+     * lấy thông tin tất cả tài khoản User theo id
+     */
     @Override
     public List<UserLogin> findAllACC() {
         return userMapper.fromListDtoToEntity(userRepository.findAll());
     }
-
-
 }

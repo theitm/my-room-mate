@@ -4,13 +4,13 @@ import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import motelRoom.service.userService.CustomUserDetails;
 import org.springframework.stereotype.Component;
-
 import java.util.Date;
 import java.util.UUID;
 
 @Component
 @Slf4j
 public class JwtTokenProvider {
+
     private final String JWT_SECRET = "lodaaaaaa";
 
     /** Thời gian có hiệu lực của chuỗi jwt*/
@@ -28,6 +28,7 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
                 .compact();
     }
+
     /***Lấy thông tin user từ jwt**/
     public UUID getUserIdFromJWT(String token){
         Claims claims = Jwts.parser()
@@ -36,18 +37,20 @@ public class JwtTokenProvider {
                 .getBody();
         return UUID.fromString(claims.getSubject());
     }
+
+     /** check token */
     public boolean validateToken(String authToken){
         try {
             Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);
             return true;
         } catch (MalformedJwtException ex) {
-            log.error("Invalid JWT token");
+            log.error("Invalid JWT token: {}", ex.getMessage());
         } catch (ExpiredJwtException ex) {
-            log.error("Expired JWT token");
+            log.error("Expired JWT token: {}", ex.getMessage());
         } catch (UnsupportedJwtException ex) {
-            log.error("Unsupported JWT token");
+            log.error("Unsupported JWT token: {}", ex.getMessage());
         } catch (IllegalArgumentException ex) {
-            log.error("JWT claims string is empty.");
+            log.error("JWT claims string is empty: {}", ex.getMessage());
         }
         return false;
     }

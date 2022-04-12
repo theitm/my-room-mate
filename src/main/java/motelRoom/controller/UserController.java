@@ -16,8 +16,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -25,11 +23,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
     @Autowired
     AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtTokenProvider tokenProvider;
+    JwtTokenProvider tokenProvider;
 
     private final UserService userService;
 
@@ -38,9 +37,8 @@ public class UserController {
     }
 
     /** ---------------- GET USER BY ID ------------------------ */
-    @GetMapping("/info/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id){
-        //viet them de test commit
         return ResponseEntity.ok(userService.findById(id));
     }
 
@@ -53,7 +51,6 @@ public class UserController {
     /** ---------------- CREATE NEW USER ------------------------ */
     @PostMapping("/signup")
     public ResponseEntity<UserDetailDto> createUser(@RequestBody UserCreateDto userCreateDto) {
-        //avahshj
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
