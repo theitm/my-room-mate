@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.UUID;
-
 
 @Data
 @AllArgsConstructor
@@ -16,21 +14,20 @@ import java.util.UUID;
 @Builder
 @Table(name = "sharing_detail")
 public class SharingDetailEntity {
-
     @Id
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "sharing_detail_id", columnDefinition = "CHAR(40)")
     @Type(type = "uuid-char")
-    private UUID sharing_detail_id;
+    private UUID sharingDetailId;
 
     @Column( name = "sharing_id")
     @Type( type = "uuid-char")
-    private UUID sharing_id;
+    private UUID sharingId;
 
     @Column( name = "user_id")
     @Type( type = "uuid-char")
-    private UUID user_id;
+    private UUID userId;
 
     @Column(name = "roles")
     private String role;;

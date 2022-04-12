@@ -13,12 +13,10 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/sharing_detail")
+@RequestMapping("/sharingDetail")
 
 public class SharingDetailController {
-
     private final SharingDetailService sharingDetailService;
-
     public SharingDetailController(SharingDetailService sharingDetailService) {
         this.sharingDetailService = sharingDetailService;
     }
@@ -30,9 +28,9 @@ public class SharingDetailController {
     }
 
     /** Get sharing_detail by sharing_detail_id **/
-    @GetMapping("/{sharing_detail_id}")
-    public ResponseEntity<SharingDetailDetailDto> findById(@PathVariable UUID sharing_detail_id) {
-        return ResponseEntity.ok(sharingDetailService.findById(sharing_detail_id));
+    @GetMapping("/{sharingDetailId}")
+    public ResponseEntity<SharingDetailDetailDto> findById(@PathVariable UUID sharingDetailId) {
+        return ResponseEntity.ok(sharingDetailService.findById(sharingDetailId));
     }
 
     /** Create sharing_detail **/
@@ -42,24 +40,24 @@ public class SharingDetailController {
     }
 
     /** Update sharing_detail **/
-    @PutMapping("/{sharing_detail_id}")
-    public ResponseEntity<SharingDetailDetailDto> update(@PathVariable UUID sharing_detail_id,
+    @PutMapping("/{sharingDetailId}")
+    public ResponseEntity<SharingDetailDetailDto> update(@PathVariable UUID sharingDetailId,
                                                          @RequestBody SharingDetailDetailDto sharingDetailDetailDto) {
-        SharingDetailDetailDto sharingDetailDetailDtoUpdate = sharingDetailService.updateSharingDetail(sharing_detail_id, sharingDetailDetailDto);
+        SharingDetailDetailDto sharingDetailDetailDtoUpdate = sharingDetailService.updateSharingDetail(sharingDetailId, sharingDetailDetailDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailDetailDtoUpdate);
     }
 
     /** Delete sharing_detail by sharing_detail_id **/
-    @DeleteMapping("/{sharing_detail_id}")
-    public ResponseEntity deleteById(@PathVariable UUID sharing_detail_id) {
-        sharingDetailService.deleteById(sharing_detail_id);
+    @DeleteMapping("/{sharingDetailId}")
+    public ResponseEntity deleteById(@PathVariable UUID sharingDetailId) {
+        sharingDetailService.deleteById(sharingDetailId);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
     /** Get sharing_detail by sharing_id**/
-    @GetMapping("sharing_id/{sharing_id}")
-    public List<SharingDetailDetailDto> findSDBySharingId(@PathVariable UUID sharing_id)
+    @GetMapping("sharingId/{sharingId}")
+    public List<SharingDetailDetailDto> findSDBySharingId(@PathVariable UUID sharingId)
     {
-        return (sharingDetailService.findSDBySharingId(sharing_id));
+        return (sharingDetailService.findSDBySharingId(sharingId));
     }
 }

@@ -1,7 +1,6 @@
 package motelRoom.dto.sharingDetail;
 
 import lombok.*;
-
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -10,8 +9,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SharingDetailCreateDto implements Serializable {
-    private UUID sharing_id;
-    private UUID user_id;
+    private UUID sharingId;
+    private UUID userId;
     private String role;;
-
 }

@@ -10,9 +10,7 @@ import java.util.List;
 @Mapper
 public interface SharingDetailMapper {
     SharingDetailEntity fromSharingDetailCreateDto(SharingDetailCreateDto sharingDetailCreateDto);
-
     SharingDetailDetailDto fromEntityToDto (SharingDetailEntity sharingDetailEntity);
     List<SharingDetailDetailDto> fromListEntityToDto(List<SharingDetailEntity> sharingDetailEntities);
-
     SharingDetailEntity fromSharingDetailUpdateDto(SharingDetailDetailDto sharingDetailDetailDto);
 }

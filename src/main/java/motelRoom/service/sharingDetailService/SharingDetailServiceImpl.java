@@ -2,24 +2,21 @@ package motelRoom.service.sharingDetailService;
 
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
-import motelRoom.entity.RoomSharingEntity;
 import motelRoom.entity.SharingDetailEntity;
 import motelRoom.mapper.SharingDetailMapper;
 import motelRoom.repository.SharingDetailRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
+
 @Service
 public class SharingDetailServiceImpl implements SharingDetailService{
-
     @Autowired
     private final SharingDetailRepository sharingDetailRepository;
+
     @Autowired
     private final SharingDetailMapper sharingDetailMapper;
-
     public SharingDetailServiceImpl(SharingDetailRepository sharingDetailRepository,
                                     SharingDetailMapper sharingDetailMapper) {
         this.sharingDetailRepository = sharingDetailRepository;
@@ -38,8 +35,8 @@ public class SharingDetailServiceImpl implements SharingDetailService{
     }
 
     @Override
-    public SharingDetailDetailDto findById(UUID sharing_detail_id) {
-        SharingDetailDetailDto sharingDetailDetailDto = sharingDetailMapper.fromEntityToDto(sharingDetailRepository.getById(sharing_detail_id));
+    public SharingDetailDetailDto findById(UUID sharingDetailId) {
+        SharingDetailDetailDto sharingDetailDetailDto = sharingDetailMapper.fromEntityToDto(sharingDetailRepository.getById(sharingDetailId));
         return sharingDetailDetailDto;
     }
 
@@ -49,9 +46,9 @@ public class SharingDetailServiceImpl implements SharingDetailService{
     }
 
     @Override
-    public SharingDetailDetailDto updateSharingDetail(UUID sharing_detail_id, SharingDetailDetailDto sharingDetailDetailDto) {
+    public SharingDetailDetailDto updateSharingDetail(UUID sharingDetailId, SharingDetailDetailDto sharingDetailDetailDto) {
         SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailUpdateDto(sharingDetailDetailDto);
-        sharingDetailEntity.setSharing_detail_id(sharing_detail_id);
+        sharingDetailEntity.setSharingDetailId(sharingDetailId);
         if(sharingDetailEntity == null){
             return null;
         }
@@ -61,13 +58,13 @@ public class SharingDetailServiceImpl implements SharingDetailService{
     }
 
     @Override
-    public String deleteById(UUID sharing_id) {
-        sharingDetailRepository.deleteById(sharing_id);
+    public String deleteById(UUID sharingDetailId) {
+        sharingDetailRepository.deleteById(sharingDetailId);
         return "Deleted";
     }
 
     @Override
-    public List<SharingDetailDetailDto> findSDBySharingId(UUID sharing_id) {
-        return sharingDetailMapper.fromListEntityToDto(sharingDetailRepository.findSDBySharingId(sharing_id));
+    public List<SharingDetailDetailDto> findSDBySharingId(UUID sharingId) {
+        return sharingDetailMapper.fromListEntityToDto(sharingDetailRepository.findSDBySharingId(sharingId));
     }
 }
