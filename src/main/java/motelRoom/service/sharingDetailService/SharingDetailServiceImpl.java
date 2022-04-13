@@ -63,8 +63,4 @@ public class SharingDetailServiceImpl implements SharingDetailService{
         return "Deleted";
     }
 
-    @Override
-    public List<SharingDetailDetailDto> findSDBySharingId(UUID sharingId) {
-        return sharingDetailMapper.fromListEntityToDto(sharingDetailRepository.findSDBySharingId(sharingId));
-    }
 }

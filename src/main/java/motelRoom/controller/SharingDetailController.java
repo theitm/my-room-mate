@@ -1,7 +1,5 @@
 package motelRoom.controller;
 
-import motelRoom.dto.roomSharing.RoomSharingCreateDto;
-import motelRoom.dto.roomSharing.RoomSharingDetailDto;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
 import motelRoom.service.sharingDetailService.SharingDetailService;
@@ -52,12 +50,5 @@ public class SharingDetailController {
     public ResponseEntity deleteById(@PathVariable UUID sharingDetailId) {
         sharingDetailService.deleteById(sharingDetailId);
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-    }
-
-    /** Get sharing_detail by sharing_id**/
-    @GetMapping("sharingId/{sharingId}")
-    public List<SharingDetailDetailDto> findSDBySharingId(@PathVariable UUID sharingId)
-    {
-        return (sharingDetailService.findSDBySharingId(sharingId));
     }
 }

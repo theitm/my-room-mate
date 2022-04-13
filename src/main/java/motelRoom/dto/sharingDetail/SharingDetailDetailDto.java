@@ -11,6 +11,6 @@ import java.util.UUID;
 public class SharingDetailDetailDto implements Serializable {
     private UUID sharingDetailId;
     private UUID sharingId;
-    private UUID userId;
+    private UUID user_id;
     private String role;;
 }

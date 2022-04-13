@@ -25,7 +25,7 @@ public class RoomSharingEntity {
 
     @Column( name = "room_id")
     @Type( type = "uuid-char")
-    private UUID roomId;
+    private UUID room_id;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @Cascade(value= {org.hibernate.annotations.CascadeType.DELETE})

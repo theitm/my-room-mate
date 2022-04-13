@@ -11,6 +11,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomSharingCreateDto implements Serializable {
-    private UUID roomId;
+    private UUID room_id;
     private List<SharingDetailCreateDto> sharingDetails;
 }
