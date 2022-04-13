@@ -56,13 +56,13 @@ public class DocumentServiceImpl implements DocumentService {
     }
     /**.....serviceimpl update by id document...........**/
     @Override
-    public void saveUpdate(UUID id, DocumentCreateDto createDto) {
-        DocumentEntity entity = documentRepository.findById(id).orElse(null);
-        if(entity == null){
-            return;
+    public DocumentDetailDto saveUpdate(UUID id, DocumentCreateDto createDto) {
+        DocumentEntity documentEntity = documentRepository.findById(id).orElse(null);
+        if (documentEntity == null) {
+            return null;
         }
-        BeanUtils.copyProperties(createDto, entity);
-        documentRepository.saveAndFlush(entity);
+        BeanUtils.copyProperties(createDto, documentEntity);
+        documentRepository.saveAndFlush(documentEntity);
+        return mapper.fromEntityToDto(documentEntity);
     }
-
 }

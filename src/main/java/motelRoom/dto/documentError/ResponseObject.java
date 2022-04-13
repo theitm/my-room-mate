@@ -1,14 +1,9 @@
 package motelRoom.dto.documentError;
 
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Setter
+@Data
 @NoArgsConstructor
-@Getter
 @AllArgsConstructor
 public class ResponseObject {
     private String status;

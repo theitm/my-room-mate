@@ -8,7 +8,6 @@ import java.util.UUID;
 @Table(name = "document")
 @Data
 @Builder
-@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class DocumentEntity {
