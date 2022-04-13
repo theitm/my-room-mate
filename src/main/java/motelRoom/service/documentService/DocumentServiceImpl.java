@@ -19,7 +19,6 @@ public class DocumentServiceImpl implements DocumentService {
     @Autowired
     private final DocumentMapper mapper;
     public DocumentServiceImpl(DocumentRepository documentRepository, DocumentMapper mapper) {
-
         this.documentRepository = documentRepository;
         this.mapper = mapper;
     }
