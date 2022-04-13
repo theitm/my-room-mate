@@ -1,10 +1,10 @@
 package motelRoom.dto.room;
 
 import lombok.Data;
-
 import java.io.Serializable;
 import java.util.UUID;
 @Data
+
 public class RoomCreateDto implements Serializable {
     private UUID user_id;
     private Integer province_id;
@@ -16,3 +16,4 @@ public class RoomCreateDto implements Serializable {
     private String description_room;
     private Integer status_room;
 }
+

@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.Date;
-
 
 @Setter
 @Getter
@@ -16,8 +14,6 @@ import java.util.Date;
 public class UserDetailDto implements Serializable {
 
     private String username;
-
-    private String password;
 
     private String role;
 
@@ -31,5 +27,5 @@ public class UserDetailDto implements Serializable {
 
     private String fb;
 
-    private String urlAvatar;
+    private String avatarUrl;
 }
