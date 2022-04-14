@@ -6,8 +6,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DocumentCreateDto {
-    private UUID roomId;
-    private String roomUrl;
-    private UUID evaluationId;
-    private String evaluationUrl;
+    private UUID typeId;
+    private String typeUrl;
 }

@@ -12,8 +12,8 @@ public interface DocumentService {
     List<DocumentDetailDto> findAll();
     /**.....service delete by id document...........**/
     void deleteById(UUID id);
-    /**.....service find by room_id document...........**/
-    List<DocumentDetailDto> finAllRoomId(UUID roomId);
+    /**.....service find by typeID document...........**/
+    List<DocumentDetailDto> finAllTypeId(UUID typeId);
     /**.....service update by id document...........**/
     DocumentDetailDto saveUpdate(UUID id, DocumentCreateDto createDto);
 }

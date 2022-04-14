@@ -8,8 +8,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DocumentDetailDto implements Serializable {
     private UUID documentId;
-    private UUID roomId;
-    private String roomUrl;
-    private UUID evaluationId;
-    private String evaluationUrl;
+    private UUID typeId;
+    private String typeUrl;
 }
