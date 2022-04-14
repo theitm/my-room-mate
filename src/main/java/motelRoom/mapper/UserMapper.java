@@ -14,5 +14,5 @@ public interface UserMapper {
 
     UserDetailDto fromUserEntityToUserCrateDto (UserEntity userEntity);
 
-    List<UserLogin> fromListDtoToEntity(List<UserEntity> userEntities);
+    List<UserLogin> fromListDtosToEntities(List<UserEntity> userEntities);
 }

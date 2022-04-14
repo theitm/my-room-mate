@@ -7,7 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserLogin{
-
     private String username;
     private String password;
 }
