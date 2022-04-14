@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: my_roommate_db
+-- Host: localhost    Database: my_roommate_db
 -- ------------------------------------------------------
 -- Server version	8.0.28
 
@@ -51,16 +51,10 @@ DROP TABLE IF EXISTS `document`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `document` (
-  `doccument_id` varchar(40) NOT NULL,
-  `room_id` varchar(40) DEFAULT NULL,
-  `url_room` varchar(255) NOT NULL,
-  `evaluation_id` varchar(40) DEFAULT NULL,
-  `url_evaluation` varchar(255) NOT NULL,
-  PRIMARY KEY (`doccument_id`),
-  KEY `fk15` (`evaluation_id`),
-  KEY `fk16` (`room_id`),
-  CONSTRAINT `fk15` FOREIGN KEY (`evaluation_id`) REFERENCES `evaluation` (`evaluation_id`),
-  CONSTRAINT `fk16` FOREIGN KEY (`room_id`) REFERENCES `table_room` (`room_id`)
+                            `doccument_id` varchar(40) NOT NULL,
+                            `type_id` varchar(40) DEFAULT NULL,
+                            `type_url` varchar(255) NOT NULL,
+                            PRIMARY KEY (`doccument_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -70,7 +64,7 @@ CREATE TABLE `document` (
 
 LOCK TABLES `document` WRITE;
 /*!40000 ALTER TABLE `document` DISABLE KEYS */;
-INSERT INTO `document` VALUES ('0cded3ea-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002','Anhroom1.png','5ee8e48e-b182-11ec-b909-0242ac120002','DanhGiaRoom1.png'),('6a2b909c-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002','Anh2room1.png','d839fd82-b182-11ec-b909-0242ac120002','Danh1GiaRoom1.png'),('6f8d107e-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002','Anh3room1.png','dc7917f2-b182-11ec-b909-0242ac120002','Danh2GiaRoom1.png');
+INSERT INTO `document` VALUES ('0cded3ea-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002','Anhquanpro123.png'),('6a2b909c-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002','Anh2room1.png'),('6f8d107e-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002','Anh3room1.png'),('c350129a-c15b-4c33-91ad-4439cfd0611a','08cf7798-b182-11ec-b909-0242ac120002','Anh3.png');
 /*!40000 ALTER TABLE `document` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,17 +76,17 @@ DROP TABLE IF EXISTS `evaluation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `evaluation` (
-  `evaluation_id` varchar(40) NOT NULL,
-  `room_id` varchar(40) DEFAULT NULL,
-  `user_id` varchar(40) DEFAULT NULL,
-  `rate` float DEFAULT NULL,
-  `comment_rate` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `time_rate` datetime DEFAULT NULL,
-  PRIMARY KEY (`evaluation_id`),
-  KEY `fk7` (`user_id`),
-  KEY `fk8` (`room_id`),
-  CONSTRAINT `fk7` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`),
-  CONSTRAINT `fk8` FOREIGN KEY (`room_id`) REFERENCES `table_room` (`room_id`)
+                              `evaluation_id` varchar(40) NOT NULL,
+                              `room_id` varchar(40) DEFAULT NULL,
+                              `user_id` varchar(40) DEFAULT NULL,
+                              `rate` float DEFAULT NULL,
+                              `comment_rate` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+                              `time_rate` datetime DEFAULT NULL,
+                              PRIMARY KEY (`evaluation_id`),
+                              KEY `fk7` (`user_id`),
+                              KEY `fk8` (`room_id`),
+                              CONSTRAINT `fk7` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`),
+                              CONSTRAINT `fk8` FOREIGN KEY (`room_id`) REFERENCES `table_room` (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -107,6 +101,39 @@ INSERT INTO `evaluation` VALUES ('5ee8e48e-b182-11ec-b909-0242ac120002','6b20a12
 UNLOCK TABLES;
 
 --
+-- Table structure for table `flyway_schema_history`
+--
+
+DROP TABLE IF EXISTS `flyway_schema_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `flyway_schema_history` (
+                                         `installed_rank` int NOT NULL,
+                                         `version` varchar(50) DEFAULT NULL,
+                                         `description` varchar(200) NOT NULL,
+                                         `type` varchar(20) NOT NULL,
+                                         `script` varchar(1000) NOT NULL,
+                                         `checksum` int DEFAULT NULL,
+                                         `installed_by` varchar(100) NOT NULL,
+                                         `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                         `execution_time` int NOT NULL,
+                                         `success` tinyint(1) NOT NULL,
+                                         PRIMARY KEY (`installed_rank`),
+                                         KEY `flyway_schema_history_s_idx` (`success`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `flyway_schema_history`
+--
+
+LOCK TABLES `flyway_schema_history` WRITE;
+/*!40000 ALTER TABLE `flyway_schema_history` DISABLE KEYS */;
+INSERT INTO `flyway_schema_history` VALUES (1,'1','<< Flyway Baseline >>','BASELINE','<< Flyway Baseline >>',NULL,'root','2022-04-14 03:27:07',0,1);
+/*!40000 ALTER TABLE `flyway_schema_history` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `province`
 --
 
@@ -114,10 +141,10 @@ DROP TABLE IF EXISTS `province`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `province` (
-  `province_id` int NOT NULL,
-  `name_province` varchar(50) DEFAULT NULL,
-  `code_province` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`province_id`)
+                            `province_id` int NOT NULL,
+                            `name_province` varchar(50) DEFAULT NULL,
+                            `code_province` varchar(20) DEFAULT NULL,
+                            PRIMARY KEY (`province_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -139,11 +166,11 @@ DROP TABLE IF EXISTS `room_sharing`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `room_sharing` (
-  `sharing_id` varchar(40) NOT NULL,
-  `room_id` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`sharing_id`),
-  KEY `fk10` (`room_id`),
-  CONSTRAINT `fk10` FOREIGN KEY (`room_id`) REFERENCES `table_room` (`room_id`)
+                                `sharing_id` varchar(40) NOT NULL,
+                                `room_id` varchar(40) DEFAULT NULL,
+                                PRIMARY KEY (`sharing_id`),
+                                KEY `fk10` (`room_id`),
+                                CONSTRAINT `fk10` FOREIGN KEY (`room_id`) REFERENCES `table_room` (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -165,15 +192,15 @@ DROP TABLE IF EXISTS `sharing_detail`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `sharing_detail` (
-  `sharing_detail_id` varchar(40) NOT NULL,
-  `sharing_id` varchar(40) DEFAULT NULL,
-  `user_id` varchar(40) DEFAULT NULL,
-  `roles` enum('Key','Member') DEFAULT NULL,
-  PRIMARY KEY (`sharing_detail_id`),
-  KEY `fk11` (`sharing_id`),
-  KEY `fk12` (`user_id`),
-  CONSTRAINT `fk11` FOREIGN KEY (`sharing_id`) REFERENCES `room_sharing` (`sharing_id`),
-  CONSTRAINT `fk12` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`)
+                                  `sharing_detail_id` varchar(40) NOT NULL,
+                                  `sharing_id` varchar(40) DEFAULT NULL,
+                                  `user_id` varchar(40) DEFAULT NULL,
+                                  `roles` enum('Key','Member') DEFAULT NULL,
+                                  PRIMARY KEY (`sharing_detail_id`),
+                                  KEY `fk11` (`sharing_id`),
+                                  KEY `fk12` (`user_id`),
+                                  CONSTRAINT `fk11` FOREIGN KEY (`sharing_id`) REFERENCES `room_sharing` (`sharing_id`),
+                                  CONSTRAINT `fk12` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -195,25 +222,25 @@ DROP TABLE IF EXISTS `table_room`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_room` (
-  `room_id` varchar(40) NOT NULL,
-  `user_id` varchar(40) DEFAULT NULL,
-  `province_id` int DEFAULT NULL,
-  `district_id` int DEFAULT NULL,
-  `ward_id` int DEFAULT NULL,
-  `street` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `price` float NOT NULL,
-  `capacity` float NOT NULL,
-  `description_room` varchar(20000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `status_room` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`room_id`),
-  KEY `fk3` (`user_id`),
-  KEY `fk4` (`province_id`),
-  KEY `fk5` (`district_id`),
-  KEY `fk6` (`ward_id`),
-  CONSTRAINT `fk3` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`),
-  CONSTRAINT `fk4` FOREIGN KEY (`province_id`) REFERENCES `province` (`province_id`),
-  CONSTRAINT `fk5` FOREIGN KEY (`district_id`) REFERENCES `district` (`district_id`),
-  CONSTRAINT `fk6` FOREIGN KEY (`ward_id`) REFERENCES `ward` (`ward_id`)
+                              `room_id` varchar(40) NOT NULL,
+                              `user_id` varchar(40) DEFAULT NULL,
+                              `province_id` int DEFAULT NULL,
+                              `district_id` int DEFAULT NULL,
+                              `ward_id` int DEFAULT NULL,
+                              `street` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                              `price` float NOT NULL,
+                              `capacity` float NOT NULL,
+                              `description_room` varchar(20000) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                              `status_room` tinyint(1) DEFAULT NULL,
+                              PRIMARY KEY (`room_id`),
+                              KEY `fk3` (`user_id`),
+                              KEY `fk4` (`province_id`),
+                              KEY `fk5` (`district_id`),
+                              KEY `fk6` (`ward_id`),
+                              CONSTRAINT `fk3` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`),
+                              CONSTRAINT `fk4` FOREIGN KEY (`province_id`) REFERENCES `province` (`province_id`),
+                              CONSTRAINT `fk5` FOREIGN KEY (`district_id`) REFERENCES `district` (`district_id`),
+                              CONSTRAINT `fk6` FOREIGN KEY (`ward_id`) REFERENCES `ward` (`ward_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -235,17 +262,17 @@ DROP TABLE IF EXISTS `table_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `table_user` (
-  `user_id` varchar(40) NOT NULL,
-  `username` varchar(45) NOT NULL,
-  `passwords` varchar(255) NOT NULL,
-  `roles` varchar(45) NOT NULL,
-  `full_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `birth_date` date DEFAULT NULL,
-  `phone_number` char(11) NOT NULL,
-  `gender` tinyint(1) DEFAULT NULL,
-  `fb` varchar(255) DEFAULT NULL,
-  `url_avatar` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+                              `user_id` varchar(40) NOT NULL,
+                              `username` varchar(45) NOT NULL,
+                              `passwords` varchar(255) NOT NULL,
+                              `roles` varchar(45) NOT NULL,
+                              `full_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+                              `birth_date` date DEFAULT NULL,
+                              `phone_number` char(11) NOT NULL,
+                              `gender` tinyint(1) DEFAULT NULL,
+                              `fb` varchar(255) DEFAULT NULL,
+                              `url_avatar` varchar(255) DEFAULT NULL,
+                              PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -258,6 +285,7 @@ LOCK TABLES `table_user` WRITE;
 INSERT INTO `table_user` VALUES ('09deb984-b180-11ec-b909-0242ac120002','hoaprono1','hoaratlapro','Chu Tro','Nguyen Van Hoa','2000-10-09','0972388403',1,'https://www.facebook.com/hoa.210596','anh1.png'),('c1ff7878-b180-11ec-b909-0242ac120002','tayprono1','hoaratlapro','Nguoi thue','Nguyen Van Tay','2000-10-08','0972388402',1,'https://www.facebook.com/hoa.210596','anh2.png'),('d5a59cf4-b180-11ec-b909-0242ac120002','trucprono1','hoaratlapro','Nguoi thue','Nguyen Van Truc','2000-10-07','0972388430',0,'https://www.facebook.com/hoa.210596','anh3.png'),('d941a178-b180-11ec-b909-0242ac120002','tuongrono1','hoaratlapro','Nguoi thue','Nguyen Van Tuong','2000-10-06','0972388405',1,'https://www.facebook.com/hoa.210596','anh4.png'),('de4ac9a6-b180-11ec-b909-0242ac120002','tramprono1','hoaratlapro','Nguoi thue','Nguyen Van Tram','2000-10-05','0972388406',0,'https://www.facebook.com/hoa.210596','anh5.png'),('e35d7ce0-b180-11ec-b909-0242ac120002','haiprono1','hoaratlapro','Nguoi thue','Nguyen Van Hai','2000-10-04','0972388407',1,'https://www.facebook.com/hoa.210596','anh6.png');
 /*!40000 ALTER TABLE `table_user` ENABLE KEYS */;
 UNLOCK TABLES;
+
 --
 -- Table structure for table `waiting_list`
 --
@@ -266,14 +294,14 @@ DROP TABLE IF EXISTS `waiting_list`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `waiting_list` (
-  `waiting_list_id` varchar(40) NOT NULL,
-  `user_id` varchar(40) DEFAULT NULL,
-  `room_id` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`waiting_list_id`),
-  KEY `fk13` (`user_id`),
-  KEY `fk14` (`room_id`),
-  CONSTRAINT `fk13` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`),
-  CONSTRAINT `fk14` FOREIGN KEY (`room_id`) REFERENCES `table_room` (`room_id`)
+                                `waiting_list_id` varchar(40) NOT NULL,
+                                `user_id` varchar(40) DEFAULT NULL,
+                                `room_id` varchar(40) DEFAULT NULL,
+                                PRIMARY KEY (`waiting_list_id`),
+                                KEY `fk13` (`user_id`),
+                                KEY `fk14` (`room_id`),
+                                CONSTRAINT `fk13` FOREIGN KEY (`user_id`) REFERENCES `table_user` (`user_id`),
+                                CONSTRAINT `fk14` FOREIGN KEY (`room_id`) REFERENCES `table_room` (`room_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -295,15 +323,17 @@ DROP TABLE IF EXISTS `ward`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ward` (
-  `ward_id` int NOT NULL,
-  `name_ward` varchar(50) DEFAULT NULL,
-  `prefix_ward` varchar(20) DEFAULT NULL,
-  `province_id` int DEFAULT NULL,
-  `district_id` int DEFAULT NULL,
-  PRIMARY KEY (`ward_id`),
-  KEY `fk_war_district` (`province_id`),
-  CONSTRAINT `fk_war_district` FOREIGN KEY (`province_id`) REFERENCES `province` (`province_id`),
-  CONSTRAINT `fk_ward_province` FOREIGN KEY (`province_id`) REFERENCES `province` (`province_id`)
+                        `ward_id` int NOT NULL,
+                        `name_ward` varchar(50) DEFAULT NULL,
+                        `prefix_ward` varchar(20) DEFAULT NULL,
+                        `province_id` int DEFAULT NULL,
+                        `district_id` int DEFAULT NULL,
+                        PRIMARY KEY (`ward_id`),
+                        KEY `fk_war_district` (`province_id`),
+                        KEY `FKslko72wj5nauqvsgefqkvwpsb` (`district_id`),
+                        CONSTRAINT `fk_war_district` FOREIGN KEY (`province_id`) REFERENCES `province` (`province_id`),
+                        CONSTRAINT `fk_ward_province` FOREIGN KEY (`province_id`) REFERENCES `province` (`province_id`),
+                        CONSTRAINT `FKslko72wj5nauqvsgefqkvwpsb` FOREIGN KEY (`district_id`) REFERENCES `district` (`district_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -326,4 +356,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-14  7:10:47
+-- Dump completed on 2022-04-14 10:28:29
