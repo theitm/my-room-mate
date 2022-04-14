@@ -31,11 +31,11 @@ public class DocumentController {
         List<DocumentDetailDto> roomID = documentService.finAllTypeId(typeId);
         if(roomID.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("Failed", "Room ID Name Does Not Exist", "")
+                    new ResponseObject("Failed", "Type ID Name Does Not Exist", "")
             );
         }
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("OK", " Room ID successfully", documentService.finAllTypeId(typeId))
+                new ResponseObject("OK", " Type ID successfully", documentService.finAllTypeId(typeId))
         );
     }
     /**.....post document...........**/
