@@ -45,7 +45,7 @@ public class UserController {
     /** ---------------- GET ALL USER ------------------------ */
     @GetMapping("/acc")
     public List<UserLogin> findAll(){
-        return userService.findAllACC();
+        return userService.findAllAcc();
     }
 
     /** ---------------- CREATE NEW USER ------------------------ */
