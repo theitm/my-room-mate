@@ -4,6 +4,7 @@ import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.entity.RoomEntity;
 import motelRoom.mapper.RoomMapper;
 import motelRoom.repository.RoomRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
@@ -28,32 +29,22 @@ public class RoomServiceImpl implements RoomService {
         return roomDetailDto;
     }
 
-    /** Delete room by user_id */
-    @Override
-    public void deleteByUserId(UUID user_id) {
-        roomRepository.deleteById(user_id);
-    }
-
     /** Get by id */
     public RoomDetailDto findById(UUID id) {
         RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomRepository.getById(id));
         return roomDetailDto;
     }
 
-    /** Get by user_id */
-    @Override
-    public List<RoomDetailDto> findByUserId(UUID user_id) {
-        return roomMapper.fromEntitíesToDto(roomRepository.findRoomByUserId(user_id));
-    }
-
     /** Update room **/
     @Override
     public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto){
-        RoomEntity roomEntity = roomMapper.fromDtoCreateEntity(roomCreateDto);
-        roomEntity.setRoom_id(id);
-        roomRepository.save(roomEntity);
-        RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity);
-        return roomDetailDto;
+        RoomEntity roomEntity = roomRepository.findById(id).orElse(null);
+        if(roomEntity == null){
+            return null;
+        }
+        BeanUtils.copyProperties(roomCreateDto, roomEntity);
+        roomRepository.saveAndFlush(roomEntity);
+        return roomMapper.fromEntityToDetailDto(roomEntity);
     }
 
     /** Delete room **/
@@ -63,6 +54,6 @@ public class RoomServiceImpl implements RoomService {
 
     /** Get all room **/
     public List<RoomDetailDto> findAll() {
-        return roomMapper.fromEntitíesToDto(roomRepository.findAll());
+        return roomMapper.fromEntitíesToDtos(roomRepository.findAll());
     }
 }
