@@ -2,15 +2,16 @@ package motelRoom.controller;
 
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
-import motelRoom.entity.UserEntity;
-import motelRoom.mapper.UserMapper;
 import motelRoom.repository.UserRepository;
 import motelRoom.service.userService.UserService;
 
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,33 +25,48 @@ public class UserController {
     }
 
 
-/** ---------------- CREATE NEW COUNTRY ------------------------ */
+
+    @Autowired
+    private UserRepository userRepository;
+
+
+    /**
+     * ---------------- CREATE NEW USER ------------------------
+     */
     @PostMapping
     public ResponseEntity<UserDetailDto> create(@RequestBody UserCreateDto userCreateDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
-    /** ---------------- GET COUNTRY BY ID ------------------------ */
+    /**
+     * ---------------- GET USER BY ID ------------------------
+     */
     @GetMapping("/{user_id}")
     public ResponseEntity<UserDetailDto> findById(@PathVariable UUID user_id) {
         return ResponseEntity.ok(userService.findById(user_id));
     }
 
-    /** ---------------- UPDATE COUNTRY ------------------------ */
+    /**
+     * ---------------- UPDATE USER ------------------------
+     */
     @PutMapping("/{id}")
     public ResponseEntity<UserDetailDto> update(@PathVariable UUID id,
-                                                   @RequestBody UserCreateDto userCreateDto) {
-        UserDetailDto userDetailDto = userService.updateUser(id, userCreateDto);
+                                                @RequestBody UserDetailDto userDetailDto) {
+         userDetailDto = userService.updateUser(id, userDetailDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userDetailDto);
     }
 
-    /** ---------------- GET ALL COUNTRY ------------------------ */
+    /**
+     * ---------------- GET ALL USER ------------------------
+     */
     @GetMapping
     public List<UserDetailDto> findAll() {
         return userService.findAll();
     }
 
-    /** ---------------- DELETE COUNTRY BY ID ------------------------ */
+    /**
+     * ---------------- DELETE USER BY ID ------------------------
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity deleteById(@PathVariable UUID id) {
         userService.deleteById(id);

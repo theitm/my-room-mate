@@ -1,5 +1,10 @@
 package motelRoom.service.userService;
 
+import com.sun.xml.bind.v2.schemagen.XmlSchemaGenerator;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import motelRoom.dto.user.UserCreateDto;
@@ -8,7 +13,10 @@ import motelRoom.entity.UserEntity;
 import motelRoom.mapper.UserMapper;
 import motelRoom.repository.UserRepository;
 
+
+import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -21,9 +29,12 @@ public class UserServiceImpl implements UserService{
         this.userMapper = userMapper;
     }
 
+    @Autowired
+    JavaMailSender javaMailSender;
+
     /**
-     * Hiện user theo ID
-     * @param id
+     * get user by ID
+     * @param user_id
      * @return
      */
     public UserDetailDto findById(UUID user_id) {
@@ -32,7 +43,7 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * Hiện danh sách các user
+     * get all user
      * @return
      */
     public List<UserDetailDto> findAll() {
@@ -40,39 +51,47 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * Tạo một user mới
+     * create new user
+     * Account name does not match
      * @param userCreateDto
      * @return
      */
+ @Override
     public UserDetailDto createUser(UserCreateDto userCreateDto) {
+        String username = userCreateDto.getUsername();
+        UserEntity entity = userRepository.findByUsername(username);
 
-        UserEntity userEntity = userMapper.fromUserCreateDto(userCreateDto);
-        UserEntity userEntityCreate = userRepository.save(userEntity);
-        UserDetailDto userDetailDto =null;
-        if(userEntityCreate != null) {
-            userDetailDto = userMapper.fromEntityToDto(userEntityCreate);
+        if (entity == null ) {
+            //userDetailDto = userMapper.fromEntityToDto(userEntityCreate);
+            UserEntity userEntity = userMapper.fromUserCreateDto(userCreateDto);
+            UserEntity userEntityCreate = userRepository.save(userEntity);
+            //ok
         }
-        return userDetailDto;
+            return null;
+
     }
     /**
-     * Cập nhập một user theo id
+     * update user by id
      * @param
      * @return
      */
-    public  UserDetailDto updateUser(UUID id ,  UserCreateDto  userCreateDto) {
-        UserEntity userEntity = userMapper.fromUserCreateDto(userCreateDto);
-        userEntity.setUser_id(id);
-        userRepository.save(userEntity);
-        UserDetailDto userDetailDto = userMapper.fromEntityToDto(userEntity);
+    @Override
+    public  UserDetailDto updateUser(UUID id ,  UserDetailDto userDetailDto) {
+        UserEntity userEntity = userRepository.findById(id).orElse(null);
+        if(userEntity == null){
+            return null;
+        }
+        BeanUtils.copyProperties(userDetailDto, userEntity);
+        userRepository.saveAndFlush(userEntity);
+        userDetailDto = userMapper.fromEntityToDto(userEntity);
         return userDetailDto;
     }
     /**
-     * Xóa một user theo id
+     * delete user by id
      * @param
      * @return
      */
     public void deleteById(UUID id) {
         userRepository.deleteById(id);
     }
-
 }
