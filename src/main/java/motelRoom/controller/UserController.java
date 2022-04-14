@@ -21,11 +21,6 @@ public class UserController {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    /** ---------------- CREATE NEW USER ------------------------ */
-    @PostMapping("/signup")
-    public ResponseEntity<UserDetailDto> createUser(@RequestBody UserCreateDto userCreateDto) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
-    }
     /** ---------------- Forgot Password ------------------------ */
     @PutMapping("/ForgotPassword/{username}")
     public String ForgotPassword(@PathVariable(name = "username") String username)

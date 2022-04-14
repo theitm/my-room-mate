@@ -37,20 +37,6 @@ public class UserServiceImpl implements UserService{
     UserMapper userMapper;
 
     /**
-     * Create 1 User
-     */
-    @Override
-    public UserDetailDto createUser(UserCreateDto userCreateDto) {
-        UserEntity userEntity = userMapper.fromUserEntityCreateDtoToEntity(userCreateDto);
-        UserEntity createdUser = userRepository.save(userEntity);
-        UserDetailDto userDetailDto =null;
-        if (createdUser != null) {
-            userDetailDto = userMapper.fromUserEntityToUserCrateDto(createdUser);
-        }
-        return userDetailDto;
-    }
-
-    /**
      * get 1 User by id
      */
     @Override
@@ -60,30 +46,28 @@ public class UserServiceImpl implements UserService{
 
     /**
      * Forgot Password
-     * send new password to username(email)
+     * send random new password to username(email)
      */
     @Override
     public String forgotPassword(String username) {
         UserEntity entity = userRepository.findByUsername(username); //tìm user trong DB bằng username
         if (entity == null)
         {
-            return null;
+            throw new NotFoundException("Not find user");
         }
         String newPassword = generateNewPassword(); //generate new password
         entity.setPassword(newPassword); //set new password
         userRepository.saveAndFlush(entity);
         try {
             sendmail(entity, newPassword);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
+        } catch (MessagingException | TemplateException | IOException e) {
             e.printStackTrace();
         }
         return entity.getUsername();
     }
 
     /**
-     * generate new password
+     * generate random new password
      */
     String generateNewPassword()
     {
@@ -102,11 +86,11 @@ public class UserServiceImpl implements UserService{
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage);
         helper.setSubject("Your new password");
         helper.setTo(entity.getUsername()); //username is email
-        helper.setFrom("noreply@TroNhanh.xyz");
         String content = getEmailContent(entity.getFullName(),password); //
         helper.setText(content, true); //allow send HTML
         javaMailSender.send(mimeMessage);
     }
+
     /**
      * convert template and variable to string
      */

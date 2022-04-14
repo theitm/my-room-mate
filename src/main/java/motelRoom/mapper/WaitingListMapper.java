@@ -8,7 +8,10 @@ import java.util.List;
 
 @Mapper
 public interface WaitingListMapper {
+    /**.....map Waiting List CreateDto to Waiting List Entity...........**/
     WaitingListEntity fromDtoCreateEntity(WaitingListCreateDto waitingListCreateDto);
+    /**.....map Waiting List Entity to Waiting List DetailDto...........**/
     WaitingListDetailDto fromEntityToDetailDto(WaitingListEntity waitingListEntity);
+    /**.....map List Entity to List Detail Dto...........**/
     List<WaitingListDetailDto> fromEntitiesToDto(List<WaitingListEntity> waitingListEntities);
 }
