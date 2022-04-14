@@ -49,10 +49,10 @@ public class DocumentServiceImpl implements DocumentService {
             throw new NotFoundException("can't delete document with id: " + id);
         }
     }
-    /**.....serviceimpl find by room_id document...........**/
+    /**.....serviceimpl find by typeId document...........**/
     @Override
-    public List<DocumentDetailDto> finAllRoomId(UUID roomId) {
-        return mapper.fromListEntityToDto(documentRepository.queryFindByIdRoom(roomId));
+    public List<DocumentDetailDto> finAllTypeId(UUID typeId) {
+        return mapper.fromListEntityToDto(documentRepository.queryFindByTypeId(typeId));
     }
     /**.....serviceimpl update by id document...........**/
     @Override

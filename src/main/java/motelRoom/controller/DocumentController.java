@@ -26,23 +26,22 @@ public class DocumentController {
         return documentService.findAll();
     }
     /**.....get all by id document...........**/
-    @GetMapping("/{roomId}")
-    public ResponseEntity<ResponseObject> getById(@PathVariable UUID roomId){
-        List<DocumentDetailDto> roomID = documentService.finAllRoomId(roomId);
+    @GetMapping("/{typeId}")
+    public ResponseEntity<ResponseObject> getById(@PathVariable UUID typeId){
+        List<DocumentDetailDto> roomID = documentService.finAllTypeId(typeId);
         if(roomID.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject("Failed", "Room ID Name Does Not Exist", "")
             );
         }
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("OK", " Room ID successfully", documentService.finAllRoomId(roomId))
+                new ResponseObject("OK", " Room ID successfully", documentService.finAllTypeId(typeId))
         );
     }
     /**.....post document...........**/
     @PostMapping
     ResponseEntity<ResponseObject> insertDocument(@RequestBody DocumentCreateDto documentCreateDto) {
-        if (documentCreateDto.getRoomId() != null && documentCreateDto.getRoomUrl() != null &&
-                documentCreateDto.getEvaluationId() != null && documentCreateDto.getEvaluationUrl() != null)
+        if (documentCreateDto.getTypeId() != null && documentCreateDto.getTypeUrl() != null)
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("OK", "Insert Document Successfully", documentService.createDocument(documentCreateDto))
         );

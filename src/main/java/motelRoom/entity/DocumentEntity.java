@@ -18,13 +18,8 @@ public class DocumentEntity {
     @Type(type = "uuid-char")
     private UUID documentId;
     @Type(type = "uuid-char")
-    @Column(name = "room_id")
-    private UUID roomId;
-    @Column(name = "url_room")
-    private String roomUrl;
-    @Type(type = "uuid-char")
-    @Column(name = "evaluation_id")
-    private UUID evaluationId;
-    @Column(name = "url_evaluation")
-    private String evaluationUrl;
+    @Column(name = "type_id")
+    private UUID typeId;
+    @Column(name = "type_url")
+    private String typeUrl;
 }
