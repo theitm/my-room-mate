@@ -33,11 +33,13 @@ public class DocumentServiceImpl implements DocumentService {
         }
         return documentDetailDto;
     }
+
     /**.....serviceimpl  show list all document...........**/
     @Override
     public List<DocumentDetailDto> findAll() {
-        return mapper.fromListEntityToDto(documentRepository.findAll());
+        return mapper.fromListEntitiesToDtos(documentRepository.findAll());
     }
+
     /**.....serviceimpl delete by id document...........**/
     @Override
     public void deleteById(UUID id) {
@@ -49,11 +51,13 @@ public class DocumentServiceImpl implements DocumentService {
             throw new NotFoundException("can't delete document with id: " + id);
         }
     }
+
     /**.....serviceimpl find by typeId document...........**/
     @Override
     public List<DocumentDetailDto> finAllTypeId(UUID typeId) {
-        return mapper.fromListEntityToDto(documentRepository.findAllByTypeId(typeId));
+        return mapper.fromListEntitiesToDtos(documentRepository.findAllByTypeId(typeId));
     }
+
     /**.....serviceimpl update by id document...........**/
     @Override
     public DocumentDetailDto saveUpdate(UUID id, DocumentCreateDto createDto) {

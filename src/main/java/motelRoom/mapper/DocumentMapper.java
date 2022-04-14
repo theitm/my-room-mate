@@ -7,6 +7,6 @@ import java.util.List;
 @Mapper
 public interface DocumentMapper {
     DocumentEntity fromDocumentCreateDto(DocumentCreateDto documentCreateDto);
-    DocumentDetailDto fromEntityToDto (DocumentEntity documentEntity);
-    List<DocumentDetailDto> fromListEntityToDto(List<DocumentEntity> documentEntities);
+    DocumentDetailDto fromEntityToDto(DocumentEntity documentEntity);
+    List<DocumentDetailDto> fromListEntitiesToDtos(List<DocumentEntity> documentEntities);
 }
