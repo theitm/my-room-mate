@@ -52,7 +52,7 @@ public class DocumentServiceImpl implements DocumentService {
     /**.....serviceimpl find by typeId document...........**/
     @Override
     public List<DocumentDetailDto> finAllTypeId(UUID typeId) {
-        return mapper.fromListEntityToDto(documentRepository.queryFindByTypeId(typeId));
+        return mapper.fromListEntityToDto(documentRepository.findAllByTypeId(typeId));
     }
     /**.....serviceimpl update by id document...........**/
     @Override
