@@ -13,5 +13,5 @@ public interface UserService {
 
     UserDetailDto findById(UUID id);
 
-    List<UserLogin> findAllACC();
+    List<UserLogin> findAllAcc();
 }

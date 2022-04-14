@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
      * lấy thông tin tất cả tài khoản User theo id
      */
     @Override
-    public List<UserLogin> findAllACC() {
-        return userMapper.fromListDtoToEntity(userRepository.findAll());
+    public List<UserLogin> findAllAcc() {
+        return userMapper.fromListDtosToEntities(userRepository.findAll());
     }
 }
