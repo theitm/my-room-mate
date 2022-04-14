@@ -23,6 +23,9 @@ public class SharingDetailServiceImpl implements SharingDetailService{
         this.sharingDetailMapper = sharingDetailMapper;
     }
 
+    /**
+     * Create SharingDetail
+     **/
     @Override
     public SharingDetailDetailDto createSharingDetail(SharingDetailCreateDto sharingDetailCreateDto) {
         SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailCreateDto(sharingDetailCreateDto);
@@ -34,17 +37,26 @@ public class SharingDetailServiceImpl implements SharingDetailService{
         return sharingDetailDetailDto;
     }
 
+    /**
+     * Show SharingDetail by id
+     **/
     @Override
     public SharingDetailDetailDto findById(UUID sharingDetailId) {
         SharingDetailDetailDto sharingDetailDetailDto = sharingDetailMapper.fromEntityToDto(sharingDetailRepository.getById(sharingDetailId));
         return sharingDetailDetailDto;
     }
 
+    /**
+     * Show list SharingDetail
+     **/
     @Override
     public List<SharingDetailDetailDto> findAll() {
         return sharingDetailMapper.fromListEntityToDto(sharingDetailRepository.findAll());
     }
 
+    /**
+     * Update SharingDetail by id
+     **/
     @Override
     public SharingDetailDetailDto updateSharingDetail(UUID sharingDetailId, SharingDetailDetailDto sharingDetailDetailDto) {
         SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailUpdateDto(sharingDetailDetailDto);
@@ -57,6 +69,9 @@ public class SharingDetailServiceImpl implements SharingDetailService{
         return sharingDetailDetailDtoUpdate;
     }
 
+    /**
+     * Delete SharingDetail by id
+     **/
     @Override
     public String deleteById(UUID sharingDetailId) {
         sharingDetailRepository.deleteById(sharingDetailId);

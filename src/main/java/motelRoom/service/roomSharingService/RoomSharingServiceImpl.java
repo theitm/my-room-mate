@@ -6,6 +6,7 @@ import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.entity.RoomSharingEntity;
 import motelRoom.mapper.RoomSharingMapper;
 import motelRoom.repository.RoomSharingRepository;
+import motelRoom.service.exceptionService.NotAcceptable;
 import motelRoom.service.sharingDetailService.SharingDetailService;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -24,22 +25,37 @@ public class RoomSharingServiceImpl implements RoomSharingService{
         this.sharingDetailService = sharingDetailService;
     }
 
+    /**
+     * Show RoomSharing by sharingId
+     **/
     @Override
     public RoomSharingDetailDto findById(UUID sharingId) {
-        RoomSharingDetailDto roomSharingDetailDto = roomSharingMapper.fromEntityToDto(roomSharingRepository.getById(sharingId));
-        return roomSharingDetailDto;
+        try {
+            RoomSharingDetailDto roomSharingDetailDto = roomSharingMapper.fromEntityToDto(roomSharingRepository.getById(sharingId));
+            return roomSharingDetailDto;
+        }
+        catch (Exception e)
+        {
+            throw new NotAcceptable("can't find RoomSharing with id: " + sharingId);
+        }
     }
 
+    /**
+     * Show list RoomSharing
+     **/
     @Override
     public List<RoomSharingDetailDto> getAllRoomSharing() {
         return roomSharingMapper.fromListEntityToDto(roomSharingRepository.findAll());
     }
 
+    /**
+     * Update RoomSharing by sharingId
+     **/
     @Override
     public RoomSharingDetailDto updateRoomSharing(UUID sharingId, RoomSharingDetailDto roomSharingDetailDto) {
         RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingDetailDto);
         roomSharingEntity.setSharingId(sharingId);
-        if(roomSharingEntity == null){
+        if (roomSharingEntity == null) {
             return null;
         }
         roomSharingRepository.save(roomSharingEntity);
@@ -47,12 +63,24 @@ public class RoomSharingServiceImpl implements RoomSharingService{
         return roomSharingDetailDtoUpdate;
     }
 
+    /**
+     * Delete RoomSharing by sharingId
+     **/
     @Override
     public String deleteById(UUID sharingId) {
-        roomSharingRepository.deleteById(sharingId);
-        return "Deleted";
+        try {
+            roomSharingRepository.deleteById(sharingId);
+            return "Deleted";
+        }
+        catch (Exception e)
+        {
+            throw new NotAcceptable("can't find RoomSharing with id: " + sharingId +" to delete!");
+        }
     }
 
+    /**
+     * Create RoomSharing
+     **/
     @Override
     public String createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
         RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
