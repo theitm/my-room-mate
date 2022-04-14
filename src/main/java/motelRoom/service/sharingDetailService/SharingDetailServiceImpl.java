@@ -51,7 +51,7 @@ public class SharingDetailServiceImpl implements SharingDetailService{
      **/
     @Override
     public List<SharingDetailDetailDto> findAll() {
-        return sharingDetailMapper.fromListEntityToDto(sharingDetailRepository.findAll());
+        return sharingDetailMapper.fromListEntitiesToDtos(sharingDetailRepository.findAll());
     }
 
     /**

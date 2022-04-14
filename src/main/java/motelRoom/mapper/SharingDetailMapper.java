@@ -11,6 +11,6 @@ import java.util.List;
 public interface SharingDetailMapper {
     SharingDetailEntity fromSharingDetailCreateDto(SharingDetailCreateDto sharingDetailCreateDto);
     SharingDetailDetailDto fromEntityToDto (SharingDetailEntity sharingDetailEntity);
-    List<SharingDetailDetailDto> fromListEntityToDto(List<SharingDetailEntity> sharingDetailEntities);
+    List<SharingDetailDetailDto> fromListEntitiesToDtos(List<SharingDetailEntity> sharingDetailEntities);
     SharingDetailEntity fromSharingDetailUpdateDto(SharingDetailDetailDto sharingDetailDetailDto);
 }
