@@ -45,7 +45,7 @@ public class RoomSharingServiceImpl implements RoomSharingService{
      **/
     @Override
     public List<RoomSharingDetailDto> getAllRoomSharing() {
-        return roomSharingMapper.fromListEntityToDto(roomSharingRepository.findAll());
+        return roomSharingMapper.fromListEntitiesToDtos(roomSharingRepository.findAll());
     }
 
     /**

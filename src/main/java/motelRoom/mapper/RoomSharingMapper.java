@@ -10,7 +10,7 @@ import java.util.List;
 public interface RoomSharingMapper {
     RoomSharingEntity fromRoomSharingCreateDto(RoomSharingCreateDto roomSharingCreateDto);
     RoomSharingDetailDto fromEntityToDto(RoomSharingEntity roomSharingEntity);
-    List<RoomSharingDetailDto> fromListEntityToDto (List<RoomSharingEntity> roomSharingEntities);
+    List<RoomSharingDetailDto> fromListEntitiesToDtos (List<RoomSharingEntity> roomSharingEntities);
     RoomSharingEntity fromRoomSharingCreateDto(RoomSharingDetailDto roomSharingDetailDto);
 
 }
