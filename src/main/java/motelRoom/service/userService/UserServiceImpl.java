@@ -2,7 +2,6 @@ package motelRoom.service.userService;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
-import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.entity.UserEntity;
 import motelRoom.mapper.UserMapper;
@@ -13,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
+import org.apache.commons.validator.routines.EmailValidator;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
@@ -50,6 +49,9 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public String forgotPassword(String username) {
+        if(!isValidEmail(username)) {
+            throw new BadRequestException("Email address is not valid");
+        };
         UserEntity entity = userRepository.findByUsername(username); //tìm user trong DB bằng username
         if (entity == null)
         {
@@ -64,6 +66,16 @@ public class UserServiceImpl implements UserService{
             e.printStackTrace();
         }
         return entity.getUsername();
+    }
+
+    /**
+     * validator email
+     * @param email
+     * @return
+     */
+    public static boolean isValidEmail(String email) {
+        EmailValidator validator = EmailValidator.getInstance();
+        return validator.isValid(email);
     }
 
     /**
