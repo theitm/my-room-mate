@@ -1,23 +1,43 @@
 package motelRoom.controller;
 
+
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.repository.UserRepository;
 import motelRoom.service.userService.UserService;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+
+
+import motelRoom.JWT.JwtTokenProvider;
+import motelRoom.JWT.LoginResponse;
+import motelRoom.JWT.RandomStuff;
+
+import motelRoom.dto.user.UserLogin;
+import motelRoom.service.userService.CustomUserDetails;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import javax.validation.Valid;
+
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/user")
+@RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    JwtTokenProvider tokenProvider;
+
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -25,52 +45,47 @@ public class UserController {
     }
 
 
+    /** ---------------- GET USER BY ID ------------------------ */
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id){
+        return ResponseEntity.ok(userService.findById(id));
+    }
 
-    @Autowired
-    private UserRepository userRepository;
+    /** ---------------- GET ALL USER ------------------------ */
+    @GetMapping("/acc")
+    public List<UserLogin> findAll(){
+        return userService.findAllAcc();
+    }
 
-
-    /**
-     * ---------------- CREATE NEW USER ------------------------
-     */
-    @PostMapping
-    public ResponseEntity<UserDetailDto> create(@RequestBody UserCreateDto userCreateDto) {
+    /** ---------------- CREATE NEW USER ------------------------ */
+    @PostMapping("/signup")
+    public ResponseEntity<UserDetailDto> createUser(@RequestBody UserCreateDto userCreateDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
-    /**
-     * ---------------- GET USER BY ID ------------------------
-     */
-    @GetMapping("/{user_id}")
-    public ResponseEntity<UserDetailDto> findById(@PathVariable UUID user_id) {
-        return ResponseEntity.ok(userService.findById(user_id));
+    /** ---------------- LOGIN USER ------------------------ */
+    @PostMapping("/login")
+    public LoginResponse authenticateUser (@Valid @RequestBody UserLogin userLogin) {
+        /**Xác thực từ username và password.*/
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        userLogin.getUsername(),
+                        userLogin.getPassword()
+                )
+        );
+        /**Nếu không xảy ra exception tức là thông tin hợp lệ
+         // Set thông tin authentication vào Security Context*/
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // Trả về jwt cho người dùng.
+        String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+        return new LoginResponse(jwt);
     }
 
-    /**
-     * ---------------- UPDATE USER ------------------------
-     */
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDetailDto> update(@PathVariable UUID id,
-                                                @RequestBody UserDetailDto userDetailDto) {
-         userDetailDto = userService.updateUser(id, userDetailDto);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userDetailDto);
-    }
-
-    /**
-     * ---------------- GET ALL USER ------------------------
-     */
-    @GetMapping
-    public List<UserDetailDto> findAll() {
-        return userService.findAll();
-    }
-
-    /**
-     * ---------------- DELETE USER BY ID ------------------------
-     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity deleteById(@PathVariable UUID id) {
-        userService.deleteById(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    // Api /api/random yêu cầu phải xác thực mới có thể request
+    @GetMapping("/random")
+    public RandomStuff randomStuff(){
+        return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
     }
 
 }

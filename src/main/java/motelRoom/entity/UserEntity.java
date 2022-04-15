@@ -6,43 +6,42 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
+@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
-@Entity
 @Table(name = "table_user")
 public class UserEntity {
+
     @Id
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "user_id", columnDefinition = "VARCHAR(40)")
     @Type(type = "uuid-char")
-    private UUID user_id;
-
+    private UUID id;
 
     @Column(name = "username")
     private String username;
 
     @Column(name = "passwords")
-    private String passwords;
+    private String password;
 
     @Column(name = "roles")
-    private String roles;
+    private String role;
 
     @Column(name = "full_name")
-    private String full_name;
+    private String fullName;
 
     @Column(name = "birth_date")
-    private Date birth_date;
+    private Date birthDate;
 
     @Column(name = "phone_number")
-    private String phone_number;
+    private String phoneNumber;
 
     @Column(name = "gender")
     private int gender;
@@ -51,7 +50,6 @@ public class UserEntity {
     private String fb;
 
     @Column(name = "url_avatar")
-    private String url_avatar;
 
-
+    private String avatarUrl;
 }

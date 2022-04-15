@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.UUID;
 import java.util.Date;
@@ -15,12 +14,21 @@ import java.util.Date;
 @AllArgsConstructor
 public class UserDetailDto implements Serializable {
     private UUID user_id;
+
     private String username;
-    private String roles;
-    private String full_name;
-    private Date birth_date;
-    private String phone_number;
+
+    private String role;
+
+    private String fullName;
+
+    private Date birthDate;
+
+    private String phoneNumber;
+
     private int gender;
+
     private String fb;
-    private String url_avatar;
+
+    private String avatarUrl;
+
 }

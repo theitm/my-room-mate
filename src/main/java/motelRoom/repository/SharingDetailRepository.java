@@ -1,4 +1,11 @@
 package motelRoom.repository;
 
-public interface SharingDetailRepository {
+import motelRoom.entity.SharingDetailEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.UUID;
+
+@Repository
+public interface SharingDetailRepository extends JpaRepository<SharingDetailEntity, UUID> {
+
 }
