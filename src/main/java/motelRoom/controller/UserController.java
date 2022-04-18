@@ -1,21 +1,21 @@
 package motelRoom.controller;
 
-import motelRoom.JWT.JwtTokenProvider;
-import motelRoom.JWT.LoginResponse;
-import motelRoom.JWT.RandomStuff;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
-import motelRoom.dto.user.UserLogin;
-import motelRoom.service.userService.CustomUserDetails;
 import motelRoom.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import motelRoom.JWT.JwtTokenProvider;
+import motelRoom.JWT.LoginResponse;
+import motelRoom.JWT.RandomStuff;
+import motelRoom.dto.user.UserLogin;
+import motelRoom.service.userService.CustomUserDetails;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -54,6 +54,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
+    /** ---------------- UPDATE NEW USER ------------------------ */
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDetailDto> updateUser(@PathVariable UUID id,
+                                                    @RequestBody UserCreateDto userCreateDto)
+    {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
+    }
+
     /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
     public LoginResponse authenticateUser (@Valid @RequestBody UserLogin userLogin) {
@@ -77,5 +85,11 @@ public class UserController {
     @GetMapping("/random")
     public RandomStuff randomStuff(){
         return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteById(@PathVariable UUID id) {
+        userService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 }
