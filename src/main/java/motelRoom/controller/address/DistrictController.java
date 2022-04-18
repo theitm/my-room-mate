@@ -11,25 +11,4 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("v1/api/district")
-public class DistrictController {
-    private final DistrictService districtService;
-
-    public DistrictController(DistrictService districtService) {
-        this.districtService = districtService;
-    }
-
-    /** GET ALL DISTRICT **/
-    @GetMapping
-    public List<DistrictDetailDto> findAll()
-    {
-        return districtService.findAll();
-    }
-
-    /** GET DISTRICT BY ID **/
-    @GetMapping("/{id}")
-    public ResponseEntity<DistrictDetailDto> findById(@PathVariable Integer id){
-            return ResponseEntity.ok(districtService.findById(id));
-    }
-}
+public class DistrictController {}

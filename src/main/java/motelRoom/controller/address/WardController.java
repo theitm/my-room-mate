@@ -10,24 +10,4 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("v1/api/ward")
-public class WardController {
-    private final WardService wardService;
-
-    public WardController(WardService wardService) {
-        this.wardService = wardService;
-    }
-
-    /** GET ALL WARD **/
-    @GetMapping
-    public List<WardDetailDto> findAll() {
-        return wardService.findAll();
-    }
-
-    /** GET WARD BY ID **/
-    @GetMapping("/{id}")
-    public ResponseEntity<WardDetailDto> findById(@PathVariable Integer id){
-        return  ResponseEntity.ok(wardService.findById(id));
-    }
-}
+public class WardController {}

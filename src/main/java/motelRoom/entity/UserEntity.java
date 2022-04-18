@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,7 +17,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
 @Table(name = "table_user")
 public class UserEntity {
 
@@ -25,11 +25,14 @@ public class UserEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "user_id", columnDefinition = "VARCHAR(40)")
     @Type(type = "uuid-char")
+    @NotNull(message = "ID can't be null")
     private UUID id;
 
+    @NotNull(message = "username can't be null")
     @Column( name = "username")
     private String username;
 
+    @NotNull(message = "Password can't be null")
     @Column(name = "passwords")
     private String password;
 

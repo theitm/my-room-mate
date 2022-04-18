@@ -6,7 +6,4 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface WardService {
-    List<WardDetailDto> findAll();
-    WardDetailDto findById(Integer id);
-}
+public interface WardService {}

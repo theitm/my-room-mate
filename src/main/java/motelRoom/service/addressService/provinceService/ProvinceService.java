@@ -6,7 +6,4 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface ProvinceService {
-    List<ProvinceDetailDto> findAll();
-    ProvinceDetailDto findById(Integer id);
-}
+public interface ProvinceService {}

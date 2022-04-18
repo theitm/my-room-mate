@@ -7,6 +7,4 @@ import java.util.List;
 
 @Service
 public interface DistrictService {
-    List<DistrictDetailDto> findAll();
-    DistrictDetailDto findById(Integer id);
 }
