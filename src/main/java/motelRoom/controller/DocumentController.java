@@ -26,22 +26,23 @@ public class DocumentController {
         return documentService.findAll();
     }
     /**.....get all by id document...........**/
-    @GetMapping("/{typeId}")
-    public ResponseEntity<ResponseObject> getById(@PathVariable UUID typeId){
-        List<DocumentDetailDto> roomID = documentService.finAllTypeId(typeId);
+    @GetMapping("/{parentId}")
+    public ResponseEntity<ResponseObject> getById(@PathVariable UUID parentId){
+        List<DocumentDetailDto> roomID = documentService.findById(parentId);
         if(roomID.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject("Failed", "Type ID Name Does Not Exist", "")
             );
         }
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("OK", " Type ID successfully", documentService.finAllTypeId(typeId))
+                new ResponseObject("OK", " Type ID successfully", documentService.findById(parentId))
         );
     }
     /**.....post document...........**/
     @PostMapping
     ResponseEntity<ResponseObject> insertDocument(@RequestBody DocumentCreateDto documentCreateDto) {
-        if (documentCreateDto.getTypeId() != null && documentCreateDto.getTypeUrl() != null)
+        if (documentCreateDto.getParentId() != null && documentCreateDto.getParentType() != 0
+                && documentCreateDto.getNameUrl() != null && documentCreateDto.getTypeUrl() != 0)
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("OK", "Insert Document Successfully", documentService.createDocument(documentCreateDto))
         );
@@ -52,7 +53,7 @@ public class DocumentController {
     @PutMapping("/{id}")
      ResponseEntity <ResponseObject> updateDocument(@RequestBody DocumentCreateDto documentCreateDto, @PathVariable UUID id ) {
         Optional<DocumentEntity> createDto = repository.findById(id);
-        if (createDto.isPresent()) {
+        if (createDto.isPresent() && documentCreateDto.getParentType() < 2 && documentCreateDto.getTypeUrl() < 2) {
             documentService.saveUpdate(id, documentCreateDto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(

@@ -2,6 +2,7 @@ package motelRoom.service.documentService;
 
 import motelRoom.dto.document.DocumentCreateDto;
 import motelRoom.dto.document.DocumentDetailDto;
+import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.entity.DocumentEntity;
 import motelRoom.mapper.DocumentMapper;
 import motelRoom.repository.DocumentRepository;
@@ -40,6 +41,12 @@ public class DocumentServiceImpl implements DocumentService {
         return mapper.fromListEntitiesToDtos(documentRepository.findAll());
     }
 
+    /**.....serviceimpl find by id document...........**/
+    @Override
+    public List<DocumentDetailDto> findById(UUID parentId) {
+     return mapper.fromListEntitiesToDtos(documentRepository.findAllByParentId(parentId));
+    }
+
     /**.....serviceimpl delete by id document...........**/
     @Override
     public void deleteById(UUID id) {
@@ -50,12 +57,6 @@ public class DocumentServiceImpl implements DocumentService {
         {
             throw new NotFoundException("can't delete document with id: " + id);
         }
-    }
-
-    /**.....serviceimpl find by typeId document...........**/
-    @Override
-    public List<DocumentDetailDto> finAllTypeId(UUID typeId) {
-        return mapper.fromListEntitiesToDtos(documentRepository.findAllByTypeId(typeId));
     }
 
     /**.....serviceimpl update by id document...........**/
