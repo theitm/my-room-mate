@@ -9,8 +9,7 @@ import java.util.UUID;
 @Service
 public interface UserService {
    UserDetailDto createUser(UserCreateDto  userCreateDto);
-    UserDetailDto updateUser(UUID id , UserDetailDto userDetailDto);
-    List<UserDetailDto> findAll();
+   UserDetailDto updateUser(UUID id,  UserDetailDto userDetailDto);
     UserDetailDto findById(UUID id);
     void deleteById( UUID id);
     List<UserLogin> findAllAcc();

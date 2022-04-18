@@ -14,9 +14,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCreateDto implements Serializable {
-
-    private UUID user_id;
-
     private String username;
 
     private String password;

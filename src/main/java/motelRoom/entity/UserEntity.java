@@ -50,6 +50,6 @@ public class UserEntity {
     private String fb;
 
     @Column(name = "url_avatar")
-
     private String avatarUrl;
+
 }

@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDetailDto implements Serializable {
-    private UUID user_id;
+    private UUID id;
 
     private String username;
 

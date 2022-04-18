@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.BeanUtils;
-import org.springframework.mail.javamail.JavaMailSender;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -27,8 +27,6 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    @Autowired
-    JavaMailSender javaMailSender;
 
     /**
      * lấy thông tin 1 User theo id
@@ -58,11 +56,19 @@ public class UserServiceImpl implements UserService {
         UserEntity entity = userRepository.findByUsername(username);
         if (entity == null ) {
             UserEntity userEntity = userMapper.fromUserEntityCreateDtoToEntity(userCreateDto);
-            userEntity.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
+//            userEntity.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
             UserEntity userEntityCreate = userRepository.save(userEntity);
+            UserDetailDto userDetailDto =null;
+            if(userEntityCreate != null) {
+                userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntityCreate);
+            }
+            return userDetailDto;
         }
             return null;
     }
+
+
+
     /**
      * update user by id
      * @param
@@ -80,10 +86,6 @@ public class UserServiceImpl implements UserService {
         return userDetailDto;
     }
 
-    @Override
-    public List<UserDetailDto> findAll() {
-        return null;
-    }
 
 
     /**

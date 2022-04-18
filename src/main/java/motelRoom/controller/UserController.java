@@ -63,6 +63,14 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
+    /** ---------------- UPDATE NEW USER ------------------------ */
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDetailDto> updateUser(@PathVariable UUID id,
+                                                    @RequestBody UserCreateDto userCreateDto)
+    {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
+    }
+
     /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
     public LoginResponse authenticateUser (@Valid @RequestBody UserLogin userLogin) {
@@ -86,6 +94,12 @@ public class UserController {
     @GetMapping("/random")
     public RandomStuff randomStuff(){
         return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteById(@PathVariable UUID id) {
+        userService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
 }
