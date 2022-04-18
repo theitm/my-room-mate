@@ -9,7 +9,8 @@ import java.util.UUID;
 @AllArgsConstructor
 public class DocumentDetailDto implements Serializable {
     private UUID documentId;
-    private UUID typeId;
-    private String typeUrl;
-
+    private UUID parentId;
+    private int parentType;
+    private String nameUrl;
+    private int typeUrl;
 }

@@ -19,8 +19,12 @@ public class DocumentEntity {
     @Type(type = "uuid-char")
     private UUID documentId;
     @Type(type = "uuid-char")
-    @Column(name = "type_id")
-    private UUID typeId;
+    @Column(name = "parent_id")
+    private UUID parentId;
+    @Column(name = "parent_type")
+    private int parentType;
+    @Column(name = "url")
+    private String nameUrl;
     @Column(name = "type_url")
-    private String typeUrl;
+    private int typeUrl;
 }

@@ -7,7 +7,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DocumentCreateDto {
-    private UUID typeId;
-    private String typeUrl;
-
+    private UUID parentId;
+    private int parentType;
+    private String nameUrl;
+    private int typeUrl;
 }
