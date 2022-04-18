@@ -56,7 +56,7 @@ public class DocumentController {
     @PutMapping("/{id}")
      ResponseEntity <ResponseObject> updateDocument(@RequestBody DocumentCreateDto documentCreateDto, @PathVariable UUID id ) {
         Optional<DocumentEntity> createDto = repository.findById(id);
-        if (createDto.isPresent() && documentCreateDto.getParentType() < 2 && documentCreateDto.getTypeUrl() < 2) {
+        if (createDto.isPresent()) {
             documentService.saveUpdate(id, documentCreateDto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
