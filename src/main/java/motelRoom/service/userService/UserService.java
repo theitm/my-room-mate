@@ -13,4 +13,5 @@ public interface UserService {
     UserDetailDto findById(UUID id);
     void deleteById( UUID id);
     List<UserLogin> findAllAcc();
+    List<UserDetailDto> findAll();
 }

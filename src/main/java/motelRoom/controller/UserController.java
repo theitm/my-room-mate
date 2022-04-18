@@ -48,6 +48,9 @@ public class UserController {
         return userService.findAllAcc();
     }
 
+    @GetMapping("/all")
+    public  List<UserDetailDto> findAllAcc() { return userService.findAll(); }
+
     /** ---------------- CREATE NEW USER ------------------------ */
     @PostMapping("/signup")
     public ResponseEntity<UserDetailDto> createUser(@RequestBody UserCreateDto userCreateDto) {

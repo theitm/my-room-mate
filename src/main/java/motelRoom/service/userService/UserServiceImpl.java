@@ -41,13 +41,18 @@ public class UserServiceImpl implements UserService {
     public List<UserLogin> findAllAcc() {
         return userMapper.fromListDtosToEntities(userRepository.findAll());
     }
+
+    @Override
+    public List<UserDetailDto> findAll(){
+        return userMapper.fromEntityToDto(userRepository.findAll());
+    }
+
     /**
      * create new user
      * Account name does not match
      * @param userCreateDto
      * @return
      */
-
     @Override
     public UserDetailDto createUser(UserCreateDto userCreateDto) {
         String username = userCreateDto.getUsername();
