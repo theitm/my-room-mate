@@ -25,6 +25,7 @@ public class DocumentController {
     public List<DocumentDetailDto> findAll(){
         return documentService.findAll();
     }
+
     /**.....get all by id document...........**/
     @GetMapping("/{parentId}")
     public ResponseEntity<ResponseObject> getById(@PathVariable UUID parentId){
@@ -38,6 +39,7 @@ public class DocumentController {
                 new ResponseObject("OK", " Type ID successfully", documentService.findById(parentId))
         );
     }
+
     /**.....post document...........**/
     @PostMapping
     ResponseEntity<ResponseObject> insertDocument(@RequestBody DocumentCreateDto documentCreateDto) {
@@ -49,6 +51,7 @@ public class DocumentController {
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
                 new ResponseObject("Failed", "Document Value Passed Is Empty", ""));
     }
+
     /**.....put document...........**/
     @PutMapping("/{id}")
      ResponseEntity <ResponseObject> updateDocument(@RequestBody DocumentCreateDto documentCreateDto, @PathVariable UUID id ) {
@@ -62,6 +65,7 @@ public class DocumentController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("Ok", "PUT Document Successfully", documentCreateDto));
     }
+
     /**.....delete document...........**/
     @DeleteMapping("/delete/{id}")
     public String deleteDocument(@PathVariable(name = "id") UUID id){
