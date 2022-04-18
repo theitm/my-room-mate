@@ -7,8 +7,4 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper
-public interface WardMapper {
-    WardDetailDto fromEntityToDetailDto(WardEntity wardEntity);
-
-    List<WardDetailDto> fromEntityToDto(List<WardEntity> wardEntities);
-}
+public interface WardMapper {}
