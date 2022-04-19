@@ -43,11 +43,6 @@ public class UserController {
     }
 
     /** ---------------- GET ALL USER ------------------------ */
-    @GetMapping("/acc")
-    public List<UserLogin> findAll(){
-        return userService.findAllAcc();
-    }
-
     @GetMapping("/all")
     public  List<UserDetailDto> findAllAcc() { return userService.findAll(); }
 

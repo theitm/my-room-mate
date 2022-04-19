@@ -33,12 +33,8 @@ public class UserServiceImpl implements UserService {
         return userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
     }
     /**
-     * lấy thông tin tất cả tài khoản User theo id
+     * lấy thông tin tất cả tài khoản User
      */
-    @Override
-    public List<UserLogin> findAllAcc() {
-        return userMapper.fromListDtosToEntities(userRepository.findAll());
-    }
 
     @Override
     public List<UserDetailDto> findAll(){

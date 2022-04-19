@@ -12,6 +12,5 @@ public interface UserService {
     UserDetailDto updateUser(UUID id,  UserDetailDto userDetailDto);
     UserDetailDto findById(UUID id);
     void deleteById( UUID id);
-    List<UserLogin> findAllAcc();
     List<UserDetailDto> findAll();
 }
