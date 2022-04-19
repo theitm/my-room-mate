@@ -1,6 +1,5 @@
 package motelRoom.config;
 
-import io.swagger.models.Contact;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -19,9 +18,15 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("motelRoom.controller"))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .apiInfo(apiInfo());
     }
-
+    private ApiInfo apiInfo()
+    {
+        return new ApiInfo(
+                "My Roommate DG5","List API project Roommate","ver 1.0", null, null,null, null, Collections.emptyList()
+        );
+    }
 }
