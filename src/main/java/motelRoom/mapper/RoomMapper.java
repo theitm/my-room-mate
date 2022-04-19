@@ -11,6 +11,6 @@ import java.util.List;
 @Mapper
 public interface RoomMapper {
     RoomDetailDto fromEntityToDetailDto(RoomEntity roomEntity);
-    List<RoomDetailDto> fromEntitíesToDtos(List<RoomEntity> roomEntities);
+    List<RoomDetailDto> fromEntitiesToDtos(List<RoomEntity> roomEntities);
     RoomEntity fromDtoCreateEntity(RoomCreateDto roomCreateDto);
 }
