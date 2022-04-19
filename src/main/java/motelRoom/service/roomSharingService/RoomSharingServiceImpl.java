@@ -4,16 +4,22 @@ import motelRoom.dto.roomSharing.RoomSharingCreateDto;
 import motelRoom.dto.roomSharing.RoomSharingDetailDto;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.entity.RoomSharingEntity;
+import motelRoom.entity.SharingDetailEntity;
 import motelRoom.mapper.RoomSharingMapper;
 import motelRoom.repository.RoomSharingRepository;
+import motelRoom.repository.SharingDetailRepository;
 import motelRoom.service.exceptionService.NotAcceptable;
 import motelRoom.service.sharingDetailService.SharingDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class RoomSharingServiceImpl implements RoomSharingService{
+    @Autowired
+    SharingDetailRepository repository;
+
     private final RoomSharingRepository roomSharingRepository;
     private final RoomSharingMapper roomSharingMapper;
     private final SharingDetailService sharingDetailService;
@@ -83,6 +89,17 @@ public class RoomSharingServiceImpl implements RoomSharingService{
      **/
     @Override
     public String createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
+        List<SharingDetailCreateDto> ListDto = roomSharingCreateDto.getSharingDetails();
+
+        for (SharingDetailCreateDto dto: ListDto
+             ) {
+            SharingDetailEntity entity = repository.findByUserId(dto.getUser_id());
+            if(entity != null)
+            {
+                return "You created Room Sharing before!";
+            }
+        }
+
         RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
         RoomSharingEntity roomSharingCreateEntity = roomSharingRepository.save(roomSharingEntity);
         for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetails()){
