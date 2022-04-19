@@ -10,6 +10,4 @@ import java.util.UUID;
 
 @Repository
 public interface RoomRepository extends JpaRepository<RoomEntity, UUID> {
-    @Query("SELECT u from RoomEntity u where u.user_id = :id")
-    List<RoomEntity> findRoomByUserId(@Param("id") UUID user_id);
 }

@@ -20,16 +20,16 @@ public class RoomEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "room_id", columnDefinition = "CHAR(40)")
     @Type(type = "uuid-char")
-    private UUID room_id;
+    private UUID roomId;
     @Type(type = "uuid-char")
     @Column(name="user_id")
-    private UUID user_id;
+    private UUID userId;
     @Column(name="province_id")
-    private Integer province_id;
+    private int provinceId;
     @Column(name = "district_id")
-    private Integer district_id;
+    private int districtId;
     @Column(name="ward_id")
-    private Integer ward_id;
+    private int wardId;
     @Column(name="street")
     private String street;
     @Column(name = "price")
@@ -37,7 +37,7 @@ public class RoomEntity {
     @Column(name="capacity")
     private float capacity;
     @Column(name = "description_room")
-    private String description_room;
+    private String descriptionRoom;
     @Column(name="status_room")
-    private Integer status_room;
+    private int statusRoom;
 }

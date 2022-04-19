@@ -44,13 +44,6 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    /** Delete room by user_id **/
-    @DeleteMapping("/user/{user_id}")
-    public ResponseEntity delete1(@PathVariable UUID user_id){
-        roomService.deleteByUserId(user_id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-    }
-
     /** Update room **/
     @PutMapping("/{id}")
     public ResponseEntity<RoomDetailDto> updateRoom(@PathVariable UUID id,
@@ -58,12 +51,4 @@ public class RoomController {
         RoomDetailDto roomDetailDto = roomService.updateRoom(id, roomCreateDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomDetailDto);
     }
-
-    /** Get room by user_id **/
-    @GetMapping("user/{user_id}")
-    public List<RoomDetailDto> findByUserId(@PathVariable UUID user_id)
-    {
-        return (roomService.findByUserId(user_id));
-    }
-
 }

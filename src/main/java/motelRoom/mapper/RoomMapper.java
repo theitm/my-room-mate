@@ -10,8 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface RoomMapper {
-
     RoomDetailDto fromEntityToDetailDto(RoomEntity roomEntity);
-    List<RoomDetailDto> fromEntitíesToDto(List<RoomEntity> roomEntities);
+    List<RoomDetailDto> fromEntitíesToDtos(List<RoomEntity> roomEntities);
     RoomEntity fromDtoCreateEntity(RoomCreateDto roomCreateDto);
 }

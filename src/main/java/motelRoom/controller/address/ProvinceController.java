@@ -10,4 +10,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-public class ProvinceController {}
+@RestController
+@RequestMapping("/province")
+public class ProvinceController {
+    private final ProvinceService provinceService;
+
+    public ProvinceController(ProvinceService provinceService) {
+        this.provinceService = provinceService;
+    }
+
+    /** GET ALL PROVINCE **/
+    @GetMapping
+    public List<ProvinceDetailDto> findAll() {return provinceService.findAll();}
+
+    /** GET PROVINCE BY ID **/
+    @GetMapping("/{id}")
+    public ResponseEntity<ProvinceDetailDto> findById(@PathVariable Integer id){
+        return ResponseEntity.ok(provinceService.findById(id));
+    }
+}

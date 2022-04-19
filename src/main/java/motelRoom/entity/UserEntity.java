@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -28,8 +27,9 @@ public class UserEntity {
     @NotNull(message = "ID can't be null")
     private UUID id;
 
+
     @NotNull(message = "username can't be null")
-    @Column( name = "username")
+    @Column(name = "username")
     private String username;
 
     @NotNull(message = "Password can't be null")
@@ -55,6 +55,6 @@ public class UserEntity {
     private String fb;
 
     @Column(name = "url_avatar")
-    private String urlAvatar;
+    private String avatarUrl;
 
 }
