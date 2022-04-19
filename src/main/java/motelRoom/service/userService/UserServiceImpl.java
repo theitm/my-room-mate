@@ -25,7 +25,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
-
     /**
      * lấy thông tin 1 User theo id
      */
@@ -33,7 +32,6 @@ public class UserServiceImpl implements UserService {
     public UserDetailDto findById(UUID id) {
         return userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
     }
-
     /**
      * lấy thông tin tất cả tài khoản User theo id
      */
@@ -69,7 +67,6 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
-
     /**
      * update user by id
      * @param
@@ -86,7 +83,6 @@ public class UserServiceImpl implements UserService {
         userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntity);
         return userDetailDto;
     }
-
     /**
      * delete user by id
      * @param
