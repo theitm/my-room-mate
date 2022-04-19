@@ -2,30 +2,32 @@ package motelRoom.service.userService;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
+import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.entity.UserEntity;
 import motelRoom.mapper.UserMapper;
 import motelRoom.repository.UserRepository;
 import motelRoom.service.exceptionService.BadRequestException;
 import motelRoom.service.exceptionService.NotFoundException;
+import org.apache.commons.validator.routines.EmailValidator;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.apache.commons.validator.routines.EmailValidator;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService{
     private static final String CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @Autowired
     Configuration configuration; //config for freemarker
     @Autowired
@@ -36,11 +38,67 @@ public class UserServiceImpl implements UserService{
     UserMapper userMapper;
 
     /**
-     * get 1 User by id
+     * lấy thông tin 1 User theo id
      */
     @Override
     public UserDetailDto findById(UUID id) {
         return userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
+    }
+
+    /**
+     * lấy thông tin tất cả tài khoản User
+     */
+    @Override
+    public List<UserDetailDto> findAll(){
+        return userMapper.fromEntityToDto(userRepository.findAll());
+    }
+
+    /**
+     * create new user
+     * Account name does not match
+     * @param userCreateDto
+     * @return
+     */
+    @Override
+    public UserDetailDto createUser(UserCreateDto userCreateDto) {
+        String username = userCreateDto.getUsername();
+        UserEntity entity = userRepository.findByUsername(username);
+        if (entity == null ) {
+            UserEntity userEntity = userMapper.fromUserEntityCreateDtoToEntity(userCreateDto);
+            userEntity.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
+            UserEntity userEntityCreate = userRepository.save(userEntity);
+            UserDetailDto userDetailDto =null;
+            if(userEntityCreate != null) {
+                userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntityCreate);
+            }
+            return userDetailDto;
+        }
+        return null;
+    }
+    /**
+     * update user by id
+     * @param
+     * @return
+     */
+    @Override
+    public  UserDetailDto updateUser(UUID id,  UserDetailDto userDetailDto) {
+        UserEntity userEntity = userRepository.findById(id).orElse(null);
+        if(userEntity == null){
+            return null;
+        }
+        BeanUtils.copyProperties(userDetailDto, userEntity);
+        userRepository.saveAndFlush(userEntity);
+        userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntity);
+        return userDetailDto;
+    }
+    /**
+     * delete user by id
+     * @param
+     * @return
+     */
+    @Override
+    public void deleteById(UUID id) {
+        userRepository.deleteById(id);
     }
 
     /**
@@ -58,7 +116,7 @@ public class UserServiceImpl implements UserService{
             throw new NotFoundException("Not find user");
         }
         String newPassword = generateNewPassword(); //generate new password
-        entity.setPassword(newPassword); //set new password
+        entity.setPassword(passwordEncoder.encode(newPassword)); //set new password
         userRepository.saveAndFlush(entity);
         try {
             sendmail(entity, newPassword);
@@ -115,3 +173,4 @@ public class UserServiceImpl implements UserService{
         return stringWriter.getBuffer().toString();
     }
 }
+

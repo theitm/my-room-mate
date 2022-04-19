@@ -8,7 +8,6 @@ import motelRoom.repository.WaitingListRepository;
 import motelRoom.service.exceptionService.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -18,11 +17,6 @@ public class WaitingListServiceImpl implements WaitingListService{
     private  WaitingListRepository repository;
     @Autowired
     private WaitingListMapper mapper;
-
-    public WaitingListServiceImpl(WaitingListRepository repository, WaitingListMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     /**
      * get all room in Waiting List

@@ -2,7 +2,6 @@ package motelRoom.service.waitingListService;
 
 import motelRoom.dto.waitingList.WaitingListCreateDto;
 import motelRoom.dto.waitingList.WaitingListDetailDto;
-
 import java.util.List;
 import java.util.UUID;
 
@@ -17,5 +16,4 @@ public interface WaitingListService {
     WaitingListDetailDto addWaitingList(WaitingListCreateDto createDto);
     /**.....delete room in waiting List...........**/
     void deleteWaitingList(UUID id);
-
 }

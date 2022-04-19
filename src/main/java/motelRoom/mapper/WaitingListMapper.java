@@ -3,7 +3,6 @@ import motelRoom.dto.waitingList.WaitingListCreateDto;
 import motelRoom.dto.waitingList.WaitingListDetailDto;
 import motelRoom.entity.WaitingListEntity;
 import org.mapstruct.Mapper;
-
 import java.util.List;
 
 @Mapper

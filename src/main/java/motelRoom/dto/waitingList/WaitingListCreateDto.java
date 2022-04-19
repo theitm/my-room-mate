@@ -1,7 +1,6 @@
 package motelRoom.dto.waitingList;
 
 import lombok.Data;
-
 import java.util.UUID;
 
 @Data
