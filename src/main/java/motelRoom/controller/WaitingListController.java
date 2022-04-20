@@ -1,12 +1,17 @@
 package motelRoom.controller;
 
+import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.dto.waitingList.WaitingListCreateDto;
 import motelRoom.dto.waitingList.WaitingListDetailDto;
+import motelRoom.service.waitingListService.RoomExcelExporter;
 import motelRoom.service.waitingListService.WaitingListServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,5 +70,21 @@ public class WaitingListController {
     public ResponseEntity delete(@PathVariable UUID id) {
         service.deleteWaitingList(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted");
+    }
+
+    /** get room excel **/
+    @GetMapping("/export")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+
+        String headerValue = "attachment; filename=room_waiting_list.xlsx";
+
+        response.setHeader(headerKey, headerValue);
+
+        List<WaitingListDetailDto> listRooms = service.getAllWaitingList();
+
+        RoomExcelExporter excelExporter = new RoomExcelExporter(listRooms);
+        excelExporter.export(response);
     }
 }
