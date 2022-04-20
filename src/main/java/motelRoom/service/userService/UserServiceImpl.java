@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public List<UserDetailDto> findAll(){
-        return userMapper.fromEntityToDto(userRepository.findAll());
+        return userMapper.fromEntitiesToDto(userRepository.findAll());
     }
 
     /**
