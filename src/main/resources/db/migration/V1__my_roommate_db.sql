@@ -52,8 +52,10 @@ DROP TABLE IF EXISTS `document`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `document` (
                             `doccument_id` varchar(40) NOT NULL,
-                            `type_id` varchar(40) DEFAULT NULL,
-                            `type_url` varchar(255) NOT NULL,
+                            `parent_id` varchar(40) DEFAULT NULL,
+                            `parent_type` tinyint(1) DEFAULT NULL,
+                            `url` varchar(255) NOT NULL,
+                            `type_url` tinyint(1) DEFAULT NULL,
                             PRIMARY KEY (`doccument_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -64,7 +66,7 @@ CREATE TABLE `document` (
 
 LOCK TABLES `document` WRITE;
 /*!40000 ALTER TABLE `document` DISABLE KEYS */;
-INSERT INTO `document` VALUES ('0cded3ea-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002','Anhquanpro123.png'),('6a2b909c-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002','Anh2room1.png'),('6f8d107e-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002','Anh3room1.png'),('c350129a-c15b-4c33-91ad-4439cfd0611a','08cf7798-b182-11ec-b909-0242ac120002','Anh3.png');
+INSERT INTO `document` VALUES ('0cded3ea-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002',1,'anh1cuaroom.png',1),('6a2b909c-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002',2,'anhdanhgia.png',1),('6f8d107e-b184-11ec-b909-0242ac120002','08cf7798-b182-11ec-b909-0242ac120002',1,'videocuarroom.mp4',2);
 /*!40000 ALTER TABLE `document` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +131,7 @@ CREATE TABLE `flyway_schema_history` (
 
 LOCK TABLES `flyway_schema_history` WRITE;
 /*!40000 ALTER TABLE `flyway_schema_history` DISABLE KEYS */;
-INSERT INTO `flyway_schema_history` VALUES (1,'1','<< Flyway Baseline >>','BASELINE','<< Flyway Baseline >>',NULL,'root','2022-04-14 03:27:07',0,1);
+INSERT INTO `flyway_schema_history` VALUES (1,'1','<< Flyway Baseline >>','BASELINE','<< Flyway Baseline >>',NULL,'root','2022-04-14 03:27:07',0,1),(2,'1','my roommate db','SQL','V1__my_roommate_db.sql',2106997774,'root','2022-04-14 03:30:16',13697,1);
 /*!40000 ALTER TABLE `flyway_schema_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -356,4 +358,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-04-14 10:28:29
+-- Dump completed on 2022-04-15 14:03:20

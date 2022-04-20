@@ -19,22 +19,18 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     AuthenticationManager authenticationManager;
 
     @Autowired
     JwtTokenProvider tokenProvider;
-
-    private final UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     /** ---------------- GET USER BY ID ------------------------ */
     @GetMapping("/{id}")
@@ -43,14 +39,20 @@ public class UserController {
     }
 
     /** ---------------- GET ALL USER ------------------------ */
-    @GetMapping("/acc")
-    public List<UserLogin> findAll(){
-        return userService.findAllAcc();
-    }
+    @GetMapping("/all")
+    public  List<UserDetailDto> findAllAcc() { return userService.findAll(); }
 
     /** ---------------- CREATE NEW USER ------------------------ */
     @PostMapping("/signup")
     public ResponseEntity<UserDetailDto> createUser(@RequestBody UserCreateDto userCreateDto) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
+    }
+
+    /** ---------------- UPDATE NEW USER ------------------------ */
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDetailDto> updateUser(@PathVariable UUID id,
+                                                    @RequestBody UserCreateDto userCreateDto)
+    {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
@@ -78,4 +80,18 @@ public class UserController {
     public RandomStuff randomStuff(){
         return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteById(@PathVariable UUID id) {
+        userService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
+
+    /** ---------------- Forgot Password ------------------------ */
+    @PutMapping("/ForgotPassword/{username}")
+    public String ForgotPassword(@PathVariable(name = "username") String username)
+    {
+        return userService.forgotPassword(username);
+    }
 }
+
