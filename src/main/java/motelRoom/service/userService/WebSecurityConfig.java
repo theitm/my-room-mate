@@ -57,9 +57,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/user/login","/user/signup").permitAll() // Cho phép tất cả mọi người truy cập vào 2 địa chỉ này
-                .anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
-                .and().httpBasic();
+                .antMatchers("/user/login","/user/signup").permitAll(); // Cho phép tất cả mọi người truy cập vào 2 địa chỉ này
+//                .anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
+//                .and().httpBasic();
 
         http.logout().logoutUrl("/user/logout");
 
