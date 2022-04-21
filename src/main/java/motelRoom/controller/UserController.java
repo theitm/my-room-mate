@@ -3,20 +3,28 @@ package motelRoom.controller;
 import motelRoom.JWT.JwtTokenProvider;
 import motelRoom.JWT.LoginResponse;
 import motelRoom.JWT.RandomStuff;
+import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
+import motelRoom.entity.UserEntity;
 import motelRoom.service.userService.CustomUserDetails;
 import motelRoom.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 @RestController
@@ -32,33 +40,44 @@ public class UserController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
-    /** ---------------- GET USER BY ID ------------------------ */
+    /**
+     * ---------------- GET USER BY ID ------------------------
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id){
+    public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    /** ---------------- GET ALL USER ------------------------ */
+    /**
+     * ---------------- GET ALL USER ------------------------
+     */
     @GetMapping("/all")
-    public  List<UserDetailDto> findAllAcc() { return userService.findAll(); }
+    public List<UserDetailDto> findAllAcc() {
+        return userService.findAll();
+    }
 
-    /** ---------------- CREATE NEW USER ------------------------ */
+    /**
+     * ---------------- CREATE NEW USER ------------------------
+     */
     @PostMapping("/signup")
     public ResponseEntity<UserDetailDto> createUser(@RequestBody UserCreateDto userCreateDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
-    /** ---------------- UPDATE NEW USER ------------------------ */
+    /**
+     * ---------------- UPDATE NEW USER ------------------------
+     */
     @PutMapping("/{id}")
     public ResponseEntity<UserDetailDto> updateUser(@PathVariable UUID id,
-                                                    @RequestBody UserCreateDto userCreateDto)
-    {
+                                                    @RequestBody UserCreateDto userCreateDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
-    /** ---------------- LOGIN USER ------------------------ */
+    /**
+     * ---------------- LOGIN USER ------------------------
+     */
     @PostMapping("/login")
-    public LoginResponse authenticateUser (@Valid @RequestBody UserLogin userLogin) {
+    public LoginResponse authenticateUser(@Valid @RequestBody UserLogin userLogin) {
         /**Xác thực từ username và password.*/
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -77,7 +96,7 @@ public class UserController {
 
     // Api /api/random yêu cầu phải xác thực mới có thể request
     @GetMapping("/random")
-    public RandomStuff randomStuff(){
+    public RandomStuff randomStuff() {
         return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
     }
 
@@ -87,11 +106,31 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    /** ---------------- Forgot Password ------------------------ */
+    /**
+     * ---------------- Forgot Password ------------------------
+     */
     @PutMapping("/ForgotPassword/{username}")
-    public String ForgotPassword(@PathVariable(name = "username") String username)
-    {
+    public String ForgotPassword(@PathVariable(name = "username") String username) {
         return userService.forgotPassword(username);
     }
-}
 
+//    @RequestMapping(value = "/username", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Object currentUserName(Authentication authentication) {
+//        return authentication.getPrincipal();
+//    }
+
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
+    @ResponseBody
+    public Object currentUserName(Authentication authentication) {
+        return authentication.getName();
+
+    }
+
+    @RequestMapping(value = "/username1", method = RequestMethod.GET)
+    @ResponseBody
+    public Object currentUserName1(Authentication authentication) {
+        return userService.findByUserName(authentication.getName());
+    }
+
+}
