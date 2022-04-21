@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/roomSharing")
+@RequestMapping("/room_sharing")
 public class RoomSharingController {
     private final RoomSharingService roomSharingService;
     public RoomSharingController(RoomSharingService roomSharingService) {

@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.UUID;
 
 @Data
@@ -25,7 +26,8 @@ public class SharingDetailEntity {
     @Type( type = "uuid-char")
     private UUID sharingId;
 
-    @Column( name = "user_id")
+    @Column( name = "user_id", nullable = false)
+//    @NotEmpty
     @Type( type = "uuid-char")
     private UUID user_id;
 

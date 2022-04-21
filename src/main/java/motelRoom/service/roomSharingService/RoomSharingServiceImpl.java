@@ -89,24 +89,28 @@ public class RoomSharingServiceImpl implements RoomSharingService{
      **/
     @Override
     public String createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
-        List<SharingDetailCreateDto> ListDto = roomSharingCreateDto.getSharingDetails();
+        UUID entity = roomSharingCreateDto.getRoom_id();
+        if(entity == null){
+            return "Please enter information";
+        }
+        else {
+            List<SharingDetailCreateDto> ListDto = roomSharingCreateDto.getSharingDetails();
 
-        for (SharingDetailCreateDto dto: ListDto
-             ) {
-            SharingDetailEntity entity = repository.findByUserId(dto.getUser_id());
-            if(entity != null)
-            {
-                return "You created Room Sharing before!";
+            for (SharingDetailCreateDto dto: ListDto
+            ) {
+                SharingDetailEntity entity1 = repository.findByUserId(dto.getUser_id());
+                if (entity1 != null) {
+                    return "User ID has existed!";
+                }
             }
+            RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
+            RoomSharingEntity roomSharingCreateEntity = roomSharingRepository.save(roomSharingEntity);
+            for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetails()){
+                sharingDetailCreateDto.setSharingId(roomSharingCreateEntity.getSharingId());
+                sharingDetailCreateDto.setRole("Key");
+                sharingDetailService.createSharingDetail(sharingDetailCreateDto);
+            }
+            return "Created";
         }
-
-        RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
-        RoomSharingEntity roomSharingCreateEntity = roomSharingRepository.save(roomSharingEntity);
-        for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetails()){
-            sharingDetailCreateDto.setRole("Key");
-            sharingDetailCreateDto.setSharingId(roomSharingCreateEntity.getSharingId());
-            sharingDetailService.createSharingDetail(sharingDetailCreateDto);
-        }
-        return "Created";
     }
 }

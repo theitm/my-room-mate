@@ -1,5 +1,7 @@
 package motelRoom.controller;
 
+import motelRoom.dto.roomSharing.RoomSharingCreateDto;
+import motelRoom.dto.roomSharing.RoomSharingDetailDto;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
 import motelRoom.service.sharingDetailService.SharingDetailService;
@@ -33,8 +35,9 @@ public class SharingDetailController {
 
     /** Create sharing_detail **/
     @PostMapping
-    public ResponseEntity<SharingDetailDetailDto> addRoomSharing(@RequestBody SharingDetailCreateDto sharingDetailCreateDto) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailService.createSharingDetail(sharingDetailCreateDto));
+    public ResponseEntity<SharingDetailDetailDto> createSharingDetail(@RequestBody SharingDetailCreateDto sharingDetailCreateDto) {
+        ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailService.createSharingDetail(sharingDetailCreateDto));
+        return responseEntity;
     }
 
     /** Update sharing_detail **/
