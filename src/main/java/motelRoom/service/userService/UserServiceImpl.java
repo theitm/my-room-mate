@@ -14,6 +14,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
@@ -124,6 +126,24 @@ public class UserServiceImpl implements UserService{
             e.printStackTrace();
         }
         return entity.getUsername();
+    }
+
+    @Override
+    public String changePassword(String username, String newPassword) {
+        UserEntity entity = userRepository.findByUsername(username);
+        if (entity == null)
+        {
+            throw new NotFoundException("Not find user");
+        }
+        entity.setPassword(passwordEncoder.encode(newPassword)); //set new password
+        userRepository.saveAndFlush(entity);
+        return entity.getUsername();
+    }
+
+    @Override
+    public boolean checkIfValidOldPassword(String username, String oldPassword) {
+       UserEntity userEntity = userRepository.findByUsername(username);
+        return passwordEncoder.matches(oldPassword, userEntity.getPassword());
     }
 
     /**

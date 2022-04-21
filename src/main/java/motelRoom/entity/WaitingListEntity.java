@@ -3,7 +3,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import motelRoom.entity.addressEntity.DistrictEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -13,9 +14,9 @@ import java.util.Date;
 @NoArgsConstructor
 public class UserDetailDto implements Serializable {
 
-    private String username;
+    private UUID id;
 
-    private String password;
+    private String username;
 
     private String role;
 
