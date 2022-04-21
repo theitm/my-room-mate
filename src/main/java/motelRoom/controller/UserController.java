@@ -3,28 +3,21 @@ package motelRoom.controller;
 import motelRoom.JWT.JwtTokenProvider;
 import motelRoom.JWT.LoginResponse;
 import motelRoom.JWT.RandomStuff;
-import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
-import motelRoom.entity.UserEntity;
 import motelRoom.service.userService.CustomUserDetails;
 import motelRoom.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.security.Principal;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 @RestController
@@ -114,23 +107,11 @@ public class UserController {
         return userService.forgotPassword(username);
     }
 
-//    @RequestMapping(value = "/username", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Object currentUserName(Authentication authentication) {
-//        return authentication.getPrincipal();
-//    }
-
-    @RequestMapping(value = "/username", method = RequestMethod.GET)
-    @ResponseBody
-    public Object currentUserName(Authentication authentication) {
-        return authentication.getName();
-
-    }
-
-    @RequestMapping(value = "/username1", method = RequestMethod.GET)
-    @ResponseBody
-    public Object currentUserName1(Authentication authentication) {
+    /**
+     * ---------------- GET USER CURRENT  ------------------------
+     */
+    @GetMapping("/me")
+    public Object currentUserDetail(Authentication authentication) {
         return userService.findByUserName(authentication.getName());
     }
-
 }
