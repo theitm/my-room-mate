@@ -11,8 +11,8 @@ public interface UserService {
     UserDetailDto createUser(UserCreateDto  userCreateDto);
     UserDetailDto updateUser(UUID id,  UserDetailDto userDetailDto);
     UserDetailDto findById(UUID id);
+    UserDetailDto findByUserName(String username);
     void deleteById( UUID id);
     List<UserDetailDto> findAll();
-    /**.....Forgot Password...........**/
     String forgotPassword(String username);
 }
