@@ -33,42 +33,32 @@ public class UserController {
     @Autowired
     JwtTokenProvider tokenProvider;
 
-    /**
-     * ---------------- GET USER BY ID ------------------------
-     */
+    /** ---------------- GET USER BY ID ------------------------ */
     @GetMapping("/{id}")
     public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    /**
-     * ---------------- GET ALL USER ------------------------
-     */
+    /** ---------------- GET ALL USER ------------------------ */
     @GetMapping("/all")
-    public List<UserDetailDto> findAllAcc() {
+    public List<UserDetailDto> findAll() {
         return userService.findAll();
     }
 
-    /**
-     * ---------------- CREATE NEW USER ------------------------
-     */
+    /** ---------------- CREATE NEW USER ------------------------ */
     @PostMapping("/signup")
     public ResponseEntity<UserDetailDto> createUser(@RequestBody UserCreateDto userCreateDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
-    /**
-     * ---------------- UPDATE NEW USER ------------------------
-     */
+    /** ---------------- UPDATE NEW USER ------------------------ */
     @PutMapping("/{id}")
     public ResponseEntity<UserDetailDto> updateUser(@PathVariable UUID id,
                                                     @RequestBody UserCreateDto userCreateDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
-    /**
-     * ---------------- LOGIN USER ------------------------
-     */
+    /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
     public LoginResponse authenticateUser(@Valid @RequestBody UserLogin userLogin) {
         /**Xác thực từ username và password.*/
@@ -99,17 +89,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    /**
-     * ---------------- Forgot Password ------------------------
-     */
+    /** ---------------- Forgot Password ------------------------ */
     @PutMapping("/ForgotPassword/{username}")
-    public String ForgotPassword(@PathVariable(name = "username") String username) {
+    public String forgotPassword(@PathVariable(name = "username") String username) {
         return userService.forgotPassword(username);
     }
 
-    /**
-     * ---------------- GET USER CURRENT  ------------------------
-     */
+    /** ---------------- GET USER CURRENT  ------------------------ */
     @GetMapping("/me")
     public Object currentUserDetail(Authentication authentication) {
         return userService.findByUserName(authentication.getName());
