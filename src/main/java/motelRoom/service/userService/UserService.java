@@ -3,7 +3,6 @@ package motelRoom.service.userService;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import org.springframework.stereotype.Service;
-import motelRoom.dto.user.UserLogin;
 import java.util.List;
 import java.util.UUID;
 @Service

@@ -63,23 +63,20 @@ public class UserController {
     /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
     public LoginResponse authenticateUser (@Valid @RequestBody UserLogin userLogin) {
-        /**Xác thực từ username và password.*/
+        /**Authenticate from username and password.*/
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         userLogin.getUsername(),
                         userLogin.getPassword()
                 )
         );
-        /**Nếu không xảy ra exception tức là thông tin hợp lệ
-         // Set thông tin authentication vào Security Context*/
+        /**If no exception occurs, the information is valid
+         // Set authentication information to Security Context*/
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
         return new LoginResponse(jwt);
     }
 
-    // Api /api/random yêu cầu phải xác thực mới có thể request
     @GetMapping("/random")
     public RandomStuff randomStuff(){
         return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
