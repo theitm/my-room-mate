@@ -1,5 +1,8 @@
 package motelRoom.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
@@ -15,12 +18,17 @@ public class WaitingListEntity {
     @Column(columnDefinition = "VARCHAR(40)", name = "waiting_list_id")
     @Type(type = "uuid-char")
     private UUID id;
-
     @Column(name = "user_id")
     @Type(type = "uuid-char")
     private UUID userId;
-
     @Column(name = "room_id")
     @Type(type = "uuid-char")
     private UUID roomId;
+
+    @ManyToOne
+    @JoinColumn(name = "room_id",insertable = false,updatable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private RoomEntity roomEntity;
 }

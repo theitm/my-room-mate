@@ -14,6 +14,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
@@ -38,7 +40,7 @@ public class UserServiceImpl implements UserService{
     UserMapper userMapper;
 
     /**
-     * lấy thông tin 1 User theo id
+     * show user detail by id
      */
     @Override
     public UserDetailDto findById(UUID id) {
@@ -46,7 +48,15 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * lấy thông tin tất cả tài khoản User
+     * show user detail by username
+     */
+    @Override
+    public UserDetailDto findByUserName(String username) {
+        return userMapper.fromUserEntityToUserCrateDto(userRepository.findByUsername(username));
+    }
+
+    /**
+     * get list user detail
      */
     @Override
     public List<UserDetailDto> findAll(){
@@ -99,6 +109,36 @@ public class UserServiceImpl implements UserService{
     @Override
     public void deleteById(UUID id) {
         userRepository.deleteById(id);
+    }
+
+    /**
+     * Update password
+     * @param username
+     * @param newPassword
+     * @return
+     */
+    @Override
+    public String updatePassword(String username, String newPassword) {
+        UserEntity entity = userRepository.findByUsername(username);
+        entity.setPassword(passwordEncoder.encode(newPassword)); //set new password
+        userRepository.saveAndFlush(entity);
+        return entity.getUsername();
+    }
+
+    /**
+     * Verify your account's password
+     * @param username
+     * @param oldPassword
+     * @return
+     */
+    @Override
+    public boolean checkIfValidOldPassword(String username, String oldPassword) {
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null)
+        {
+            throw new NotFoundException("Not find user");
+        }
+        return passwordEncoder.matches(oldPassword, userEntity.getPassword());
     }
 
     /**

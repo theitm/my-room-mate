@@ -6,6 +6,8 @@ import motelRoom.JWT.RandomStuff;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
+import motelRoom.entity.UserEntity;
+import motelRoom.service.exceptionService.BadRequestException;
 import motelRoom.service.userService.CustomUserDetails;
 import motelRoom.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
@@ -34,13 +37,15 @@ public class UserController {
 
     /** ---------------- GET USER BY ID ------------------------ */
     @GetMapping("/{id}")
-    public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id){
+    public ResponseEntity<UserDetailDto> findById(@PathVariable UUID id) {
         return ResponseEntity.ok(userService.findById(id));
     }
 
     /** ---------------- GET ALL USER ------------------------ */
     @GetMapping("/all")
-    public  List<UserDetailDto> findAllAcc() { return userService.findAll(); }
+    public List<UserDetailDto> findAll() {
+        return userService.findAll();
+    }
 
     /** ---------------- CREATE NEW USER ------------------------ */
     @PostMapping("/signup")
@@ -51,14 +56,13 @@ public class UserController {
     /** ---------------- UPDATE NEW USER ------------------------ */
     @PutMapping("/{id}")
     public ResponseEntity<UserDetailDto> updateUser(@PathVariable UUID id,
-                                                    @RequestBody UserCreateDto userCreateDto)
-    {
+                                                    @RequestBody UserCreateDto userCreateDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
     /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
-    public LoginResponse authenticateUser (@Valid @RequestBody UserLogin userLogin) {
+    public LoginResponse authenticateUser(@Valid @RequestBody UserLogin userLogin) {
         /**Xác thực từ username và password.*/
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -77,7 +81,7 @@ public class UserController {
 
     // Api /api/random yêu cầu phải xác thực mới có thể request
     @GetMapping("/random")
-    public RandomStuff randomStuff(){
+    public RandomStuff randomStuff() {
         return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
     }
 
@@ -89,9 +93,27 @@ public class UserController {
 
     /** ---------------- Forgot Password ------------------------ */
     @PutMapping("/ForgotPassword/{username}")
-    public String ForgotPassword(@PathVariable(name = "username") String username)
+    public String forgotPassword(@PathVariable(name = "username") String username)
     {
         return userService.forgotPassword(username);
     }
-}
 
+    /** ---------------- Change Password ------------------------ */
+    @PutMapping("/ChangePassword")
+    public String changePassword( @RequestParam(value = "newPassword") String newPassword,
+                                  @RequestParam(value = "oldPassword") String oldPassword)
+    {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!userService.checkIfValidOldPassword(username, oldPassword))
+        {
+           throw new BadRequestException("Password not invalid");
+        }
+        return userService.updatePassword(username, newPassword);
+    }
+
+    /** ---------------- GET USER CURRENT  ------------------------ */
+    @GetMapping("/me")
+    public Object currentUserDetail(Authentication authentication) {
+        return userService.findByUserName(authentication.getName());
+    }
+}

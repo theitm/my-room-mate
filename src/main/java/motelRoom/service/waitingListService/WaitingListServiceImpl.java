@@ -43,21 +43,6 @@ public class WaitingListServiceImpl implements WaitingListService{
     }
 
     /**
-     * get room in Waiting List by id
-     * @param id
-     * @return
-     */
-    @Override
-    public WaitingListDetailDto getById(UUID id)
-    {
-        try{
-            return mapper.fromEntityToDetailDto(repository.getById(id));
-        }catch (Exception e){
-            throw new NotFoundException("Not find");
-        }
-    }
-
-    /**
      * add room to Waiting List
      * @param waitingListCreateDto
      * @return
