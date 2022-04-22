@@ -6,6 +6,8 @@ import motelRoom.service.roomService.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,5 +52,22 @@ public class RoomController {
                                                     @RequestBody RoomCreateDto roomCreateDto) {
         RoomDetailDto roomDetailDto = roomService.updateRoom(id, roomCreateDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomDetailDto);
+    }
+    /**
+     * SearchFilter1
+     */
+    @PostMapping("/search2")
+    public List<RoomDetailDto> SearchFilter1(@RequestBody RoomDetailDto roomDetailDto)
+    {
+        List<RoomDetailDto> list = new ArrayList<>();
+        if(roomDetailDto.getPrice()==0 &&
+                roomDetailDto.getCapacity()==0){
+            return findAll();
+        }
+        else if (roomDetailDto.getPrice() !=0 &&
+                roomDetailDto.getCapacity()!=0){
+            list = roomService.findMultiSearch(roomDetailDto.getCapacity(),roomDetailDto.getPrice());
+        }
+        return list;
     }
 }

@@ -10,4 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface RoomRepository extends JpaRepository<RoomEntity, UUID> {
+    List<RoomEntity> searchFirstByCapacityAndAndPriceOrAndRoomIdAndPrice(float capacity, float price);
 }

@@ -13,4 +13,5 @@ public interface RoomService {
     void deleteById(UUID id);
     List<RoomDetailDto> findAll();
     RoomDetailDto createRoom(RoomCreateDto roomCreateDto);
+    List<RoomDetailDto> findMultiSearch(float capacity, float price);
 }

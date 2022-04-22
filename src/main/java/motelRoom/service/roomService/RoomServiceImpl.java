@@ -29,6 +29,11 @@ public class RoomServiceImpl implements RoomService {
         return roomDetailDto;
     }
 
+    @Override
+    public List<RoomDetailDto> findMultiSearch(float capacity, float price) {
+        return roomMapper.fromEntitíesToDtos(roomRepository.searchFirstByCapacityAndAndPrice(capacity, price));
+    }
+
     /** Get by id */
     public RoomDetailDto findById(UUID id) {
         RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomRepository.getById(id));
