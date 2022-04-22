@@ -62,6 +62,13 @@ public class UserEntity {
     @ToString.Exclude
     private List<RoomEntity> roomEntities = new ArrayList<>();
 
+    /**relationship one user many waitinglist **/
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable=false, updatable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<WaitingListEntity> waitingListEntities = new ArrayList<>();
+
     /**relationship one user many evaluation **/
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable=false, updatable=false)
@@ -76,3 +83,6 @@ public class UserEntity {
     @ToString.Exclude
     private List<SharingDetailEntity> sharingDetailEntities = new ArrayList<>();
 }
+
+
+
