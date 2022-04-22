@@ -30,8 +30,23 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<RoomDetailDto> findMultiSearch(float capacity, float price) {
-        return roomMapper.fromEntitíesToDtos(roomRepository.searchFirstByCapacityAndAndPrice(capacity, price));
+    public List<RoomDetailDto> findMultiSearch(UUID userId, int provinceId, float price, float capacity) {
+        return roomMapper.fromEntitíesToDtos(roomRepository.searchAllByUserIdOrProvinceIdOrPriceOrCapacity(userId,provinceId,price,capacity));
+    }
+
+    @Override
+    public List<RoomDetailDto> findMultiSearchs(float price, float capacity, int provinceId, int districtId) {
+         return roomMapper.fromEntitíesToDtos(roomRepository.searchRoomEntitiesByPriceAndCapacityOrProvinceIdAndDistrictId(price,capacity,provinceId,districtId));
+    }
+
+    @Override
+    public List<RoomDetailDto> findMultiSearch2Filter(int provinceId, float price) {
+        return roomMapper.fromEntitíesToDtos(roomRepository.searchRoomEntitiesByProvinceIdAndPrice(provinceId,price));
+    }
+
+    @Override
+    public List<RoomDetailDto> findMultiSearch2Filters(int provinceId, float capacity) {
+        return roomMapper.fromEntitíesToDtos(roomRepository.searchRoomEntitiesByProvinceIdAndCapacity(provinceId,capacity));
     }
 
     /** Get by id */
