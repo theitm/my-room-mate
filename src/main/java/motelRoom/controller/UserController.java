@@ -17,10 +17,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 @RestController
 @RequestMapping("/user")
@@ -49,7 +53,7 @@ public class UserController {
 
     /** ---------------- CREATE NEW USER ------------------------ */
     @PostMapping("/signup")
-    public ResponseEntity<UserDetailDto> createUser(@RequestBody UserCreateDto userCreateDto) {
+    public ResponseEntity<UserDetailDto> createUser(@RequestBody @Valid UserCreateDto userCreateDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
     }
 
@@ -115,5 +119,17 @@ public class UserController {
     @GetMapping("/me")
     public Object currentUserDetail(Authentication authentication) {
         return userService.findByUserName(authentication.getName());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 }
