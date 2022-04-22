@@ -14,11 +14,9 @@ public interface UserService {
     UserDetailDto findById(UUID id);
     void deleteById( UUID id);
     List<UserDetailDto> findAll();
-    /**.....Forgot Password...........**/
     String forgotPassword(String username);
-
-    String changePassword(String username,String newPassword);
-    public boolean checkIfValidOldPassword(final String username, final String oldPassword);
+    String updatePassword(String username,String newPassword);
+    boolean checkIfValidOldPassword(String username, String oldPassword);
 
 
 }

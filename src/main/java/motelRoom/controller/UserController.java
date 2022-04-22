@@ -96,15 +96,17 @@ public class UserController {
         return userService.forgotPassword(username);
     }
 
+    /** ---------------- Change Password ------------------------ */
     @PutMapping("/ChangePassword")
-    public String changePassword( @RequestParam(value = "password") String password,
-                                  @RequestParam(value = "oldpassword") String oldPassword)
+    public String changePassword( @RequestParam(value = "newPassword") String newPassword,
+                                  @RequestParam(value = "oldPassword") String oldPassword)
     {
-       if(!userService.checkIfValidOldPassword(SecurityContextHolder.getContext().getAuthentication().getName(), oldPassword))
-       {
-           throw new BadRequestException("Password not ");
-       }
-        return userService.changePassword(SecurityContextHolder.getContext().getAuthentication().getName(),password);
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!userService.checkIfValidOldPassword(username, oldPassword))
+        {
+           throw new BadRequestException("Password not invalid");
+        }
+        return userService.updatePassword(username, newPassword);
     }
 }
 

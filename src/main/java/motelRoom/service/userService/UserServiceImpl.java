@@ -104,6 +104,36 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
+     * Change password
+     * @param username
+     * @param newPassword
+     * @return
+     */
+    @Override
+    public String updatePassword(String username, String newPassword) {
+        UserEntity entity = userRepository.findByUsername(username);
+        entity.setPassword(passwordEncoder.encode(newPassword)); //set new password
+        userRepository.saveAndFlush(entity);
+        return entity.getUsername();
+    }
+
+    /**
+     * Verify your account's password
+     * @param username
+     * @param oldPassword
+     * @return
+     */
+    @Override
+    public boolean checkIfValidOldPassword(String username, String oldPassword) {
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null)
+        {
+            throw new NotFoundException("Not find user");
+        }
+        return passwordEncoder.matches(oldPassword, userEntity.getPassword());
+    }
+
+    /**
      * Forgot Password
      * send random new password to username(email)
      */
@@ -126,24 +156,6 @@ public class UserServiceImpl implements UserService{
             e.printStackTrace();
         }
         return entity.getUsername();
-    }
-
-    @Override
-    public String changePassword(String username, String newPassword) {
-        UserEntity entity = userRepository.findByUsername(username);
-        if (entity == null)
-        {
-            throw new NotFoundException("Not find user");
-        }
-        entity.setPassword(passwordEncoder.encode(newPassword)); //set new password
-        userRepository.saveAndFlush(entity);
-        return entity.getUsername();
-    }
-
-    @Override
-    public boolean checkIfValidOldPassword(String username, String oldPassword) {
-       UserEntity userEntity = userRepository.findByUsername(username);
-        return passwordEncoder.matches(oldPassword, userEntity.getPassword());
     }
 
     /**
