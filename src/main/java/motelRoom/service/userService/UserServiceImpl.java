@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService{
     UserMapper userMapper;
 
     /**
-     * lấy thông tin 1 User theo id
+     * show user detail by id
      */
     @Override
     public UserDetailDto findById(UUID id) {
@@ -48,7 +48,15 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * lấy thông tin tất cả tài khoản User
+     * show user detail by username
+     */
+    @Override
+    public UserDetailDto findByUserName(String username) {
+        return userMapper.fromUserEntityToUserCrateDto(userRepository.findByUsername(username));
+    }
+
+    /**
+     * get list user detail
      */
     @Override
     public List<UserDetailDto> findAll(){
