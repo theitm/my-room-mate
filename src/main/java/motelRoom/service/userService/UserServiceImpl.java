@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * Change password
+     * Update password
      * @param username
      * @param newPassword
      * @return
