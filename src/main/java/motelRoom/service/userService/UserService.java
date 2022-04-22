@@ -18,6 +18,4 @@ public interface UserService {
     String forgotPassword(String username);
     String updatePassword(String username,String newPassword);
     boolean checkIfValidOldPassword(String username, String oldPassword);
-
-
 }
