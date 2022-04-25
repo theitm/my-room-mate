@@ -35,21 +35,11 @@ public class WaitingListController {
     }
 
     /**
-     * get room in Waiting List by id
-     * @param id
-     * @return
-     */
-    @GetMapping("/{id}")
-    public ResponseEntity<WaitingListDetailDto> findById(@PathVariable UUID id) {
-        return ResponseEntity.ok(service.getById(id));
-    }
-
-    /**
      * get all room in Waiting List by id
      * @param id
      * @return
      */
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<List<WaitingListDetailDto>> getAllByUserId(@PathVariable(name = "id") UUID id){
         return ResponseEntity.ok(service.getAllByUserId(id));
     }

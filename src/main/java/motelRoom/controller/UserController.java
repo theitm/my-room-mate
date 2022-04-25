@@ -6,6 +6,8 @@ import motelRoom.JWT.RandomStuff;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
+import motelRoom.entity.UserEntity;
+import motelRoom.service.exceptionService.BadRequestException;
 import motelRoom.service.userService.CustomUserDetails;
 import motelRoom.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,8 +93,22 @@ public class UserController {
 
     /** ---------------- Forgot Password ------------------------ */
     @PutMapping("/ForgotPassword/{username}")
-    public String forgotPassword(@PathVariable(name = "username") String username) {
+    public String forgotPassword(@PathVariable(name = "username") String username)
+    {
         return userService.forgotPassword(username);
+    }
+
+    /** ---------------- Change Password ------------------------ */
+    @PutMapping("/ChangePassword")
+    public String changePassword( @RequestParam(value = "newPassword") String newPassword,
+                                  @RequestParam(value = "oldPassword") String oldPassword)
+    {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!userService.checkIfValidOldPassword(username, oldPassword))
+        {
+           throw new BadRequestException("Password not invalid");
+        }
+        return userService.updatePassword(username, newPassword);
     }
 
     /** ---------------- GET USER CURRENT  ------------------------ */
