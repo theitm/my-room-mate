@@ -41,6 +41,7 @@ public class RoomExcelExporter {
         }
         cell.setCellStyle(style);
     }
+
     private void writeTitleRow() {
         /** format column **/
         Row row = sheet.createRow(1);
@@ -55,6 +56,7 @@ public class RoomExcelExporter {
         /** assign value **/
         createCell(row, 1, "Danh sách phòng trọ xem sau", style);
     }
+
     /** create header row excel **/
     private void writeHeaderRow() {
         /** format column **/
