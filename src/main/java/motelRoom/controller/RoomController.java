@@ -62,6 +62,9 @@ public class RoomController {
     public List<RoomDetailDto> SearchFilter1(@RequestBody RoomDetailDto roomDetailDto)
     {
         List<RoomDetailDto> list = new ArrayList<>();
+        /**
+         * Multi Search No Filter
+         */
         if(roomDetailDto.getUserId() == null &&
                 roomDetailDto.getProvinceId()== 0 &&
                 roomDetailDto.getWardId()==0 &&
@@ -71,6 +74,9 @@ public class RoomController {
             return findAll();
         }
         else {
+            /**
+             * Multi Search 1 Filter
+             */
             if(roomDetailDto.getUserId() != null &&
                     roomDetailDto.getProvinceId() == 0 &&
                     roomDetailDto.getPrice() ==0 &&
@@ -103,6 +109,9 @@ public class RoomController {
                     roomDetailDto.getWardId() ==0){
                 list = roomService.findMultiSearch( roomDetailDto.getUserId(), roomDetailDto.getProvinceId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
             }
+            /**
+             * Multi Search 2 Filter
+             */
             else if (roomDetailDto.getProvinceId() !=0 && roomDetailDto.getDistrictId() !=0 &&
                     roomDetailDto.getPrice() ==0 && roomDetailDto.getWardId() == 0 &&roomDetailDto.getCapacity() ==0){
                 list = roomService.findMultiSearchs( roomDetailDto.getPrice(), roomDetailDto.getCapacity(), roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId());
@@ -120,6 +129,55 @@ public class RoomController {
                     roomDetailDto.getDistrictId() ==0 && roomDetailDto.getCapacity() !=0 &&
                     roomDetailDto.getWardId() ==0){
                 list = roomService.findMultiSearch2Filters( roomDetailDto.getProvinceId(),roomDetailDto.getCapacity());
+            }
+            /**
+             * Multi Search 3 Filter
+             */
+            else if (roomDetailDto.getProvinceId() !=0 && roomDetailDto.getPrice() ==0 &&
+                    roomDetailDto.getDistrictId() !=0 && roomDetailDto.getCapacity() ==0 &&
+                    roomDetailDto.getWardId() !=0){
+                list = roomService.findMultiSearch3Filters( roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId(), roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
+            }
+            else if (roomDetailDto.getProvinceId() !=0 && roomDetailDto.getPrice() ==0 &&
+                    roomDetailDto.getDistrictId() !=0 && roomDetailDto.getCapacity() !=0 &&
+                    roomDetailDto.getWardId() ==0){
+                list = roomService.findMultiSearch3Filters( roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId(), roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
+            }
+            else if (roomDetailDto.getProvinceId() !=0 && roomDetailDto.getPrice() !=0 &&
+                    roomDetailDto.getDistrictId() !=0 && roomDetailDto.getCapacity() ==0 &&
+                    roomDetailDto.getWardId() ==0){
+                list = roomService.findMultiSearch3Filters( roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId(), roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
+            }
+            else if (roomDetailDto.getProvinceId() !=0 && roomDetailDto.getPrice() !=0 &&
+                    roomDetailDto.getDistrictId() ==0 && roomDetailDto.getCapacity() !=0 &&
+                    roomDetailDto.getWardId() ==0){
+                list = roomService.findMultiSearch3Filters( roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId(), roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
+            }
+            /**
+             * Multi Search 4 Filter
+             */
+            else if (roomDetailDto.getProvinceId() !=0 && roomDetailDto.getPrice() !=0 &&
+                    roomDetailDto.getDistrictId() !=0 && roomDetailDto.getCapacity() ==0 &&
+                    roomDetailDto.getWardId() !=0){
+                list = roomService.findMultiSearch4Filters( roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId(), roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
+            }
+            else if (roomDetailDto.getProvinceId() !=0 && roomDetailDto.getPrice() ==0 &&
+                    roomDetailDto.getDistrictId() !=0 && roomDetailDto.getCapacity() !=0 &&
+                    roomDetailDto.getWardId() !=0){
+                list = roomService.findMultiSearch4Filters( roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId(), roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
+            }
+            else if (roomDetailDto.getProvinceId() !=0 && roomDetailDto.getPrice() !=0 &&
+                    roomDetailDto.getDistrictId() !=0 && roomDetailDto.getCapacity() !=0 &&
+                    roomDetailDto.getWardId() ==0){
+                list = roomService.findMultiSearch4Filters( roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId(), roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
+            }
+            /**
+             * Multi Search 5 Filter
+             */
+            else if (roomDetailDto.getProvinceId() !=0 && roomDetailDto.getPrice() !=0 &&
+                    roomDetailDto.getDistrictId() !=0 && roomDetailDto.getCapacity() !=0 &&
+                    roomDetailDto.getWardId() !=0){
+                list = roomService.findMultiSearch5Filters( roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId(), roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
             }
         }
         return list ;

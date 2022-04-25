@@ -17,4 +17,7 @@ public interface RoomService {
     List<RoomDetailDto> findMultiSearchs(float price, float capacity, int provinceId, int districtId);
     List<RoomDetailDto> findMultiSearch2Filter(int provinceId, float price);
     List<RoomDetailDto> findMultiSearch2Filters(int provinceId, float capacity);
+    List<RoomDetailDto> findMultiSearch3Filters(int provinceId, int districtId,int wardId ,float price, float capacity);
+    List<RoomDetailDto> findMultiSearch4Filters(int provinceId, int districtId,int wardId ,float price, float capacity);
+    List<RoomDetailDto> findMultiSearch5Filters(int provinceId, int districtId,int wardId ,float price, float capacity);
 }
