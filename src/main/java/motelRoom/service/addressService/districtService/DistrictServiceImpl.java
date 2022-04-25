@@ -22,7 +22,7 @@ public class DistrictServiceImpl implements DistrictService {
      * Show list districts
      * @return
      */
-    public List<DistrictDetailDto> findAll() {return  districtMapper.fromEntityToDto(districtRepository.findAll());}
+    public List<DistrictDetailDto> findAll() {return  districtMapper.fromEntitiesToDtos(districtRepository.findAll());}
 
     /**
      * Show district by id

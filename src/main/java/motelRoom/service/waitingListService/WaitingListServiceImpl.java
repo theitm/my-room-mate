@@ -26,7 +26,7 @@ public class WaitingListServiceImpl implements WaitingListService{
     @Override
     public List<WaitingListDetailDto> getAllWaitingList()
     {
-        return mapper.fromEntitiesToDto(repository.findAll());
+        return mapper.fromEntitiesToDetailDtos(repository.findAll());
     }
 
     /**
@@ -36,7 +36,7 @@ public class WaitingListServiceImpl implements WaitingListService{
      */
     @Override
     public List<WaitingListBasicDto> getListByUserId(UUID id) {
-        List<WaitingListBasicDto> list = mapper.fromEntitiesToDtos(repository.getAllByUserId(id));
+        List<WaitingListBasicDto> list = mapper.fromEntitiesToBasicDtos(repository.getAllByUserId(id));
         if(list.isEmpty()){
             throw new NotFoundException("Not find");
         }
@@ -50,7 +50,7 @@ public class WaitingListServiceImpl implements WaitingListService{
      */
     @Override
     public List<WaitingListDetailDto> getAllByUserId(UUID id) {
-         List<WaitingListDetailDto> list = mapper.fromEntitiesToDto(repository.getAllByUserId(id));
+         List<WaitingListDetailDto> list = mapper.fromEntitiesToDetailDtos(repository.getAllByUserId(id));
          if(list.isEmpty()){
              throw new NotFoundException("Not find");
          }

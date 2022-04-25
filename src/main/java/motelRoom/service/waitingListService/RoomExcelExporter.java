@@ -42,8 +42,8 @@ public class RoomExcelExporter {
         cell.setCellStyle(style);
     }
     private void writeTitleRow() {
+        /** format column **/
         Row row = sheet.createRow(1);
-
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setBold(true);
@@ -51,12 +51,14 @@ public class RoomExcelExporter {
         style.setFont(font);
         style.setAlignment(HorizontalAlignment.CENTER);
         sheet.addMergedRegion(new CellRangeAddress(1,1,1,4));
+
+        /** assign value **/
         createCell(row, 1, "Danh sách phòng trọ xem sau", style);
     }
     /** create header row excel **/
     private void writeHeaderRow() {
+        /** format column **/
         Row row = sheet.createRow(3);
-
         CellStyle cellStyle = row.getSheet().getWorkbook().createCellStyle();
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -69,7 +71,7 @@ public class RoomExcelExporter {
         style.setBorderLeft(BorderStyle.MEDIUM);
         style.setBorderRight(BorderStyle.MEDIUM);
 
-
+        /** assign value **/
         createCell(row, 0, "STT", style);
         sheet.autoSizeColumn(0);
         createCell(row, 1, "Địa chỉ", style);
@@ -82,9 +84,9 @@ public class RoomExcelExporter {
         sheet.autoSizeColumn(4);
     }
 
-
     /** create data row excel **/
     private void writeDataRow() {
+        /** format column **/
         int rowCount = 4;
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
@@ -97,11 +99,10 @@ public class RoomExcelExporter {
         short format = (short)BuiltinFormats.getBuiltinFormat("#,##0");
         style.setDataFormat(format);
 
+        /** assign value **/
         for(WaitingListBasicDto WaitingListBasicDto : listRooms) {
             Row row = sheet.createRow(rowCount++);
-
             int columnCount =0;
-
             createCell(row, columnCount++, "Phòng " + (rowCount-4), style);
             createCell(row, columnCount++, WaitingListBasicDto.getRoomEntity().getStreet()
                             + ", " + WaitingListBasicDto.getRoomEntity().getWardEntity().getWardPrefix()
@@ -116,16 +117,14 @@ public class RoomExcelExporter {
         }
     }
 
+    /** run function **/
     public void export(HttpServletResponse response) throws IOException {
         writeDataRow();
         writeHeaderRow();
         writeTitleRow();
-
-
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);
         workbook.close();
-
         outputStream.close();
     }
 }
