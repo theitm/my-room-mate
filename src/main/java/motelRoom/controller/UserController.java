@@ -6,7 +6,6 @@ import motelRoom.JWT.RandomStuff;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
-import motelRoom.entity.UserEntity;
 import motelRoom.service.exceptionService.BadRequestException;
 import motelRoom.service.userService.CustomUserDetails;
 import motelRoom.service.userService.UserService;
@@ -62,9 +61,10 @@ public class UserController {
 
     /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
-    public LoginResponse authenticateUser(@Valid @RequestBody UserLogin userLogin) {
+    public LoginResponse authenticateUser(@Valid @RequestBody UserLogin userLogin,
+                                          Authentication authentication) {
         /**Xác thực từ username và password.*/
-        Authentication authentication = authenticationManager.authenticate(
+        authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         userLogin.getUsername(),
                         userLogin.getPassword()
@@ -76,7 +76,8 @@ public class UserController {
 
         // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-        return new LoginResponse(jwt);
+        UserDetailDto userDetailDto= userService.findByUserName(authentication.getName());
+        return new  LoginResponse(jwt, userDetailDto);
     }
 
     // Api /api/random yêu cầu phải xác thực mới có thể request
