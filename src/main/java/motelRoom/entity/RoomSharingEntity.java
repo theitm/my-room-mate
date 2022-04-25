@@ -5,7 +5,6 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +24,6 @@ public class RoomSharingEntity {
     private UUID sharingId;
 
     @Column( name = "room_id", nullable = false)
-//    @NotEmpty
     @Type( type = "uuid-char")
     private UUID room_id;
 

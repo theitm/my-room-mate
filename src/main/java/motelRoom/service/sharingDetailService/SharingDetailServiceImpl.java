@@ -27,14 +27,27 @@ public class SharingDetailServiceImpl implements SharingDetailService{
      * Create SharingDetail
      **/
     @Override
-    public SharingDetailDetailDto createSharingDetail(SharingDetailCreateDto sharingDetailCreateDto) {
-        SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailCreateDto(sharingDetailCreateDto);
-        SharingDetailEntity sharingDetailEntityCreate = sharingDetailRepository.save(sharingDetailEntity);
-        SharingDetailDetailDto sharingDetailDetailDto = null;
-        if(sharingDetailEntityCreate != null){
-            sharingDetailDetailDto = sharingDetailMapper.fromEntityToDto(sharingDetailEntityCreate);
+    public String createSharingDetail(SharingDetailCreateDto sharingDetailCreateDto) {
+        UUID entity = sharingDetailCreateDto.getUser_id();
+        UUID entity2 = sharingDetailCreateDto.getSharingId();
+        if(entity == null || entity2 == null){
+            return "Please enter information";
         }
-        return sharingDetailDetailDto;
+        else {
+            SharingDetailEntity user = sharingDetailRepository.findByUserId(sharingDetailCreateDto.getUser_id());
+            if (user != null) {
+                return "User ID has existed!";
+            }
+            else {
+                SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailCreateDto(sharingDetailCreateDto);
+                SharingDetailEntity sharingDetailEntityCreate = sharingDetailRepository.save(sharingDetailEntity);
+                SharingDetailDetailDto sharingDetailDetailDto = null;
+                if(sharingDetailEntityCreate != null){
+                    sharingDetailDetailDto = sharingDetailMapper.fromEntityToDto(sharingDetailEntityCreate);
+                }
+                return "Created!";
+            }
+        }
     }
 
     /**

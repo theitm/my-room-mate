@@ -1,7 +1,5 @@
 package motelRoom.controller;
 
-import motelRoom.dto.roomSharing.RoomSharingCreateDto;
-import motelRoom.dto.roomSharing.RoomSharingDetailDto;
 import motelRoom.dto.sharingDetail.SharingDetailCreateDto;
 import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
 import motelRoom.service.sharingDetailService.SharingDetailService;
@@ -13,7 +11,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/sharingDetail")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/sharing_detail")
 
 public class SharingDetailController {
     private final SharingDetailService sharingDetailService;

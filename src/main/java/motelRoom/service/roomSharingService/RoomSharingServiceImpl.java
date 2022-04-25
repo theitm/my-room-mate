@@ -95,9 +95,8 @@ public class RoomSharingServiceImpl implements RoomSharingService{
         }
         else {
             List<SharingDetailCreateDto> ListDto = roomSharingCreateDto.getSharingDetails();
-
-            for (SharingDetailCreateDto dto: ListDto
-            ) {
+            for (SharingDetailCreateDto dto: ListDto)
+            {
                 SharingDetailEntity entity1 = repository.findByUserId(dto.getUser_id());
                 if (entity1 != null) {
                     return "User ID has existed!";

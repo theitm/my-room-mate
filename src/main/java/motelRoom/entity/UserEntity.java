@@ -17,7 +17,6 @@ import java.util.UUID;
 @Builder
 @Table(name = "table_user")
 public class UserEntity {
-
     @Id
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -51,5 +50,4 @@ public class UserEntity {
 
     @Column(name = "url_avatar")
     private String avatarUrl;
-
 }
