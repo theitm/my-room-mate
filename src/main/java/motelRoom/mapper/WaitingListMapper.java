@@ -1,4 +1,5 @@
 package motelRoom.mapper;
+import motelRoom.dto.waitingList.WaitingListBasicDto;
 import motelRoom.dto.waitingList.WaitingListCreateDto;
 import motelRoom.dto.waitingList.WaitingListDetailDto;
 import motelRoom.entity.WaitingListEntity;
@@ -10,4 +11,5 @@ public interface WaitingListMapper {
     WaitingListEntity fromDtoCreateEntity(WaitingListCreateDto waitingListCreateDto);
     WaitingListDetailDto fromEntityToDetailDto(WaitingListEntity waitingListEntity);
     List<WaitingListDetailDto> fromEntitiesToDto(List<WaitingListEntity> waitingListEntities);
+    List<WaitingListBasicDto> fromEntitiesToDtos(List<WaitingListEntity> waitingListEntityList);
 }

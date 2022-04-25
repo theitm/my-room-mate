@@ -1,5 +1,6 @@
 package motelRoom.service.waitingListService;
 
+import motelRoom.dto.waitingList.WaitingListBasicDto;
 import motelRoom.dto.waitingList.WaitingListCreateDto;
 import motelRoom.dto.waitingList.WaitingListDetailDto;
 import motelRoom.entity.WaitingListEntity;
@@ -26,6 +27,20 @@ public class WaitingListServiceImpl implements WaitingListService{
     public List<WaitingListDetailDto> getAllWaitingList()
     {
         return mapper.fromEntitiesToDto(repository.findAll());
+    }
+
+    /**
+     * get list room in Waiting List by user id
+     * @param id
+     * @return
+     */
+    @Override
+    public List<WaitingListBasicDto> getListByUserId(UUID id) {
+        List<WaitingListBasicDto> list = mapper.fromEntitiesToDtos(repository.getAllByUserId(id));
+        if(list.isEmpty()){
+            throw new NotFoundException("Not find");
+        }
+        return list;
     }
 
     /**
