@@ -9,6 +9,5 @@ import java.util.List;
 @Mapper
 public interface WardMapper {
     WardDetailDto fromEntityToDetailDto(WardEntity wardEntity);
-
     List<WardDetailDto> fromEntitiesToDtos(List<WardEntity> wardEntities);
 }

@@ -8,6 +8,5 @@ import java.util.List;
 @Mapper
 public interface DistrictMapper {
     DistrictDetailDto fromEntityToDetailDto(DistrictEntity districtEntity);
-
     List<DistrictDetailDto> fromEntitiesToDtos(List<DistrictEntity> districtEntities);
 }
