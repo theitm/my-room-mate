@@ -27,7 +27,7 @@ public class UserCreateDto implements Serializable {
 
     private int gender;
 
-    private String fb;
+    private String facebook;
 
     private String avatarUrl;
 }

@@ -24,7 +24,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.*;
 
-
 @Service
 public class UserServiceImpl implements UserService{
     private static final String CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -32,14 +31,13 @@ public class UserServiceImpl implements UserService{
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
-    Configuration configuration; //config for freemarker
+    Configuration configuration;
     @Autowired
     UserRepository userRepository;
     @Autowired
     JavaMailSender javaMailSender;
     @Autowired
     UserMapper userMapper;
-
 
     public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
@@ -75,7 +73,6 @@ public class UserServiceImpl implements UserService{
     /**
      * create new user
      * Account name does not match
-     *
      * @param userCreateDto
      * @return
      */
@@ -98,25 +95,23 @@ public class UserServiceImpl implements UserService{
 
     /**
      * update user by id
-     *
      * @param
      * @return
      */
     @Override
     public UserDetailDto updateUser(UUID id, UserDetailDto userDetailDto) {
-        UserEntity userEntity = userRepository.findById(id).orElse(null);
-        if (userEntity == null) {
-            return null;
-        }
-        BeanUtils.copyProperties(userDetailDto, userEntity);
-        userRepository.saveAndFlush(userEntity);
-        userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntity);
-        return userDetailDto;
+            UserEntity userEntity = userRepository.findById(id).orElse(null);
+            if(userEntity == null){
+                return null;
+            }
+            BeanUtils.copyProperties(userDetailDto, userEntity);
+            userRepository.saveAndFlush(userEntity);
+            userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntity);
+            return userDetailDto;
     }
 
     /**
      * delete user by id
-     *
      * @param
      * @return
      */
@@ -134,7 +129,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public String updatePassword(String username, String newPassword) {
         UserEntity entity = userRepository.findByUsername(username);
-        entity.setPassword(passwordEncoder.encode(newPassword)); //set new password
+        entity.setPassword(passwordEncoder.encode(newPassword));
         userRepository.saveAndFlush(entity);
         return entity.getUsername();
     }

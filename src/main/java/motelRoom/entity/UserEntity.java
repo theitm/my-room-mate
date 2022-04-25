@@ -1,11 +1,6 @@
 package motelRoom.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-import motelRoom.entity.addressEntity.DistrictEntity;
-import motelRoom.entity.addressEntity.ProvinceEntity;
-import motelRoom.entity.addressEntity.WardEntity;
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
@@ -50,7 +45,7 @@ public class UserEntity {
     private int gender;
 
     @Column(name = "fb")
-    private String fb;
+    private String facebook;
 
     @Column(name = "url_avatar")
     private String avatarUrl;

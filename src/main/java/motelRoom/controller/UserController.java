@@ -6,7 +6,6 @@ import motelRoom.JWT.RandomStuff;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
-import motelRoom.entity.UserEntity;
 import motelRoom.service.exceptionService.BadRequestException;
 import motelRoom.service.userService.CustomUserDetails;
 import motelRoom.service.userService.UserService;
@@ -56,8 +55,8 @@ public class UserController {
     /** ---------------- UPDATE NEW USER ------------------------ */
     @PutMapping("/{id}")
     public ResponseEntity<UserDetailDto> updateUser(@PathVariable UUID id,
-                                                    @RequestBody UserCreateDto userCreateDto) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.createUser(userCreateDto));
+                                                    @RequestBody UserDetailDto userDetailDto) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userService.updateUser(id,userDetailDto));
     }
 
     /** ---------------- LOGIN USER ------------------------ */
@@ -79,7 +78,7 @@ public class UserController {
 
     @GetMapping("/random")
     public RandomStuff randomStuff() {
-        return new RandomStuff("JWT Hợp lệ mới có thể thấy được message này");
+        return new RandomStuff("Only valid JWT can see this message");
     }
 
     @DeleteMapping("/{id}")
