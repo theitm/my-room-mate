@@ -16,7 +16,6 @@ import java.util.List;
 public class RoomExcelExporter {
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
-
     private List<WaitingListBasicDto> listRooms;
 
     public RoomExcelExporter(List<WaitingListBasicDto> listRooms) {
@@ -43,13 +42,13 @@ public class RoomExcelExporter {
     }
     private void writeTitleRow() {
         Row row = sheet.createRow(1);
-
         CellStyle style = workbook.createCellStyle();
         XSSFFont font = workbook.createFont();
         font.setBold(true);
         font.setFontHeight(18);
         style.setFont(font);
         style.setAlignment(HorizontalAlignment.CENTER);
+
         sheet.addMergedRegion(new CellRangeAddress(1,1,1,4));
         createCell(row, 1, "Danh sách phòng trọ xem sau", style);
     }
@@ -69,7 +68,6 @@ public class RoomExcelExporter {
         style.setBorderLeft(BorderStyle.MEDIUM);
         style.setBorderRight(BorderStyle.MEDIUM);
 
-
         createCell(row, 0, "STT", style);
         sheet.autoSizeColumn(0);
         createCell(row, 1, "Địa chỉ", style);
@@ -81,7 +79,6 @@ public class RoomExcelExporter {
         createCell(row, 4, "Mô tả", style);
         sheet.autoSizeColumn(4);
     }
-
 
     /** create data row excel **/
     private void writeDataRow() {
@@ -116,11 +113,11 @@ public class RoomExcelExporter {
         }
     }
 
+    /** run function **/
     public void export(HttpServletResponse response) throws IOException {
         writeDataRow();
         writeHeaderRow();
         writeTitleRow();
-
 
         ServletOutputStream outputStream = response.getOutputStream();
         workbook.write(outputStream);

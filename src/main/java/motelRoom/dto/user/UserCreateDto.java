@@ -16,7 +16,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCreateDto implements Serializable {
-
     @Email
     private String username;
 

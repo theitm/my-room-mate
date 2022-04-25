@@ -10,6 +10,6 @@ import java.util.List;
 public interface WaitingListMapper {
     WaitingListEntity fromDtoCreateEntity(WaitingListCreateDto waitingListCreateDto);
     WaitingListDetailDto fromEntityToDetailDto(WaitingListEntity waitingListEntity);
-    List<WaitingListDetailDto> fromEntitiesToDto(List<WaitingListEntity> waitingListEntities);
-    List<WaitingListBasicDto> fromEntitiesToDtos(List<WaitingListEntity> waitingListEntityList);
+    List<WaitingListDetailDto> fromEntitiesToDetailDtos(List<WaitingListEntity> waitingListEntities);
+    List<WaitingListBasicDto> fromEntitiesToBasicDtos(List<WaitingListEntity> waitingListEntityList);
 }

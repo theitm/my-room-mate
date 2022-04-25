@@ -4,6 +4,7 @@ import motelRoom.dto.address.district.DistrictDetailDto;
 import motelRoom.service.exceptionService.NotAcceptable;
 import motelRoom.mapper.addressMapper.DistrictMapper;
 import motelRoom.repository.addressRepository.DistrictRepository;
+import motelRoom.service.exceptionService.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class DistrictServiceImpl implements DistrictService {
      * Show list districts
      * @return
      */
-    public List<DistrictDetailDto> findAll() {return  districtMapper.fromEntityToDto(districtRepository.findAll());}
+    public List<DistrictDetailDto> findAll() {return  districtMapper.fromEntitiesToDtos(districtRepository.findAll());}
 
     /**
      * Show district by id
@@ -35,7 +36,7 @@ public class DistrictServiceImpl implements DistrictService {
         }
         catch (Exception e)
         {
-            throw new NotAcceptable("can't find district with id: " + id);
+            throw new NotFoundException("can't find district with id: " + id);
         }
     }
 }

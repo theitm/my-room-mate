@@ -10,5 +10,5 @@ import java.util.List;
 public interface ProvinceMapper {
     ProvinceDetailDto fromEntityToDetailDto(ProvinceEntity provinceEntity);
 
-    List<ProvinceDetailDto> fromEntityToDto(List<ProvinceEntity> provinceEntities);
+    List<ProvinceDetailDto> fromEntitiesToDtos(List<ProvinceEntity> provinceEntities);
 }
