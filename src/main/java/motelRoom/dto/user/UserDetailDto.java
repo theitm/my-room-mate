@@ -13,7 +13,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDetailDto implements Serializable {
-
     private UUID id;
 
     private String username;
