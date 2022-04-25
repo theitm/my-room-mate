@@ -59,7 +59,7 @@ public class RoomController {
      * SearchFilter1
      */
     @PostMapping("/search")
-    public List<RoomDetailDto> SearchFilter1(@RequestBody RoomDetailDto roomDetailDto)
+    public List<RoomDetailDto> searchFilter(@RequestBody RoomDetailDto roomDetailDto)
     {
         List<RoomDetailDto> list = new ArrayList<>();
         /**
@@ -180,6 +180,7 @@ public class RoomController {
                 list = roomService.findMultiSearch5Filters( roomDetailDto.getProvinceId(), roomDetailDto.getDistrictId(), roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
             }
         }
-        return list ;
+        return list;
+
     }
 }
