@@ -1,11 +1,15 @@
 package motelRoom.controller;
 
+import motelRoom.dto.waitingList.WaitingListBasicDto;
 import motelRoom.dto.waitingList.WaitingListCreateDto;
 import motelRoom.dto.waitingList.WaitingListDetailDto;
+import motelRoom.service.userService.UserService;
+import motelRoom.service.waitingListService.RoomExcelExporter;
 import motelRoom.service.waitingListService.WaitingListServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +22,8 @@ import java.util.UUID;
 public class WaitingListController {
     @Autowired
     WaitingListServiceImpl service;
+    @Autowired
+    UserService userService;
 
     /**
      * get all room in Waiting List
@@ -58,5 +64,17 @@ public class WaitingListController {
     public ResponseEntity delete(@PathVariable UUID id) {
         service.deleteWaitingList(id);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Deleted");
+    }
+
+    /** get room excel user current **/
+    @GetMapping("/export")
+    public void exportToExcel(HttpServletResponse response, Authentication authentication) throws IOException {
+        response.setContentType("application/octet-stream");
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=room_waiting_list.xlsx";
+        response.setHeader(headerKey, headerValue);
+        List<WaitingListBasicDto> listRooms = service.getListByUserId(userService.findByUserName(authentication.getName()).getId());
+        RoomExcelExporter excelExporter = new RoomExcelExporter(listRooms);
+        excelExporter.export(response);
     }
 }

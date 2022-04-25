@@ -10,6 +10,6 @@ import java.util.List;
 public interface UserMapper {
     UserEntity fromUserEntityCreateDtoToEntity (UserCreateDto userCreateDto);
     UserDetailDto fromUserEntityToUserCrateDto (UserEntity userEntity);
-    List<UserDetailDto> fromEntitiesToDto ( List<UserEntity> userEntities);
+    List<UserDetailDto> fromEntitiesToDtos ( List<UserEntity> userEntities);
 
 }

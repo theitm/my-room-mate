@@ -20,7 +20,7 @@ public class ProvinceServiceImpl implements ProvinceService {
      * Show list provinces
      * @return
      */
-    public List<ProvinceDetailDto> findAll() {return  provinceMapper.fromEntityToDto(provinceRepository.findAll());}
+    public List<ProvinceDetailDto> findAll() {return  provinceMapper.fromEntitiesToDtos(provinceRepository.findAll());}
 
     /**
      * Show province by id
