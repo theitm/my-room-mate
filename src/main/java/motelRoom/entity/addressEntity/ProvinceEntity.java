@@ -20,11 +20,11 @@ public class ProvinceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "province_id")
-    private Integer province_id;
+    private int provinceId;
     @Column(name = "name_province")
-    private String name_province;
+    private String provinceName;
     @Column(name = "code_province")
-    private String code_province;
+    private String provinceCode;
 
     /**relationship one province many district**/
     @OneToMany(cascade = CascadeType.ALL)
@@ -33,7 +33,4 @@ public class ProvinceEntity {
     @ToString.Exclude
     private List<DistrictEntity> districts
             = new ArrayList<DistrictEntity>();
-
-
-
 }

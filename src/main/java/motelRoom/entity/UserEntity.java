@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
@@ -18,7 +17,6 @@ import java.util.UUID;
 @Builder
 @Table(name = "table_user")
 public class UserEntity {
-
     @Id
     @GeneratedValue(generator = "uuid2", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -26,7 +24,7 @@ public class UserEntity {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column( name = "username")
+    @Column(name = "username")
     private String username;
 
     @Column(name = "passwords")
@@ -51,6 +49,5 @@ public class UserEntity {
     private String fb;
 
     @Column(name = "url_avatar")
-    private String urlAvatar;
-
+    private String avatarUrl;
 }
