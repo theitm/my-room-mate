@@ -8,6 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface WaitingListRepository extends JpaRepository<WaitingListEntity, UUID> {
-    List<WaitingListEntity> getAllByUserId(UUID id);
-}
+    List<WaitingListEntity> getAllByUserId(UUID id);}
 
