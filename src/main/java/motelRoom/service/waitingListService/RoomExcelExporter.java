@@ -1,4 +1,4 @@
-package motelRoom.controller;
+package motelRoom.service.waitingListService;
 
 import motelRoom.dto.waitingList.WaitingListBasicDto;
 import org.apache.poi.ss.usermodel.*;

@@ -4,6 +4,7 @@ import motelRoom.dto.waitingList.WaitingListBasicDto;
 import motelRoom.dto.waitingList.WaitingListCreateDto;
 import motelRoom.dto.waitingList.WaitingListDetailDto;
 import motelRoom.service.userService.UserService;
+import motelRoom.service.waitingListService.RoomExcelExporter;
 import motelRoom.service.waitingListService.WaitingListServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
