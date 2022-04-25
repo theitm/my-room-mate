@@ -96,6 +96,6 @@ public class RoomServiceImpl implements RoomService {
 
     /** Get all room **/
     public List<RoomDetailDto> findAll() {
-        return roomMapper.fromEntitíesToDtos(roomRepository.findAll());
+        return roomMapper.fromEntitiesToDtos(roomRepository.findAll());
     }
 }
