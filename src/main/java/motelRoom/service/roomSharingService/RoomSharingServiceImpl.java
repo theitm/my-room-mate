@@ -88,7 +88,7 @@ public class RoomSharingServiceImpl implements RoomSharingService{
      **/
     @Override
     public String createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
-        UUID room = roomSharingCreateDto.getRoom_id();
+        UUID room = roomSharingCreateDto.getRoomId();
         if(room == null){
             return "Please enter information";
         }
@@ -96,7 +96,7 @@ public class RoomSharingServiceImpl implements RoomSharingService{
             List<SharingDetailCreateDto> ListDto = roomSharingCreateDto.getSharingDetails();
             for (SharingDetailCreateDto dto: ListDto)
             {
-                SharingDetailEntity user = repository.findByUserId(dto.getUser_id());
+                SharingDetailEntity user = repository.findByUserId(dto.getUserId());
                 if (user != null) {
                     return "User ID has existed!";
                 }

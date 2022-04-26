@@ -8,6 +8,6 @@ import java.util.UUID;
 
 @Repository
 public interface SharingDetailRepository extends JpaRepository<SharingDetailEntity, UUID> {
-    @Query("SELECT u from SharingDetailEntity u WHERE u.user_id = :id")
-    SharingDetailEntity findByUserId(UUID id);
+    @Query("SELECT u from SharingDetailEntity u WHERE u.userId = :userId")
+    SharingDetailEntity findByUserId(UUID userId);
 }

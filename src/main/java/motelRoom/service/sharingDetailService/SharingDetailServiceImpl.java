@@ -28,13 +28,13 @@ public class SharingDetailServiceImpl implements SharingDetailService{
      **/
     @Override
     public String createSharingDetail(SharingDetailCreateDto sharingDetailCreateDto) {
-        UUID user = sharingDetailCreateDto.getUser_id();
+        UUID user = sharingDetailCreateDto.getUserId();
         UUID sharing = sharingDetailCreateDto.getSharingId();
         if(user == null || sharing == null){
             return "Please enter information";
         }
         else {
-            SharingDetailEntity userDuplicate = sharingDetailRepository.findByUserId(sharingDetailCreateDto.getUser_id());
+            SharingDetailEntity userDuplicate = sharingDetailRepository.findByUserId(sharingDetailCreateDto.getUserId());
             if (userDuplicate != null) {
                 return "User ID has existed!";
             }
@@ -72,7 +72,7 @@ public class SharingDetailServiceImpl implements SharingDetailService{
      **/
     @Override
     public SharingDetailDetailDto updateSharingDetail(UUID sharingDetailId, SharingDetailDetailDto sharingDetailDetailDto) {
-        UUID user = sharingDetailDetailDto.getUser_id();
+        UUID user = sharingDetailDetailDto.getUserId();
         UUID sharing = sharingDetailDetailDto.getSharingId();
         if(user == null || sharing == null){
             return null;

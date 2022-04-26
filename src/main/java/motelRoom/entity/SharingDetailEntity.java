@@ -27,7 +27,7 @@ public class SharingDetailEntity {
 
     @Column( name = "user_id", nullable = false)
     @Type( type = "uuid-char")
-    private UUID user_id;
+    private UUID userId;
 
     @Column(name = "roles")
     private String role;;

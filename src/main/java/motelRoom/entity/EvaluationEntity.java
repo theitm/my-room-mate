@@ -36,7 +36,7 @@ public class EvaluationEntity {
 
     @Column(name="user_id")
     @Type(type = "uuid-char")
-    private UUID user_id;
+    private UUID userId;
 
     @Column(name = "rate")
     private Float rate;
