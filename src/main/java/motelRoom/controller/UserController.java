@@ -61,9 +61,11 @@ public class UserController {
 
     /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
-    public LoginResponse authenticateUser (@Valid @RequestBody UserLogin userLogin) {
-        /**Authenticate from username and password.*/
-        Authentication authentication = authenticationManager.authenticate(
+
+    public LoginResponse authenticateUser(@Valid @RequestBody UserLogin userLogin,
+                                          Authentication authentication) {
+        /**Xác thực từ username và password.*/
+        authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         userLogin.getUsername(),
                         userLogin.getPassword()
@@ -73,7 +75,8 @@ public class UserController {
          // Set authentication information to Security Context*/
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-        return new LoginResponse(jwt);
+        UserDetailDto userDetailDto= userService.findByUserName(authentication.getName());
+        return new  LoginResponse(jwt, userDetailDto);
     }
 
     @GetMapping("/random")
