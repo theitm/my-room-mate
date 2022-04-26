@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface SharingDetailService {
-    SharingDetailDetailDto createSharingDetail(SharingDetailCreateDto sharingDetailCreateDto);
+    String createSharingDetail(SharingDetailCreateDto sharingDetailCreateDto);
     SharingDetailDetailDto findById(UUID sharingDetailId);
     List<SharingDetailDetailDto> findAll();
     SharingDetailDetailDto updateSharingDetail(UUID sharingDetailId, SharingDetailDetailDto sharingDetailDetailDto);

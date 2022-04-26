@@ -21,13 +21,13 @@ public class SharingDetailEntity {
     @Type(type = "uuid-char")
     private UUID sharingDetailId;
 
-    @Column( name = "sharing_id")
+    @Column( name = "sharing_id", nullable = false)
     @Type( type = "uuid-char")
     private UUID sharingId;
 
-    @Column( name = "user_id")
+    @Column( name = "user_id", nullable = false)
     @Type( type = "uuid-char")
-    private UUID user_id;
+    private UUID userId;
 
     @Column(name = "roles")
     private String role;;

@@ -6,11 +6,13 @@ import motelRoom.service.roomSharingService.RoomSharingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/roomSharing")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/RoomSharing")
 public class RoomSharingController {
     private final RoomSharingService roomSharingService;
     public RoomSharingController(RoomSharingService roomSharingService) {
@@ -32,7 +34,7 @@ public class RoomSharingController {
 
     /** Create room_sharing **/
     @PostMapping
-    public ResponseEntity<RoomSharingDetailDto> createRoomSharing(@RequestBody RoomSharingCreateDto roomSharingCreateDto) {
+    public ResponseEntity<RoomSharingDetailDto> createRoomSharing(@Valid @RequestBody RoomSharingCreateDto roomSharingCreateDto) {
         ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingService.createRoomSharing(roomSharingCreateDto));
         return responseEntity;
     }
@@ -40,7 +42,7 @@ public class RoomSharingController {
     /** Update room_sharing by sharing_id**/
     @PutMapping("/{sharingId}")
     public ResponseEntity<RoomSharingDetailDto> update(@PathVariable UUID sharingId,
-                                                       @RequestBody RoomSharingDetailDto roomSharingDetailDto) {
+                                                       @Valid @RequestBody RoomSharingDetailDto roomSharingDetailDto) {
         RoomSharingDetailDto roomSharingDetailDtoUpdate = roomSharingService.updateRoomSharing(sharingId, roomSharingDetailDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingDetailDtoUpdate);
     }

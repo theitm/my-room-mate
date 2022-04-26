@@ -10,6 +10,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class SharingDetailCreateDto implements Serializable {
     private UUID sharingId;
-    private UUID user_id;
+    private UUID userId;
     private String role;;
 }

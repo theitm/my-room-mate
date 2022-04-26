@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/document")
 public class DocumentController {
     private final DocumentService documentService;

@@ -19,7 +19,6 @@ import java.util.UUID;
 public class RoomSharingServiceImpl implements RoomSharingService{
     @Autowired
     SharingDetailRepository repository;
-
     private final RoomSharingRepository roomSharingRepository;
     private final RoomSharingMapper roomSharingMapper;
     private final SharingDetailService sharingDetailService;
@@ -89,24 +88,27 @@ public class RoomSharingServiceImpl implements RoomSharingService{
      **/
     @Override
     public String createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
-        List<SharingDetailCreateDto> ListDto = roomSharingCreateDto.getSharingDetails();
-
-        for (SharingDetailCreateDto dto: ListDto
-             ) {
-            SharingDetailEntity entity = repository.findByUserId(dto.getUser_id());
-            if(entity != null)
+        UUID room = roomSharingCreateDto.getRoomId();
+        if(room == null){
+            return "Please enter information";
+        }
+        else {
+            List<SharingDetailCreateDto> ListDto = roomSharingCreateDto.getSharingDetails();
+            for (SharingDetailCreateDto dto: ListDto)
             {
-                return "You created Room Sharing before!";
+                SharingDetailEntity user = repository.findByUserId(dto.getUserId());
+                if (user != null) {
+                    return "User ID has existed!";
+                }
             }
+            RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
+            RoomSharingEntity roomSharingCreateEntity = roomSharingRepository.save(roomSharingEntity);
+            for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetails()){
+                sharingDetailCreateDto.setSharingId(roomSharingCreateEntity.getSharingId());
+                sharingDetailCreateDto.setRole("Key");
+                sharingDetailService.createSharingDetail(sharingDetailCreateDto);
+            }
+            return "Created";
         }
-
-        RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
-        RoomSharingEntity roomSharingCreateEntity = roomSharingRepository.save(roomSharingEntity);
-        for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetails()){
-            sharingDetailCreateDto.setRole("Key");
-            sharingDetailCreateDto.setSharingId(roomSharingCreateEntity.getSharingId());
-            sharingDetailService.createSharingDetail(sharingDetailCreateDto);
-        }
-        return "Created";
     }
 }
