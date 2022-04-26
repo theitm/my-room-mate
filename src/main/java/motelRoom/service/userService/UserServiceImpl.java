@@ -12,12 +12,12 @@ import motelRoom.service.exceptionService.NotFoundException;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.UUID;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
-    Configuration configuration; //config for freemarker
+    Configuration configuration;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -39,6 +39,13 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserMapper userMapper;
 
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
+
+    /**
+     * get user by id
     /**
      * show user detail by id
      */
@@ -73,34 +80,36 @@ public class UserServiceImpl implements UserService{
     public UserDetailDto createUser(UserCreateDto userCreateDto) {
         String username = userCreateDto.getUsername();
         UserEntity entity = userRepository.findByUsername(username);
-        if (entity == null ) {
+        if (entity == null) {
             UserEntity userEntity = userMapper.fromUserEntityCreateDtoToEntity(userCreateDto);
             userEntity.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
             UserEntity userEntityCreate = userRepository.save(userEntity);
-            UserDetailDto userDetailDto =null;
-            if(userEntityCreate != null) {
+            UserDetailDto userDetailDto = null;
+            if (userEntityCreate != null) {
                 userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntityCreate);
             }
             return userDetailDto;
         }
         return null;
     }
+
     /**
      * update user by id
      * @param
      * @return
      */
     @Override
-    public  UserDetailDto updateUser(UUID id,  UserDetailDto userDetailDto) {
-        UserEntity userEntity = userRepository.findById(id).orElse(null);
-        if(userEntity == null){
-            return null;
-        }
-        BeanUtils.copyProperties(userDetailDto, userEntity);
-        userRepository.saveAndFlush(userEntity);
-        userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntity);
-        return userDetailDto;
+    public UserDetailDto updateUser(UUID id, UserDetailDto userDetailDto) {
+            UserEntity userEntity = userRepository.findById(id).orElse(null);
+            if(userEntity == null){
+                return null;
+            }
+            BeanUtils.copyProperties(userDetailDto, userEntity);
+            userRepository.saveAndFlush(userEntity);
+            userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntity);
+            return userDetailDto;
     }
+
     /**
      * delete user by id
      * @param
@@ -120,7 +129,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public String updatePassword(String username, String newPassword) {
         UserEntity entity = userRepository.findByUsername(username);
-        entity.setPassword(passwordEncoder.encode(newPassword)); //set new password
+        entity.setPassword(passwordEncoder.encode(newPassword));
         userRepository.saveAndFlush(entity);
         return entity.getUsername();
     }

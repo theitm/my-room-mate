@@ -1,13 +1,12 @@
 package motelRoom.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -46,8 +45,39 @@ public class UserEntity {
     private int gender;
 
     @Column(name = "fb")
-    private String fb;
+    private String facebook;
 
     @Column(name = "url_avatar")
     private String avatarUrl;
+
+    /**relationship one user many room **/
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable=false, updatable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<RoomEntity> roomEntities = new ArrayList<>();
+
+    /**relationship one user many waitinglist **/
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable=false, updatable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<WaitingListEntity> waitingListEntities = new ArrayList<>();
+
+    /**relationship one user many evaluation **/
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable=false, updatable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<EvaluationEntity> evaluationEntities = new ArrayList<>();
+
+    /**relationship one user many sharingdetail **/
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable=false, updatable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<SharingDetailEntity> sharingDetailEntities = new ArrayList<>();
 }
+
+
+
