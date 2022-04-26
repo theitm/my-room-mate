@@ -19,7 +19,6 @@ import java.util.UUID;
 public class RoomSharingServiceImpl implements RoomSharingService{
     @Autowired
     SharingDetailRepository repository;
-
     private final RoomSharingRepository roomSharingRepository;
     private final RoomSharingMapper roomSharingMapper;
     private final SharingDetailService sharingDetailService;
@@ -89,16 +88,16 @@ public class RoomSharingServiceImpl implements RoomSharingService{
      **/
     @Override
     public String createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
-        UUID entity = roomSharingCreateDto.getRoom_id();
-        if(entity == null){
+        UUID room = roomSharingCreateDto.getRoom_id();
+        if(room == null){
             return "Please enter information";
         }
         else {
             List<SharingDetailCreateDto> ListDto = roomSharingCreateDto.getSharingDetails();
             for (SharingDetailCreateDto dto: ListDto)
             {
-                SharingDetailEntity entity1 = repository.findByUserId(dto.getUser_id());
-                if (entity1 != null) {
+                SharingDetailEntity user = repository.findByUserId(dto.getUser_id());
+                if (user != null) {
                     return "User ID has existed!";
                 }
             }

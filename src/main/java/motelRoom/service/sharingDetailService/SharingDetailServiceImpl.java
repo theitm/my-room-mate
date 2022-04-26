@@ -28,14 +28,14 @@ public class SharingDetailServiceImpl implements SharingDetailService{
      **/
     @Override
     public String createSharingDetail(SharingDetailCreateDto sharingDetailCreateDto) {
-        UUID entity = sharingDetailCreateDto.getUser_id();
-        UUID entity2 = sharingDetailCreateDto.getSharingId();
-        if(entity == null || entity2 == null){
+        UUID user = sharingDetailCreateDto.getUser_id();
+        UUID sharing = sharingDetailCreateDto.getSharingId();
+        if(user == null || sharing == null){
             return "Please enter information";
         }
         else {
-            SharingDetailEntity user = sharingDetailRepository.findByUserId(sharingDetailCreateDto.getUser_id());
-            if (user != null) {
+            SharingDetailEntity userDuplicate = sharingDetailRepository.findByUserId(sharingDetailCreateDto.getUser_id());
+            if (userDuplicate != null) {
                 return "User ID has existed!";
             }
             else {
@@ -72,14 +72,21 @@ public class SharingDetailServiceImpl implements SharingDetailService{
      **/
     @Override
     public SharingDetailDetailDto updateSharingDetail(UUID sharingDetailId, SharingDetailDetailDto sharingDetailDetailDto) {
-        SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailUpdateDto(sharingDetailDetailDto);
-        sharingDetailEntity.setSharingDetailId(sharingDetailId);
-        if(sharingDetailEntity == null){
+        UUID user = sharingDetailDetailDto.getUser_id();
+        UUID sharing = sharingDetailDetailDto.getSharingId();
+        if(user == null || sharing == null){
             return null;
         }
-        sharingDetailRepository.save(sharingDetailEntity);
-        SharingDetailDetailDto sharingDetailDetailDtoUpdate = sharingDetailMapper.fromEntityToDto(sharingDetailEntity);
-        return sharingDetailDetailDtoUpdate;
+        else {
+            SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailUpdateDto(sharingDetailDetailDto);
+            sharingDetailEntity.setSharingDetailId(sharingDetailId);
+            if(sharingDetailEntity == null){
+                return null;
+            }
+            sharingDetailRepository.save(sharingDetailEntity);
+            SharingDetailDetailDto sharingDetailDetailDtoUpdate = sharingDetailMapper.fromEntityToDto(sharingDetailEntity);
+            return sharingDetailDetailDtoUpdate;
+        }
     }
 
     /**
