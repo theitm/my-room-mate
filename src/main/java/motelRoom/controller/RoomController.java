@@ -1,5 +1,6 @@
 package motelRoom.controller;
 
+import motelRoom.dto.documentError.ResponseObject;
 import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.entity.RoomEntity;
@@ -60,7 +61,7 @@ public class RoomController {
      * SearchFilter1
      */
     @PostMapping("/search")
-    public List<RoomDetailDto> searchFilter(@RequestBody RoomDetailDto roomDetailDto)
+    public ResponseEntity<ResponseObject> searchFilter(@RequestBody RoomDetailDto roomDetailDto)
     {
         List<RoomDetailDto> list = new ArrayList<>();
         /**
@@ -72,7 +73,7 @@ public class RoomController {
                 roomDetailDto.getDistrictId()==0 &&
                 roomDetailDto.getPrice() == 0 &&
                 roomDetailDto.getCapacity()==0){
-            return findAll();
+            roomService.findAll();
         }
         else {
             /**
@@ -195,7 +196,13 @@ public class RoomController {
                         roomDetailDto.getWardId(), roomDetailDto.getPrice(), roomDetailDto.getCapacity());
             }
         }
-        return list;
-
+        if(list.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("Failed", "Hiện tại chưa có tin đăng trong khu vực này", "")
+            );
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK", " Type ID successfully", list)
+        );
     }
 }
