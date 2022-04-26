@@ -73,7 +73,7 @@ public class RoomController {
                 roomDetailDto.getDistrictId()==0 &&
                 roomDetailDto.getPrice() == 0 &&
                 roomDetailDto.getCapacity()==0){
-            roomService.findAll();
+            list = roomService.findAll();
         }
         else {
             /**
