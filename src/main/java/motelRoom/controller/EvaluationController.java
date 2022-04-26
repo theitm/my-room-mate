@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("v1/api/evaluation")
+@RequestMapping("/evaluation")
 public class EvaluationController{
     @Autowired
     private final EvaluationServiceImpl evaluationService;

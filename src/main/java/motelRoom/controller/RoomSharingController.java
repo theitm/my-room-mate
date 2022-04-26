@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/room_sharing")
+@RequestMapping("/RoomSharing")
 public class RoomSharingController {
     private final RoomSharingService roomSharingService;
     public RoomSharingController(RoomSharingService roomSharingService) {
