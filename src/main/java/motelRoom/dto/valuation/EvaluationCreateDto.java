@@ -12,12 +12,12 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EvaluationCreateDto implements Serializable {
 
-    //Create thi khong can evaluation_id
-    //private UUID evaluation_id;
-    private UUID room_id;
+    //Create thi khong can evaluationId
+    //private UUID evaluationId;
+    private UUID roomId;
     private UUID userId;
     private Float rate;
-    private String comment_rate;
-    private Date time_rate;
+    private String commentRate;
+    private Date timeRate;
 
 }
