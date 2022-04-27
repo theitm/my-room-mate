@@ -96,16 +96,16 @@ public class UserController {
     }
 
     /** ---------------- Forgot Password ------------------------ */
-    @PutMapping("/ForgotPassword/{username}")
+    @PutMapping("/forgotpassword/{username}")
     public String forgotPassword(@PathVariable(name = "username") String username)
     {
         return userService.forgotPassword(username);
     }
 
     /** ---------------- Change Password ------------------------ */
-    @PutMapping("/ChangePassword")
-    public String changePassword( @RequestParam(value = "newPassword") String newPassword,
-                                  @RequestParam(value = "oldPassword") String oldPassword)
+    @PutMapping("/changepassword")
+    public String changePassword( @RequestParam(value = "newpassword") String newPassword,
+                                  @RequestParam(value = "oldpassword") String oldPassword)
     {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         if(!userService.checkIfValidOldPassword(username, oldPassword))
