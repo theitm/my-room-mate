@@ -4,6 +4,8 @@ import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.entity.RoomEntity;
 import motelRoom.mapper.RoomMapper;
 import motelRoom.repository.RoomRepository;
+import motelRoom.service.exceptionService.NotAcceptable;
+import motelRoom.service.exceptionService.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -80,8 +82,14 @@ public class RoomServiceImpl implements RoomService {
 
     /** Get by id */
     public RoomDetailDto findById(UUID id) {
-        RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomRepository.getById(id));
-        return roomDetailDto;
+        try{
+            RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomRepository.getById(id));
+            return roomDetailDto;
+        }
+        catch (Exception e){
+            throw new NotAcceptable("Can't find Room with id: " + id);
+        }
+
     }
 
     /** Update room **/
@@ -98,7 +106,13 @@ public class RoomServiceImpl implements RoomService {
 
     /** Delete room **/
     public void deleteById(UUID id) {
-        roomRepository.deleteById(id);
+        try {
+            roomRepository.deleteById(id);
+        }
+        catch (Exception e){
+            throw new NotFoundException("Not find id!");
+        }
+
     }
 
     /** Get all room **/
