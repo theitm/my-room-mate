@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/SharingDetail")
+@RequestMapping("/sharingdetail")
 public class SharingDetailController {
     private final SharingDetailService sharingDetailService;
     public SharingDetailController(SharingDetailService sharingDetailService) {
