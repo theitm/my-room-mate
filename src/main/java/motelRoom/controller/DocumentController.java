@@ -21,23 +21,38 @@ public class DocumentController {
         this.documentService = documentService;
         this.repository = repository;
     }
+
     /**.....get all document...........**/
     @GetMapping
     public List<DocumentDetailDto> findAll(){
         return documentService.findAll();
     }
 
-    /**.....get all by id document...........**/
-    @GetMapping("/{parentId}")
-    public ResponseEntity<ResponseObject> getById(@PathVariable UUID parentId){
-        List<DocumentDetailDto> roomID = documentService.findById(parentId);
-        if(roomID.isEmpty()) {
+    /**.....get all by id parentId from evaluation ...........**/
+    @GetMapping("/evaluation/{parentId}")
+    public ResponseEntity<ResponseObject> getByIdEvaluation(@PathVariable UUID parentId){
+        List<DocumentDetailDto> evaluationID = documentService.findByIdEvaluation(parentId);
+        if(evaluationID.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new ResponseObject("Failed", "Type ID Name Does Not Exist", "")
             );
         }
         return ResponseEntity.status(HttpStatus.OK).body(
-                new ResponseObject("OK", " Type ID successfully", documentService.findById(parentId))
+                new ResponseObject("OK", " Type ID successfully", documentService.findByIdEvaluation(parentId))
+        );
+    }
+
+    /**.....get all by id parentId from room ...........**/
+    @GetMapping("/room/{parentId}")
+    public ResponseEntity<ResponseObject> getByIdRoom(@PathVariable UUID parentId){
+        List<DocumentDetailDto> evaluationID = documentService.findByIdRoom(parentId);
+        if(evaluationID.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new ResponseObject("Failed", "Type ID Name Does Not Exist", "")
+            );
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("OK", " Type ID successfully", documentService.findByIdRoom(parentId))
         );
     }
 
