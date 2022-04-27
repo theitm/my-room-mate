@@ -23,6 +23,7 @@ public class DocumentServiceImpl implements DocumentService {
         this.documentRepository = documentRepository;
         this.mapper = mapper;
     }
+
     /**.....serviceimpl  create  document...........**/
     @Override
     public DocumentDetailDto createDocument(DocumentCreateDto documentCreateDto) {
@@ -41,10 +42,17 @@ public class DocumentServiceImpl implements DocumentService {
         return mapper.fromListEntitiesToDtos(documentRepository.findAll());
     }
 
-    /**.....serviceimpl find by id document...........**/
+
+    /**.....serviceimpl find by id parentId from evaluation...........**/
     @Override
-    public List<DocumentDetailDto> findById(UUID parentId) {
-     return mapper.fromListEntitiesToDtos(documentRepository.findAllByParentId(parentId));
+    public List<DocumentDetailDto> findByIdEvaluation(UUID parentId) {
+        return mapper.fromListEntitiesToDtos(documentRepository.findAllByParentIdEvaluation(parentId));
+    }
+
+    /**.....serviceimpl find by id parentId from room...........**/
+    @Override
+    public List<DocumentDetailDto> findByIdRoom(UUID parentId) {
+        return mapper.fromListEntitiesToDtos(documentRepository.findAllByParentIdRoom(parentId));
     }
 
     /**.....serviceimpl delete by id document...........**/
