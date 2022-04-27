@@ -1,7 +1,7 @@
 package motelRoom.controller;
 
-import motelRoom.dto.valuation.EvaluationCreateDto;
-import motelRoom.dto.valuation.EvaluationDetailDto;
+import motelRoom.dto.evaluation.EvaluationCreateDto;
+import motelRoom.dto.evaluation.EvaluationDetailDto;
 import motelRoom.service.EvaluationService.EvaluationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,6 @@ public class EvaluationController{
 
         this.evaluationService = evaluationService;
     }
-
 
     /**.....get all id evaluation...........**/
     @GetMapping("/{id}")

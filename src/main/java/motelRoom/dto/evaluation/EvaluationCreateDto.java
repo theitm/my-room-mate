@@ -1,4 +1,4 @@
-package motelRoom.dto.valuation;
+package motelRoom.dto.evaluation;
 
 import lombok.*;
 
@@ -12,8 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class EvaluationCreateDto implements Serializable {
 
-    //Create thi khong can evaluationId
-    //private UUID evaluationId;
     private UUID roomId;
     private UUID userId;
     private Float rate;
