@@ -1,7 +1,7 @@
 package motelRoom.controller;
 
-import motelRoom.dto.valuation.EvaluationCreateDto;
-import motelRoom.dto.valuation.EvaluationDetailDto;
+import motelRoom.dto.evaluation.EvaluationCreateDto;
+import motelRoom.dto.evaluation.EvaluationDetailDto;
 import motelRoom.service.evaluationService.EvaluationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

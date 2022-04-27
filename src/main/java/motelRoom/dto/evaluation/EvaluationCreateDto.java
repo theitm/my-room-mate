@@ -1,4 +1,4 @@
-package motelRoom.dto.valuation;
+package motelRoom.dto.evaluation;
 
 import lombok.*;
 

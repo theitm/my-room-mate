@@ -1,7 +1,7 @@
 package motelRoom.service.evaluationService;
 
-import motelRoom.dto.valuation.EvaluationCreateDto;
-import motelRoom.dto.valuation.EvaluationDetailDto;
+import motelRoom.dto.evaluation.EvaluationCreateDto;
+import motelRoom.dto.evaluation.EvaluationDetailDto;
 import motelRoom.entity.EvaluationEntity;
 import motelRoom.mapper.EvaluationMapper;
 import motelRoom.repository.EvaluationRepository;
