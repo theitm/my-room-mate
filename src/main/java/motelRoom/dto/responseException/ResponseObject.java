@@ -1,4 +1,4 @@
-package motelRoom.dto.documentError;
+package motelRoom.dto.responseException;
 
 import lombok.*;
 

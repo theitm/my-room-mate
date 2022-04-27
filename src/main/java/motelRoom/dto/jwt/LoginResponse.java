@@ -1,4 +1,4 @@
-package motelRoom.JWT;
+package motelRoom.dto.jwt;
 
 import lombok.Data;
 import motelRoom.dto.user.UserDetailDto;

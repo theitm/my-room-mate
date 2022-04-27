@@ -1,4 +1,4 @@
-package motelRoom.JWT;
+package motelRoom.service.jwt;
 
 import lombok.extern.slf4j.Slf4j;
 import motelRoom.service.userService.UserServiceJWT;
@@ -39,12 +39,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwt = getJwtFromRequest(request);
 
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-                /** Lấy id user từ chuỗi jwt*/
+                /** get id user from jwt*/
                 UUID userId = tokenProvider.getUserIdFromJWT(jwt);
-                /**Lấy thông tin người dùng từ id*/
+                /**get userDetails by id*/
                 UserDetails userDetails = customUserDetailsService.loadUserById(userId);
                 if (userDetails != null){
-                    /**Nếu người dùng hợp lệ, set thông tin cho Seturity Context*/
+                    /**Set security Context*/
                     UsernamePasswordAuthenticationToken
                             authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
                             userDetails.getAuthorities());

@@ -1,4 +1,4 @@
-package motelRoom.JWT;
+package motelRoom.service.jwt;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
@@ -13,14 +13,14 @@ public class JwtTokenProvider {
 
     private final String JWT_SECRET = "lodaaaaaa";
 
-    /** Thời gian có hiệu lực của chuỗi jwt*/
+    /**Time jwt*/
     private final long JWT_EXPIRATION = 604800000L;
 
-    /**Tạo ra jwt từ thông tin user**/
+    /**Create jwt from user**/
     public String generateToken(CustomUserDetails userDetails){
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION);
-        /**Tạo chuỗi json web token từ id của user.*/
+        /**Create json web token by id from user.*/
         return Jwts.builder()
                 .setSubject(String.valueOf(UUID.fromString(String.valueOf(userDetails.getUserEntity().getId()))))
                 .setIssuedAt(now)
@@ -29,7 +29,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    /***Lấy thông tin user từ jwt**/
+    /***Get user from jwt**/
     public UUID getUserIdFromJWT(String token){
         Claims claims = Jwts.parser()
                 .setSigningKey(JWT_SECRET)

@@ -36,7 +36,8 @@ public class RoomSharingServiceImpl implements RoomSharingService{
     @Override
     public RoomSharingDetailDto findById(UUID sharingId) {
         try {
-            RoomSharingDetailDto roomSharingDetailDto = roomSharingMapper.fromEntityToDto(roomSharingRepository.getById(sharingId));
+            RoomSharingDetailDto roomSharingDetailDto
+                    = roomSharingMapper.fromEntityToDto(roomSharingRepository.getById(sharingId));
             return roomSharingDetailDto;
         }
         catch (Exception e)

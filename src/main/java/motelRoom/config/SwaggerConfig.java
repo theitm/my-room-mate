@@ -26,7 +26,8 @@ public class SwaggerConfig {
     private ApiInfo apiInfo()
     {
         return new ApiInfo(
-                "My Roommate DG5","List API project Roommate","ver 1.0", null, null,null, null, Collections.emptyList()
+                "My Roommate DG5","List API project Roommate","ver 1.0",
+                null, null,null, null, Collections.emptyList()
         );
     }
 }

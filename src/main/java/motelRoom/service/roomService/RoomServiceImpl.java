@@ -32,43 +32,50 @@ public class RoomServiceImpl implements RoomService {
     /** find multi search 1 filter */
     @Override
     public List<RoomDetailDto> findMultiSearch(UUID userId, int provinceId, float price, float capacity) {
-        return roomMapper.fromEntitiesToDtos(roomRepository.searchAllByUserIdOrProvinceIdOrPriceOrCapacity(userId,provinceId,price,capacity));
+        return roomMapper.fromEntitiesToDtos(roomRepository.
+                searchAllByUserIdOrProvinceIdOrPriceOrCapacity(userId,provinceId,price,capacity));
     }
 
     /** find multi search 2 filter */
     @Override
     public List<RoomDetailDto> findMultiSearchs(float price, float capacity, int provinceId, int districtId) {
-         return roomMapper.fromEntitiesToDtos(roomRepository.searchRoomEntitiesByPriceAndCapacityOrProvinceIdAndDistrictId(price,capacity,provinceId,districtId));
+         return roomMapper.fromEntitiesToDtos(roomRepository.
+                 searchRoomEntitiesByPriceAndCapacityOrProvinceIdAndDistrictId(price,capacity,provinceId,districtId));
     }
 
     /** find multi search 2 filter */
     @Override
     public List<RoomDetailDto> findMultiSearch2Filter(int provinceId, float price) {
-        return roomMapper.fromEntitiesToDtos(roomRepository.searchRoomEntitiesByProvinceIdAndPrice(provinceId,price));
+        return roomMapper.fromEntitiesToDtos(roomRepository.
+                searchRoomEntitiesByProvinceIdAndPrice(provinceId,price));
     }
 
     /** find multi search 2 filter */
     @Override
     public List<RoomDetailDto> findMultiSearch2Filters(int provinceId, float capacity) {
-        return roomMapper.fromEntitiesToDtos(roomRepository.searchRoomEntitiesByProvinceIdAndCapacity(provinceId,capacity));
+        return roomMapper.fromEntitiesToDtos(roomRepository.
+                searchRoomEntitiesByProvinceIdAndCapacity(provinceId,capacity));
     }
 
     /** find multi search 3 filter */
     @Override
     public List<RoomDetailDto> findMultiSearch3Filters(int provinceId, int districtId, int wardId, float price, float capacity) {
-        return roomMapper.fromEntitiesToDtos(roomRepository.multiSearch3Filter(provinceId, districtId, wardId, price, capacity));
+        return roomMapper.fromEntitiesToDtos(roomRepository.
+                multiSearch3Filter(provinceId, districtId, wardId, price, capacity));
     }
 
     /** find multi search 4 filter */
     @Override
     public List<RoomDetailDto> findMultiSearch4Filters(int provinceId, int districtId, int wardId, float price, float capacity) {
-        return roomMapper.fromEntitiesToDtos(roomRepository.multiSearch4Filter(provinceId, districtId, wardId, price, capacity));
+        return roomMapper.fromEntitiesToDtos(roomRepository.
+                multiSearch4Filter(provinceId, districtId, wardId, price, capacity));
     }
 
     /** find multi search 5 filter */
     @Override
     public List<RoomDetailDto> findMultiSearch5Filters(int provinceId, int districtId, int wardId, float price, float capacity) {
-        return roomMapper.fromEntitiesToDtos(roomRepository.searchRoomEntitiesByProvinceIdAndDistrictIdAndWardIdAndPriceAndCapacity(provinceId, districtId, wardId, price, capacity));
+        return roomMapper.fromEntitiesToDtos(roomRepository.
+                searchRoomEntitiesByProvinceIdAndDistrictIdAndWardIdAndPriceAndCapacity(provinceId, districtId, wardId, price, capacity));
     }
 
     /** Get by id */

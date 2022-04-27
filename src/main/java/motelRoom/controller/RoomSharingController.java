@@ -34,8 +34,11 @@ public class RoomSharingController {
 
     /** Create room_sharing **/
     @PostMapping
-    public ResponseEntity<RoomSharingDetailDto> createRoomSharing(@Valid @RequestBody RoomSharingCreateDto roomSharingCreateDto) {
-        ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingService.createRoomSharing(roomSharingCreateDto));
+    public ResponseEntity<RoomSharingDetailDto> createRoomSharing(@Valid @RequestBody
+                                                                              RoomSharingCreateDto roomSharingCreateDto)
+    {
+        ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(roomSharingService.createRoomSharing(roomSharingCreateDto));
         return responseEntity;
     }
 

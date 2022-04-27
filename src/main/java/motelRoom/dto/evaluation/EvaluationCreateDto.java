@@ -11,11 +11,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EvaluationCreateDto implements Serializable {
-
     private UUID roomId;
     private UUID userId;
     private Float rate;
     private String commentRate;
     private Date timeRate;
-
 }
