@@ -52,7 +52,7 @@ public class EvaluationServiceImpl implements EvaluationService{
             return evaluationDetailDto;
         }
         catch (Exception e){
-            throw new NotAcceptable("Can't find Evaluation with id: " + id);
+            throw new NotAcceptable("Can't find evaluation with id: " + id);
         }
      }
 
@@ -75,7 +75,7 @@ public class EvaluationServiceImpl implements EvaluationService{
         try{
             evaluationRepository.deleteById(id);
         }catch (Exception e){
-            throw new NotFoundException("Not find id");
+            throw new NotFoundException("Not find id evaluation");
         }
     }
 
