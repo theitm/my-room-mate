@@ -1,14 +1,12 @@
 package motelRoom.controller;
 
-import motelRoom.dto.documentError.ResponseObject;
+import motelRoom.dto.responseException.ResponseObject;
 import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
-import motelRoom.entity.RoomEntity;
 import motelRoom.service.roomService.RoomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +55,7 @@ public class RoomController {
         RoomDetailDto roomDetailDto = roomService.updateRoom(id, roomCreateDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomDetailDto);
     }
+
     /**
      * SearchFilter1
      */

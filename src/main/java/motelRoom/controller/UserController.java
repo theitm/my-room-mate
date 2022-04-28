@@ -1,8 +1,8 @@
 package motelRoom.controller;
 
-import motelRoom.JWT.JwtTokenProvider;
-import motelRoom.JWT.LoginResponse;
-import motelRoom.JWT.RandomStuff;
+import motelRoom.service.jwt.JwtTokenProvider;
+import motelRoom.dto.jwt.LoginResponse;
+import motelRoom.dto.jwt.RandomStuff;
 import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
