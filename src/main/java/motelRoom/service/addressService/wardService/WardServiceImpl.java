@@ -23,7 +23,7 @@ public class WardServiceImpl implements WardService{
      * @return
      */
     public List<WardDetailDto> findAll(){
-        return wardMapper.fromEntityToDto(wardRepository.findAll());
+        return wardMapper.fromEntitiesToDtos(wardRepository.findAll());
     }
 
     /**

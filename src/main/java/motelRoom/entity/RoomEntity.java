@@ -1,8 +1,9 @@
 package motelRoom.entity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
+import motelRoom.entity.addressEntity.DistrictEntity;
+import motelRoom.entity.addressEntity.ProvinceEntity;
+import motelRoom.entity.addressEntity.WardEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
@@ -40,4 +41,28 @@ public class RoomEntity {
     private String descriptionRoom;
     @Column(name="status_room")
     private int statusRoom;
+
+    /**relationship many room one province**/
+    @ManyToOne
+    @JoinColumn(name = "province_id",insertable = false,updatable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private ProvinceEntity provinceEntity;
+
+    /**relationship many room one district**/
+    @ManyToOne
+    @JoinColumn(name = "district_id",insertable = false,updatable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private DistrictEntity districtEntity;
+
+    /**relationship many room one ward**/
+    @ManyToOne
+    @JoinColumn(name = "ward_id",insertable = false,updatable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private WardEntity wardEntity;
 }
