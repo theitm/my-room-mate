@@ -1,7 +1,7 @@
 package motelRoom.controller;
 import motelRoom.dto.document.DocumentCreateDto;
 import motelRoom.dto.document.DocumentDetailDto;
-import motelRoom.dto.documentError.ResponseObject;
+import motelRoom.dto.responseException.ResponseObject;
 import motelRoom.entity.DocumentEntity;
 import motelRoom.repository.DocumentRepository;
 import motelRoom.service.documentService.DocumentService;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping(value = "/document")

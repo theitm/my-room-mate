@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/RoomSharing")
+@RequestMapping("/roomsharing")
 public class RoomSharingController {
     private final RoomSharingService roomSharingService;
     public RoomSharingController(RoomSharingService roomSharingService) {
@@ -34,8 +34,11 @@ public class RoomSharingController {
 
     /** Create room_sharing **/
     @PostMapping
-    public ResponseEntity<RoomSharingDetailDto> createRoomSharing(@Valid @RequestBody RoomSharingCreateDto roomSharingCreateDto) {
-        ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).body(roomSharingService.createRoomSharing(roomSharingCreateDto));
+    public ResponseEntity<RoomSharingDetailDto> createRoomSharing(@Valid @RequestBody
+                                                                              RoomSharingCreateDto roomSharingCreateDto)
+    {
+        ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(roomSharingService.createRoomSharing(roomSharingCreateDto));
         return responseEntity;
     }
 

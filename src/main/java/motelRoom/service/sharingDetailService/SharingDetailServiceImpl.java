@@ -39,7 +39,8 @@ public class SharingDetailServiceImpl implements SharingDetailService{
                 return "User ID has existed!";
             }
             else {
-                SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailCreateDto(sharingDetailCreateDto);
+                SharingDetailEntity sharingDetailEntity =
+                        sharingDetailMapper.fromSharingDetailCreateDto(sharingDetailCreateDto);
                 SharingDetailEntity sharingDetailEntityCreate = sharingDetailRepository.save(sharingDetailEntity);
                 SharingDetailDetailDto sharingDetailDetailDto = null;
                 if(sharingDetailEntityCreate != null){
@@ -55,7 +56,8 @@ public class SharingDetailServiceImpl implements SharingDetailService{
      **/
     @Override
     public SharingDetailDetailDto findById(UUID sharingDetailId) {
-        SharingDetailDetailDto sharingDetailDetailDto = sharingDetailMapper.fromEntityToDto(sharingDetailRepository.getById(sharingDetailId));
+        SharingDetailDetailDto sharingDetailDetailDto =
+                sharingDetailMapper.fromEntityToDto(sharingDetailRepository.getById(sharingDetailId));
         return sharingDetailDetailDto;
     }
 

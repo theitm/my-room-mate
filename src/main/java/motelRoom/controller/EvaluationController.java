@@ -2,7 +2,7 @@ package motelRoom.controller;
 
 import motelRoom.dto.evaluation.EvaluationCreateDto;
 import motelRoom.dto.evaluation.EvaluationDetailDto;
-import motelRoom.service.EvaluationService.EvaluationServiceImpl;
+import motelRoom.service.evaluationService.EvaluationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +40,6 @@ public class EvaluationController{
     @PostMapping
     public ResponseEntity<EvaluationDetailDto> create(@RequestBody EvaluationCreateDto createDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(evaluationService.createEvaluation(createDto));
-
     }
 
     /**......delete evaluation....**/
@@ -55,6 +54,5 @@ public class EvaluationController{
     public void update(@RequestBody EvaluationCreateDto evaluationCreateDto, @PathVariable UUID id) {
         evaluationService.saveUpdate(id ,evaluationCreateDto);
     }
-
 }
 
