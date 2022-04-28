@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/evaluation")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/evaluation")
 public class EvaluationController{
     @Autowired
     private final EvaluationServiceImpl evaluationService;
