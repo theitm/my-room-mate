@@ -7,6 +7,7 @@ import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
 import motelRoom.service.exceptionService.BadRequestException;
+import motelRoom.service.exceptionService.NotAcceptable;
 import motelRoom.service.userService.CustomUserDetails;
 import motelRoom.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,18 +63,24 @@ public class UserController {
     /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
     public LoginResponse authenticateUser (@Valid @RequestBody UserLogin userLogin) {
-        /**Authenticate from username and password.*/
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        userLogin.getUsername(),
-                        userLogin.getPassword()
-                )
-        );
-        /**If no exception occurs, the information is valid
-         // Set authentication information to Security Context*/
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-        return new LoginResponse(jwt);
+        try {
+            /**Authenticate from username and password.*/
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            userLogin.getUsername(),
+                            userLogin.getPassword()
+                    )
+            );
+            /**If no exception occurs, the information is valid
+             // Set authentication information to Security Context*/
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+            return new LoginResponse(jwt);
+        }
+        catch (Exception e)
+        {
+            throw new NotAcceptable("Username or password incorrect");
+        }
     }
 
     @GetMapping("/random")

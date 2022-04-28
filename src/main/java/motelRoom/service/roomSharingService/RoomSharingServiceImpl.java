@@ -90,7 +90,6 @@ public class RoomSharingServiceImpl implements RoomSharingService{
     @Override
     public String createRoomSharing(RoomSharingCreateDto roomSharingCreateDto) {
         List<SharingDetailCreateDto> ListDto = roomSharingCreateDto.getSharingDetails();
-
         for (SharingDetailCreateDto dto: ListDto
              ) {
             SharingDetailEntity entity = repository.findByUserId(dto.getUser_id());
@@ -99,7 +98,6 @@ public class RoomSharingServiceImpl implements RoomSharingService{
                 return "You created Room Sharing before!";
             }
         }
-
         RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingCreateDto);
         RoomSharingEntity roomSharingCreateEntity = roomSharingRepository.save(roomSharingEntity);
         for (SharingDetailCreateDto sharingDetailCreateDto : roomSharingCreateDto.getSharingDetails()){
