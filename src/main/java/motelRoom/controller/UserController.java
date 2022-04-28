@@ -62,20 +62,23 @@ public class UserController {
 
     /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
-    public LoginResponse authenticateUser (@Valid @RequestBody UserLogin userLogin) {
+    public LoginResponse authenticateUser(@Valid @RequestBody UserLogin userLogin,
+                                          Authentication authentication){
         try {
-            /**Authenticate from username and password.*/
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            userLogin.getUsername(),
-                            userLogin.getPassword()
-                    )
-            );
-            /**If no exception occurs, the information is valid
-             // Set authentication information to Security Context*/
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-            return new LoginResponse(jwt);
+
+                /**Xác thực từ username và password.*/
+                authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                userLogin.getUsername(),
+                                userLogin.getPassword()
+                        )
+                );
+                /**If no exception occurs, the information is valid
+                 // Set authentication information to Security Context*/
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+                UserDetailDto userDetailDto= userService.findByUserName(authentication.getName());
+                return new  LoginResponse(jwt, userDetailDto);
         }
         catch (Exception e)
         {
