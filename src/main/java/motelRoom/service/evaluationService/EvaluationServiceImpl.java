@@ -5,6 +5,8 @@ import motelRoom.dto.evaluation.EvaluationDetailDto;
 import motelRoom.entity.EvaluationEntity;
 import motelRoom.mapper.EvaluationMapper;
 import motelRoom.repository.EvaluationRepository;
+import motelRoom.service.exceptionService.NotAcceptable;
+import motelRoom.service.exceptionService.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -45,8 +47,13 @@ public class EvaluationServiceImpl implements EvaluationService{
      */
     @Override
     public EvaluationDetailDto findById(UUID id) {
-        return  evaluationMapper.fromEntityToDetailDto(evaluationRepository.getById(id));
-
+        try{
+            EvaluationDetailDto evaluationDetailDto = evaluationMapper.fromEntityToDetailDto(evaluationRepository.getById(id));
+            return evaluationDetailDto;
+        }
+        catch (Exception e){
+            throw new NotAcceptable("Can't find evaluation with id: " + id);
+        }
      }
 
     /**
@@ -65,7 +72,11 @@ public class EvaluationServiceImpl implements EvaluationService{
      */
     @Override
     public void deleteById(UUID id) {
-        evaluationRepository.deleteById(id);
+        try{
+            evaluationRepository.deleteById(id);
+        }catch (Exception e){
+            throw new NotFoundException("Not find id evaluation");
+        }
     }
 
     /**
