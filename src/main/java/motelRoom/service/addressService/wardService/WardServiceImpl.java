@@ -4,7 +4,6 @@ import motelRoom.dto.address.ward.WardDetailDto;
 import motelRoom.service.exceptionService.NotAcceptable;
 import motelRoom.mapper.addressMapper.WardMapper;
 import motelRoom.repository.addressRepository.WardRepository;
-import motelRoom.service.exceptionService.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,7 +38,7 @@ public class WardServiceImpl implements WardService{
             return  wardMapper.fromEntityToDetailDto(wardRepository.getById(id));
         }
         else {
-            throw new NotFoundException("can't find ward with id: " + id);
+            throw new NotAcceptable("can't find ward with id: " + id);
         }
     }
 }
