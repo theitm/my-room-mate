@@ -1,8 +1,8 @@
 package motelRoom.controller;
 
-import motelRoom.dto.valuation.EvaluationCreateDto;
-import motelRoom.dto.valuation.EvaluationDetailDto;
-import motelRoom.service.EvaluationService.EvaluationServiceImpl;
+import motelRoom.dto.evaluation.EvaluationCreateDto;
+import motelRoom.dto.evaluation.EvaluationDetailDto;
+import motelRoom.service.evaluationService.EvaluationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("v1/api/evaluation")
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/evaluation")
 public class EvaluationController{
     @Autowired
     private final EvaluationServiceImpl evaluationService;
@@ -21,7 +22,6 @@ public class EvaluationController{
 
         this.evaluationService = evaluationService;
     }
-
 
     /**.....get all id evaluation...........**/
     @GetMapping("/{id}")
@@ -40,7 +40,6 @@ public class EvaluationController{
     @PostMapping
     public ResponseEntity<EvaluationDetailDto> create(@RequestBody EvaluationCreateDto createDto) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(evaluationService.createEvaluation(createDto));
-
     }
 
     /**......delete evaluation....**/
@@ -55,6 +54,5 @@ public class EvaluationController{
     public void update(@RequestBody EvaluationCreateDto evaluationCreateDto, @PathVariable UUID id) {
         evaluationService.saveUpdate(id ,evaluationCreateDto);
     }
-
 }
 

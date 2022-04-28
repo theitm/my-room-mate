@@ -1,4 +1,4 @@
-package motelRoom.JWT;
+package motelRoom.dto.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

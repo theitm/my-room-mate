@@ -1,19 +1,15 @@
-package motelRoom.service.EvaluationService;
+package motelRoom.service.evaluationService;
 
-import motelRoom.dto.valuation.EvaluationCreateDto;
-import motelRoom.dto.valuation.EvaluationDetailDto;
+import motelRoom.dto.evaluation.EvaluationCreateDto;
+import motelRoom.dto.evaluation.EvaluationDetailDto;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface EvaluationService {
-
     EvaluationDetailDto createEvaluation(EvaluationCreateDto evaluationCreateDto);
     EvaluationDetailDto findById(UUID id) ;
-
     List<EvaluationDetailDto> findAll();
-
-
     void deleteById(UUID id);
-    public void saveUpdate(UUID id, EvaluationCreateDto createDto);
+    void saveUpdate(UUID id, EvaluationCreateDto createDto);
 }

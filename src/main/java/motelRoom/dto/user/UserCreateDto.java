@@ -16,6 +16,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCreateDto implements Serializable {
+
     @Email
     private String username;
 
@@ -33,7 +34,7 @@ public class UserCreateDto implements Serializable {
 
     private int gender;
 
-    private String fb;
+    private String facebook;
 
     private String avatarUrl;
 }

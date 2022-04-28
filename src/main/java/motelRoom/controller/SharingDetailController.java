@@ -6,13 +6,13 @@ import motelRoom.service.sharingDetailService.SharingDetailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/sharingDetail")
-
+@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/sharingdetail")
 public class SharingDetailController {
     private final SharingDetailService sharingDetailService;
     public SharingDetailController(SharingDetailService sharingDetailService) {
@@ -33,14 +33,15 @@ public class SharingDetailController {
 
     /** Create sharing_detail **/
     @PostMapping
-    public ResponseEntity<SharingDetailDetailDto> addRoomSharing(@RequestBody SharingDetailCreateDto sharingDetailCreateDto) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailService.createSharingDetail(sharingDetailCreateDto));
+    public ResponseEntity<SharingDetailDetailDto> createSharingDetail(@Valid @RequestBody SharingDetailCreateDto sharingDetailCreateDto) {
+        ResponseEntity responseEntity = ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailService.createSharingDetail(sharingDetailCreateDto));
+        return responseEntity;
     }
 
     /** Update sharing_detail **/
     @PutMapping("/{sharingDetailId}")
     public ResponseEntity<SharingDetailDetailDto> update(@PathVariable UUID sharingDetailId,
-                                                         @RequestBody SharingDetailDetailDto sharingDetailDetailDto) {
+                                                         @Valid @RequestBody SharingDetailDetailDto sharingDetailDetailDto) {
         SharingDetailDetailDto sharingDetailDetailDtoUpdate = sharingDetailService.updateSharingDetail(sharingDetailId, sharingDetailDetailDto);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(sharingDetailDetailDtoUpdate);
     }

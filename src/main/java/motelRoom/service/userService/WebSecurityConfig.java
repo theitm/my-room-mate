@@ -1,6 +1,6 @@
 package motelRoom.service.userService;
 
-import motelRoom.JWT.JwtAuthenticationFilter;
+import motelRoom.service.jwt.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -60,7 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/login","/user/signup", "/user/forgotpassword/{username}").permitAll() // Cho phép tất cả mọi người truy cập vào 2 địa chỉ này
                 .anyRequest().authenticated() // Tất cả các request khác đều cần phải xác thực mới được truy cập
                 .and().httpBasic();
-
         http.logout().logoutUrl("/user/logout");
 
         http.sessionManagement()

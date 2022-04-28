@@ -71,13 +71,9 @@ public class WaitingListController {
     public void exportToExcel(HttpServletResponse response, Authentication authentication) throws IOException {
         response.setContentType("application/octet-stream");
         String headerKey = "Content-Disposition";
-
         String headerValue = "attachment; filename=room_waiting_list.xlsx";
-
         response.setHeader(headerKey, headerValue);
-
         List<WaitingListBasicDto> listRooms = service.getListByUserId(userService.findByUserName(authentication.getName()).getId());
-
         RoomExcelExporter excelExporter = new RoomExcelExporter(listRooms);
         excelExporter.export(response);
     }

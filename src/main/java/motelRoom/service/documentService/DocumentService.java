@@ -10,7 +10,8 @@ import java.util.UUID;
 public interface DocumentService {
     DocumentDetailDto createDocument(DocumentCreateDto documentCreateDto);
     List<DocumentDetailDto> findAll();
-    List<DocumentDetailDto> findById(UUID parentId);
+    List<DocumentDetailDto> findByIdEvaluation(UUID parentId);
+    List<DocumentDetailDto> findByIdRoom(UUID parentId);
     void deleteById(UUID id);
     DocumentDetailDto saveUpdate(UUID id, DocumentCreateDto createDto);
 }
