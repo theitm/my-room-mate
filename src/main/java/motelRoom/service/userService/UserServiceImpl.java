@@ -8,6 +8,7 @@ import motelRoom.entity.UserEntity;
 import motelRoom.mapper.UserMapper;
 import motelRoom.repository.UserRepository;
 import motelRoom.service.exceptionService.BadRequestException;
+import motelRoom.service.exceptionService.NotAcceptable;
 import motelRoom.service.exceptionService.NotFoundException;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.BeanUtils;
@@ -51,7 +52,13 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public UserDetailDto findById(UUID id) {
-        return userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
+        try {
+            return userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
+        }
+        catch (Exception e)
+        {
+            throw new NotAcceptable("can't find user with id: " + id );
+        }
     }
 
     /**
@@ -78,19 +85,19 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public UserDetailDto createUser(UserCreateDto userCreateDto) {
-        String username = userCreateDto.getUsername();
-        UserEntity entity = userRepository.findByUsername(username);
-        if (entity == null) {
-            UserEntity userEntity = userMapper.fromUserEntityCreateDtoToEntity(userCreateDto);
-            userEntity.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
-            UserEntity userEntityCreate = userRepository.save(userEntity);
-            UserDetailDto userDetailDto = null;
-            if (userEntityCreate != null) {
-                userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntityCreate);
+            String username = userCreateDto.getUsername();
+            UserEntity entity = userRepository.findByUsername(username);
+            if (entity == null) {
+                UserEntity userEntity = userMapper.fromUserEntityCreateDtoToEntity(userCreateDto);
+                userEntity.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
+                UserEntity userEntityCreate = userRepository.save(userEntity);
+                UserDetailDto userDetailDto = null;
+                if (userEntityCreate != null) {
+                    userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntityCreate);
+                }
+                return userDetailDto;
             }
-            return userDetailDto;
-        }
-        return null;
+       throw new NotAcceptable("Username available");
     }
 
     /**
@@ -100,14 +107,20 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public UserDetailDto updateUser(UUID id, UserDetailDto userDetailDto) {
+        try {
             UserEntity userEntity = userRepository.findById(id).orElse(null);
-            if(userEntity == null){
+            if (userEntity == null) {
                 return null;
             }
             BeanUtils.copyProperties(userDetailDto, userEntity);
             userRepository.saveAndFlush(userEntity);
             userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntity);
             return userDetailDto;
+        }
+        catch (Exception e)
+        {
+            throw new NotAcceptable("can't find user with id: " + id );
+        }
     }
 
     /**
@@ -117,7 +130,13 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public void deleteById(UUID id) {
-        userRepository.deleteById(id);
+        try {
+            userRepository.deleteById(id);
+        }
+        catch (Exception e)
+        {
+            throw new NotAcceptable("can't find user with id: " + id +" to delete!");
+        }
     }
 
     /**

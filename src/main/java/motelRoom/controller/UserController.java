@@ -7,6 +7,7 @@ import motelRoom.dto.user.UserCreateDto;
 import motelRoom.dto.user.UserDetailDto;
 import motelRoom.dto.user.UserLogin;
 import motelRoom.service.exceptionService.BadRequestException;
+import motelRoom.service.exceptionService.NotAcceptable;
 import motelRoom.service.userService.CustomUserDetails;
 import motelRoom.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/user")
 public class UserController {
 
@@ -62,22 +62,28 @@ public class UserController {
 
     /** ---------------- LOGIN USER ------------------------ */
     @PostMapping("/login")
-
     public LoginResponse authenticateUser(@Valid @RequestBody UserLogin userLogin,
-                                          Authentication authentication) {
-        /**Xác thực từ username và password.*/
-        authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        userLogin.getUsername(),
-                        userLogin.getPassword()
-                )
-        );
-        /**If no exception occurs, the information is valid
-         // Set authentication information to Security Context*/
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-        UserDetailDto userDetailDto= userService.findByUserName(authentication.getName());
-        return new  LoginResponse(jwt, userDetailDto);
+                                          Authentication authentication){
+        try {
+
+                /**Xác thực từ username và password.*/
+                authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                userLogin.getUsername(),
+                                userLogin.getPassword()
+                        )
+                );
+                /**If no exception occurs, the information is valid
+                 // Set authentication information to Security Context*/
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                String jwt = tokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
+                UserDetailDto userDetailDto= userService.findByUserName(authentication.getName());
+                return new  LoginResponse(jwt, userDetailDto);
+        }
+        catch (Exception e)
+        {
+            throw new NotAcceptable("Username or password incorrect");
+        }
     }
 
     @GetMapping("/random")
