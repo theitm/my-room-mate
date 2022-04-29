@@ -7,6 +7,7 @@ import motelRoom.mapper.RoomMapper;
 import motelRoom.repository.RoomRepository;
 import motelRoom.service.exceptionService.NotAcceptable;
 import motelRoom.service.exceptionService.NotFoundException;
+import org.aspectj.bridge.Message;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -26,10 +27,16 @@ public class RoomServiceImpl implements RoomService {
     /** Create room */
     @Override
     public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
-        RoomEntity roomEntity = roomMapper.fromRoomCreateEntityDto(roomCreateDto);
-        RoomEntity roomEntity1 = roomRepository.save(roomEntity);
-        RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity1);
-        return roomDetailDto;
+        UUID user = roomCreateDto.getUserId();
+        if(user == null){
+            throw new NotFoundException("Please enter information");
+        }
+        else{
+            RoomEntity roomEntity = roomMapper.fromRoomCreateEntityDto(roomCreateDto);
+            RoomEntity roomEntity1 = roomRepository.save(roomEntity);
+            RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity1);
+            return roomDetailDto;
+        }
     }
 
     /** find multi search 1 filter */
@@ -107,13 +114,19 @@ public class RoomServiceImpl implements RoomService {
     /** Update room **/
     @Override
     public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto){
-        RoomEntity roomEntity = roomRepository.findById(id).orElse(null);
-        if(roomEntity == null){
-            return null;
+        UUID user = roomCreateDto.getUserId();
+        if(user == null){
+            throw new NotFoundException("Please enter information");
         }
-        BeanUtils.copyProperties(roomCreateDto, roomEntity);
-        roomRepository.saveAndFlush(roomEntity);
-        return roomMapper.fromEntityToDetailDto(roomEntity);
+        else{
+            RoomEntity roomEntity = roomRepository.findById(id).orElse(null);
+            if(roomEntity == null){
+                return null;
+            }
+            BeanUtils.copyProperties(roomCreateDto, roomEntity);
+            roomRepository.saveAndFlush(roomEntity);
+            return roomMapper.fromEntityToDetailDto(roomEntity);
+        }
     }
 
     /** Delete room **/

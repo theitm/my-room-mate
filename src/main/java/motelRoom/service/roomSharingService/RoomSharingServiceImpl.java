@@ -9,6 +9,7 @@ import motelRoom.mapper.RoomSharingMapper;
 import motelRoom.repository.RoomSharingRepository;
 import motelRoom.repository.SharingDetailRepository;
 import motelRoom.service.exceptionService.NotAcceptable;
+import motelRoom.service.exceptionService.NotFoundException;
 import motelRoom.service.sharingDetailService.SharingDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,14 +60,20 @@ public class RoomSharingServiceImpl implements RoomSharingService{
      **/
     @Override
     public RoomSharingDetailDto updateRoomSharing(UUID sharingId, RoomSharingDetailDto roomSharingDetailDto) {
-        RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingDetailDto);
-        roomSharingEntity.setSharingId(sharingId);
-        if (roomSharingEntity == null) {
-            return null;
+        UUID room = roomSharingDetailDto.getRoomId();
+        if(room == null){
+            throw new NotFoundException("Please enter information");
         }
-        roomSharingRepository.save(roomSharingEntity);
-        RoomSharingDetailDto roomSharingDetailDtoUpdate = roomSharingMapper.fromEntityToDto(roomSharingEntity);
-        return roomSharingDetailDtoUpdate;
+        else{
+            RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingDetailDto);
+            roomSharingEntity.setSharingId(sharingId);
+            if (roomSharingEntity == null) {
+                return null;
+            }
+            roomSharingRepository.save(roomSharingEntity);
+            RoomSharingDetailDto roomSharingDetailDtoUpdate = roomSharingMapper.fromEntityToDto(roomSharingEntity);
+            return roomSharingDetailDtoUpdate;
+        }
     }
 
     /**
