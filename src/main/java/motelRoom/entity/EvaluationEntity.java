@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import motelRoom.entity.addressEntity.ProvinceEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
@@ -47,6 +48,11 @@ public class EvaluationEntity {
     @Column(name = "time_rate")
     private Date timeRate;
 
-    public void setId(UUID id) {
-    }
+    /**relationship many evaluation one room**/
+    @ManyToOne
+    @JoinColumn(name = "room_id",insertable = false,updatable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private RoomEntity roomEntity;
 }

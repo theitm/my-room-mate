@@ -1,5 +1,6 @@
 package motelRoom.service.roomService;
 
+import motelRoom.dto.room.RoomBasicDto;
 import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
 
@@ -9,9 +10,11 @@ import java.util.UUID;
 
 public interface RoomService {
     RoomDetailDto findById(UUID id);
+    RoomBasicDto findByIdObject(UUID id);
     RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto);
     void deleteById(UUID id);
     List<RoomDetailDto> findAll();
+    List<RoomBasicDto> findAllObject();
     RoomDetailDto createRoom(RoomCreateDto roomCreateDto);
     List<RoomDetailDto> findMultiSearch(UUID userId, int provinceId, float price, float capacity);
     List<RoomDetailDto> findMultiSearchs(float price, float capacity, int provinceId, int districtId);

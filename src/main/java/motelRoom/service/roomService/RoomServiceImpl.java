@@ -1,4 +1,5 @@
 package motelRoom.service.roomService;
+import motelRoom.dto.room.RoomBasicDto;
 import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.entity.RoomEntity;
@@ -92,6 +93,17 @@ public class RoomServiceImpl implements RoomService {
 
     }
 
+    @Override
+    public RoomBasicDto findByIdObject(UUID id) {
+        try{
+            RoomBasicDto roomBasicDto = roomMapper.fromEntityToBasicDto(roomRepository.getById(id));
+            return roomBasicDto;
+        }
+        catch (Exception e){
+            throw new NotAcceptable("Can't find Room with id: " + id);
+        }
+    }
+
     /** Update room **/
     @Override
     public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto){
@@ -116,7 +128,13 @@ public class RoomServiceImpl implements RoomService {
     }
 
     /** Get all room **/
+    @Override
     public List<RoomDetailDto> findAll() {
         return roomMapper.fromEntitiesToDtos(roomRepository.findAll());
+    }
+
+    @Override
+    public List<RoomBasicDto> findAllObject() {
+        return roomMapper.fromEntitiesToBasicDtos(roomRepository.findAll());
     }
 }

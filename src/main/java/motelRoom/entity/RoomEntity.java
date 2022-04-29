@@ -7,6 +7,8 @@ import motelRoom.entity.addressEntity.WardEntity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -65,4 +67,28 @@ public class RoomEntity {
     @ToString.Exclude
     @JsonBackReference
     private WardEntity wardEntity;
+
+    /**relationship one room many evaluation **/
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "room_id", referencedColumnName = "room_id", insertable=false, updatable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<EvaluationEntity> evaluationEntities
+            = new ArrayList<>();
+
+    /**relationship many room one user**/
+    @ManyToOne
+    @JoinColumn(name = "user_id",insertable = false,updatable = false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @JsonBackReference
+    private UserEntity userEntity;
+
+    /**relationship one room many evaluation **/
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "parent_id", referencedColumnName = "room_id", insertable=false, updatable=false)
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private List<DocumentEntity> documentEntities
+            = new ArrayList<>();
 }
