@@ -210,7 +210,7 @@ public class RoomController {
         }
         if(list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("Failed", "Hiện tại chưa có tin đăng trong khu vực này", "")
+                    new ResponseObject("Failed", "Showing at no one post in this area", "")
             );
         }
         return ResponseEntity.status(HttpStatus.OK).body(
