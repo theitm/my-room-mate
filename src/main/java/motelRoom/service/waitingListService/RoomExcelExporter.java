@@ -112,7 +112,7 @@ public class RoomExcelExporter {
                             + ", " + WaitingListBasicDto.getRoomEntity().getDistrictEntity().getDistrictPrefix()
                             + " " + WaitingListBasicDto.getRoomEntity().getDistrictEntity().getDistrictName()
                             +", " + WaitingListBasicDto.getRoomEntity().getProvinceEntity().getProvinceName()
-                            , style);
+                    , style);
             createCell(row, columnCount++, WaitingListBasicDto.getRoomEntity().getPrice(), style);
             createCell(row, columnCount++, WaitingListBasicDto.getRoomEntity().getCapacity(), style);
             createCell(row, columnCount++, WaitingListBasicDto.getRoomEntity().getDescriptionRoom(), style);

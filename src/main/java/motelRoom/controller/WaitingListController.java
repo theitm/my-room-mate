@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/WaitingList")
+@RequestMapping("/waitinglist")
 public class WaitingListController {
     @Autowired
     WaitingListServiceImpl service;
@@ -40,7 +40,7 @@ public class WaitingListController {
      * @param id
      * @return
      */
-    @GetMapping("/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<List<WaitingListDetailDto>> getAllByUserId(@PathVariable(name = "id") UUID id){
         return ResponseEntity.ok(service.getAllByUserId(id));
     }
