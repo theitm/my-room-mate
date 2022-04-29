@@ -3,6 +3,7 @@ package motelRoom.service.roomService;
 import motelRoom.dto.room.RoomBasicDto;
 import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
+import org.springframework.data.domain.Sort;
 
 
 import java.util.List;

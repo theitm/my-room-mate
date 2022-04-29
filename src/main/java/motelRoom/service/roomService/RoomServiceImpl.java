@@ -9,6 +9,7 @@ import motelRoom.service.exceptionService.NotAcceptable;
 import motelRoom.service.exceptionService.NotFoundException;
 import org.aspectj.bridge.Message;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
@@ -87,6 +88,7 @@ public class RoomServiceImpl implements RoomService {
         return roomMapper.fromEntitiesToDtos(roomRepository.
                 searchRoomEntitiesByProvinceIdAndDistrictIdAndWardIdAndPriceAndCapacity(provinceId, districtId, wardId, price, capacity));
     }
+
 
     /** Get by id */
     public RoomDetailDto findById(UUID id) {

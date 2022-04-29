@@ -28,4 +28,6 @@ public class ProvinceController {
     public ResponseEntity<ProvinceDetailDto> findById(@PathVariable Integer id){
         return ResponseEntity.ok(provinceService.findById(id));
     }
+
+
 }
