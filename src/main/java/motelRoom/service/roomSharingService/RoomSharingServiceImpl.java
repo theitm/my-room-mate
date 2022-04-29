@@ -62,7 +62,7 @@ public class RoomSharingServiceImpl implements RoomSharingService{
     public RoomSharingDetailDto updateRoomSharing(UUID sharingId, RoomSharingDetailDto roomSharingDetailDto) {
         UUID room = roomSharingDetailDto.getRoomId();
         if(room == null){
-            throw new NotFoundException("Please enter information");
+            throw new NotAcceptable("Please enter information");
         }
         else{
             RoomSharingEntity roomSharingEntity = roomSharingMapper.fromRoomSharingCreateDto(roomSharingDetailDto);

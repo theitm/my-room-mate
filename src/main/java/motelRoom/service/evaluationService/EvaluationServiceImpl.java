@@ -30,15 +30,21 @@ public class EvaluationServiceImpl implements EvaluationService{
      */
     @Override
     public EvaluationDetailDto createEvaluation(EvaluationCreateDto evaluationCreateDto) {
+        UUID user = evaluationCreateDto.getUserId();
+        UUID room = evaluationCreateDto.getRoomId();
+        if (user == null || room == null) {
+            throw new NotAcceptable("Please enter information");
+        } else {
             EvaluationEntity evaluationEntity = evaluationMapper.fromEvaluationCreateDto(evaluationCreateDto);
             EvaluationEntity evaluationEntityCreate = evaluationRepository.save(evaluationEntity);
             EvaluationDetailDto evaluationDetailDto = null;
-            if(evaluationEntityCreate != null){
+            if (evaluationEntityCreate != null) {
                 evaluationDetailDto = evaluationMapper.fromEntityToDetailDto(evaluationEntity);
 
             }
             return evaluationDetailDto;
         }
+    }
 
     /**
      * Show evaluation by id
@@ -86,11 +92,17 @@ public class EvaluationServiceImpl implements EvaluationService{
      */
     @Override
     public void saveUpdate(UUID id, EvaluationCreateDto createDto){
-        EvaluationEntity entity = evaluationRepository.findById(id).orElse(null);
-        if(entity == null){
-            return;
+        UUID user = createDto.getUserId();
+        UUID room = createDto.getRoomId();
+        if (user == null || room == null) {
+            throw new NotAcceptable("Please enter information");
+        } else {
+            EvaluationEntity entity = evaluationRepository.findById(id).orElse(null);
+            if (entity == null) {
+                return;
+            }
+            BeanUtils.copyProperties(createDto, entity);
+            evaluationRepository.saveAndFlush(entity);
         }
-        BeanUtils.copyProperties(createDto, entity);
-        evaluationRepository.saveAndFlush(entity);
     }
 }

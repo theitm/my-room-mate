@@ -28,7 +28,7 @@ public class RoomServiceImpl implements RoomService {
     public RoomDetailDto createRoom(RoomCreateDto roomCreateDto) {
         UUID user = roomCreateDto.getUserId();
         if(user == null){
-            throw new NotFoundException("Please enter information");
+            throw new NotAcceptable("Please enter information");
         }
         else{
             RoomEntity roomEntity = roomMapper.fromRoomCreateEntityDto(roomCreateDto);
@@ -104,7 +104,7 @@ public class RoomServiceImpl implements RoomService {
     public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto){
         UUID user = roomCreateDto.getUserId();
         if(user == null){
-            throw new NotFoundException("Please enter information");
+            return null;
         }
         else{
             RoomEntity roomEntity = roomRepository.findById(id).orElse(null);
