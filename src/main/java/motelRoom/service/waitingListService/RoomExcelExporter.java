@@ -101,6 +101,13 @@ public class RoomExcelExporter {
         short format = (short)BuiltinFormats.getBuiltinFormat("#,##0");
         style.setDataFormat(format);
 
+        CellStyle styleCurrent = workbook.createCellStyle();
+        styleCurrent.setFont(font);
+        styleCurrent.setBorderTop(BorderStyle.THIN);
+        styleCurrent.setBorderBottom(BorderStyle.THIN);
+        styleCurrent.setBorderLeft(BorderStyle.THIN);
+        styleCurrent.setBorderRight(BorderStyle.THIN);
+        styleCurrent.setDataFormat((short) 6);
         /** assign value **/
         for(WaitingListBasicDto WaitingListBasicDto : listRooms) {
             Row row = sheet.createRow(rowCount++);
@@ -113,7 +120,7 @@ public class RoomExcelExporter {
                             + " " + WaitingListBasicDto.getRoomEntity().getDistrictEntity().getDistrictName()
                             +", " + WaitingListBasicDto.getRoomEntity().getProvinceEntity().getProvinceName()
                     , style);
-            createCell(row, columnCount++, WaitingListBasicDto.getRoomEntity().getPrice(), style);
+            createCell(row, columnCount++, WaitingListBasicDto.getRoomEntity().getPrice(), styleCurrent);
             createCell(row, columnCount++, WaitingListBasicDto.getRoomEntity().getCapacity(), style);
             createCell(row, columnCount++, WaitingListBasicDto.getRoomEntity().getDescriptionRoom(), style);
         }
