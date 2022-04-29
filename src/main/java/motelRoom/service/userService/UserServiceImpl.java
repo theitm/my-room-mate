@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserDetailDto findById(UUID id) {
         try {
-            return userMapper.fromUserEntityToUserCrateDto(userRepository.getById(id));
+            return userMapper.fromEntityToUserDetailDto(userRepository.getById(id));
         }
         catch (Exception e)
         {
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService{
      */
     @Override
     public UserDetailDto findByUserName(String username) {
-        return userMapper.fromUserEntityToUserCrateDto(userRepository.findByUsername(username));
+        return userMapper.fromEntityToUserDetailDto(userRepository.findByUsername(username));
     }
 
     /**
@@ -88,12 +88,12 @@ public class UserServiceImpl implements UserService{
             String username = userCreateDto.getUsername();
             UserEntity entity = userRepository.findByUsername(username);
             if (entity == null) {
-                UserEntity userEntity = userMapper.fromUserEntityCreateDtoToEntity(userCreateDto);
+                UserEntity userEntity = userMapper.fromUserEntityCreateDto(userCreateDto);
                 userEntity.setPassword(passwordEncoder.encode(userCreateDto.getPassword()));
                 UserEntity userEntityCreate = userRepository.save(userEntity);
                 UserDetailDto userDetailDto = null;
                 if (userEntityCreate != null) {
-                    userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntityCreate);
+                    userDetailDto = userMapper.fromEntityToUserDetailDto(userEntityCreate);
                 }
                 return userDetailDto;
             }
@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService{
             }
             BeanUtils.copyProperties(userDetailDto, userEntity);
             userRepository.saveAndFlush(userEntity);
-            userDetailDto = userMapper.fromUserEntityToUserCrateDto(userEntity);
+            userDetailDto = userMapper.fromEntityToUserDetailDto(userEntity);
             return userDetailDto;
         }
         catch (Exception e)

@@ -1,6 +1,7 @@
 package motelRoom.service.exceptionService;
 
 import motelRoom.dto.responseException.ResponseError;
+import motelRoom.dto.responseGenerics.genericsError;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,8 +16,8 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(BadRequestException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseError handleCustomException(BadRequestException ex, WebRequest req){
-        return new ResponseError(HttpStatus.BAD_REQUEST, ex.getMessage());
+    public genericsError handleCustomException(BadRequestException ex, WebRequest req){
+        return new genericsError((Object) HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
     /**
@@ -25,8 +26,8 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseError handleNotFoundException(NotFoundException ex, WebRequest req){
-        return new ResponseError(HttpStatus.NOT_FOUND, ex.getMessage());
+    public genericsError handleNotFoundException(NotFoundException ex, WebRequest req){
+        return new genericsError((Object) HttpStatus.NOT_FOUND, ex.getMessage());
     }
 
     /**
@@ -35,7 +36,7 @@ public class CustomExceptionHandler {
      */
     @ExceptionHandler(NotAcceptable.class)
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public ResponseError handleNotAcceptableException(NotAcceptable ex, WebRequest req){
-        return new ResponseError(HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
+    public genericsError handleNotAcceptableException(NotAcceptable ex, WebRequest req){
+        return new genericsError((Object) HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
     }
 }

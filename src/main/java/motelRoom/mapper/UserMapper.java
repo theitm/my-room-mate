@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    UserEntity fromUserEntityCreateDtoToEntity (UserCreateDto userCreateDto);
-    UserDetailDto fromUserEntityToUserCrateDto (UserEntity userEntity);
+    UserEntity fromUserEntityCreateDto (UserCreateDto userCreateDto);
+    UserDetailDto fromEntityToUserDetailDto (UserEntity userEntity);
     List<UserDetailDto> fromEntitiesToDtos ( List<UserEntity> userEntities);
 }
