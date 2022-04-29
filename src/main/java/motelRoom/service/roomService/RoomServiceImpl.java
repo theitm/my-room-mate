@@ -102,23 +102,18 @@ public class RoomServiceImpl implements RoomService {
     /** Update room **/
     @Override
     public RoomDetailDto updateRoom(UUID id, RoomCreateDto roomCreateDto){
-        try {
-            UUID user = roomCreateDto.getUserId();
-            if(user == null){
-                throw new NotFoundException("Please enter information");
-            }
-            else{
-                RoomEntity roomEntity = roomRepository.findById(id).orElse(null);
-                if(roomEntity == null){
-                    return null;
-                }
-                BeanUtils.copyProperties(roomCreateDto, roomEntity);
-                roomRepository.saveAndFlush(roomEntity);
-                return roomMapper.fromEntityToDetailDto(roomEntity);
-            }
+        UUID user = roomCreateDto.getUserId();
+        if(user == null){
+            throw new NotFoundException("Please enter information");
         }
-        catch (Exception e){
-            throw new NotFoundException("Not find id!");
+        else{
+            RoomEntity roomEntity = roomRepository.findById(id).orElse(null);
+            if(roomEntity == null){
+                return null;
+            }
+            BeanUtils.copyProperties(roomCreateDto, roomEntity);
+            roomRepository.saveAndFlush(roomEntity);
+            return roomMapper.fromEntityToDetailDto(roomEntity);
         }
     }
 
