@@ -6,6 +6,7 @@ import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +27,9 @@ public class WaitingListEntity {
     @Column(name = "room_id")
     @Type(type = "uuid-char")
     private UUID roomId;
+
+    @Column(name = "time")
+    private LocalDateTime dateTime;
 
     /**relationship many waitingList one room**/
     @ManyToOne

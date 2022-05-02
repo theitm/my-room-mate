@@ -9,5 +9,8 @@ import java.util.UUID;
 @Repository
 public interface WaitingListRepository extends JpaRepository<WaitingListEntity, UUID> {
     List<WaitingListEntity> getAllByUserId(UUID id);
+    List<WaitingListEntity> findByUserIdOrderByDateTimeDesc(UUID id);
+    //findByOrderBySeatNumberAsc
+    List<WaitingListEntity> findByOrderByDateTimeDesc();
 }
 
