@@ -50,12 +50,12 @@ public class UserEntity {
     @Column(name = "url_avatar")
     private String avatarUrl;
 
-    /**relationship one user many room **/
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable=false, updatable=false)
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    private List<RoomEntity> roomEntities = new ArrayList<>();
+//    /**relationship one user many room **/
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "user_id", referencedColumnName = "user_id", insertable=false, updatable=false)
+//    @EqualsAndHashCode.Exclude
+//    @ToString.Exclude
+//    private List<RoomEntity> roomEntities = new ArrayList<>();
 
     /**relationship one user many waitinglist **/
     @OneToMany(cascade = CascadeType.ALL)

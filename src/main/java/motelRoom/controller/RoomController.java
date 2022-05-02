@@ -1,6 +1,7 @@
 package motelRoom.controller;
 
 import motelRoom.dto.responseException.ResponseObject;
+import motelRoom.dto.room.RoomBasicDto;
 import motelRoom.dto.room.RoomCreateDto;
 import motelRoom.dto.room.RoomDetailDto;
 import motelRoom.service.roomService.RoomService;
@@ -35,10 +36,22 @@ public class RoomController {
         return roomService.findAll();
     }
 
+    /** Get all room  export object**/
+    @GetMapping("/info")
+    public List<RoomBasicDto> findAllObject()
+    {
+        return roomService.findAllObject();
+    }
+
     /** Get by id **/
     @GetMapping("/{id}")
     public ResponseEntity<RoomDetailDto> findById(@PathVariable UUID id){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomService.findById(id));
+    }
+    /** Get by id export object **/
+    @GetMapping("/info/{id}")
+    public ResponseEntity<RoomBasicDto> findByIdObject(@PathVariable UUID id){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(roomService.findByIdObject(id));
     }
 
     /** Delete room by id **/
@@ -197,7 +210,7 @@ public class RoomController {
         }
         if(list.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
-                    new ResponseObject("Failed", "Hiện tại chưa có tin đăng trong khu vực này", "")
+                    new ResponseObject("Failed", "Showing at no one post in this area", "")
             );
         }
         return ResponseEntity.status(HttpStatus.OK).body(

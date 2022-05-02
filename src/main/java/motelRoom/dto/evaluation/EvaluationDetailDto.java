@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import motelRoom.entity.RoomEntity;
 
 import java.io.Serializable;
 import java.sql.Date;

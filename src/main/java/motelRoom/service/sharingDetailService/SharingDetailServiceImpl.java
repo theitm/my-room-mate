@@ -5,6 +5,7 @@ import motelRoom.dto.sharingDetail.SharingDetailDetailDto;
 import motelRoom.entity.SharingDetailEntity;
 import motelRoom.mapper.SharingDetailMapper;
 import motelRoom.repository.SharingDetailRepository;
+import motelRoom.service.exceptionService.NotAcceptable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -77,7 +78,7 @@ public class SharingDetailServiceImpl implements SharingDetailService{
         UUID user = sharingDetailDetailDto.getUserId();
         UUID sharing = sharingDetailDetailDto.getSharingId();
         if(user == null || sharing == null){
-            return null;
+            throw new NotAcceptable("Please enter information");
         }
         else {
             SharingDetailEntity sharingDetailEntity = sharingDetailMapper.fromSharingDetailUpdateDto(sharingDetailDetailDto);
