@@ -9,6 +9,8 @@ import motelRoom.repository.WaitingListRepository;
 import motelRoom.service.exceptionService.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -66,6 +68,7 @@ public class WaitingListServiceImpl implements WaitingListService{
     public WaitingListDetailDto addWaitingList(WaitingListCreateDto waitingListCreateDto)
     {
         WaitingListEntity entity = mapper.fromDtoCreateEntity(waitingListCreateDto);
+        entity.setDateTime(LocalDateTime.now());
         WaitingListEntity entitySave = repository.save(entity);
         return mapper.fromEntityToDetailDto(entitySave);
     }
