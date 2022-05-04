@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import motelRoom.customAnnotaion.Email;
-import motelRoom.customAnnotaion.Password;
-import motelRoom.customAnnotaion.Phone;
+import motelRoom.service.customAnnotaion.Email;
+import motelRoom.service.customAnnotaion.Password;
+import motelRoom.service.customAnnotaion.Phone;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package motelRoom.customAnnotaion;
+package motelRoom.service.customAnnotaion;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

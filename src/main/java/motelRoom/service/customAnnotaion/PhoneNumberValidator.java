@@ -1,4 +1,4 @@
-package motelRoom.customAnnotaion;
+package motelRoom.service.customAnnotaion;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

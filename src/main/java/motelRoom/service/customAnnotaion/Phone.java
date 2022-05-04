@@ -1,4 +1,4 @@
-package motelRoom.customAnnotaion;
+package motelRoom.service.customAnnotaion;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
