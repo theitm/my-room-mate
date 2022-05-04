@@ -9,5 +9,4 @@ import java.util.UUID;
 public class WaitingListCreateDto {
     private UUID userId;
     private UUID roomId;
-    private LocalDateTime dateTime;
 }
