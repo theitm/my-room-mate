@@ -34,8 +34,8 @@ public class RoomServiceImpl implements RoomService {
         }
         else{
             RoomEntity roomEntity = roomMapper.fromRoomCreateEntityDto(roomCreateDto);
-            RoomEntity roomEntity1 = roomRepository.save(roomEntity);
-            RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntity1);
+            RoomEntity roomEntityCreate = roomRepository.save(roomEntity);
+            RoomDetailDto roomDetailDto = roomMapper.fromEntityToDetailDto(roomEntityCreate);
             return roomDetailDto;
         }
     }
