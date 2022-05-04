@@ -8,6 +8,6 @@ public class PasswordValidator implements ConstraintValidator<Password, String>{
         if (value == null) {
             return false;
         }
-        return value.matches("^(.*\\b)(?=.*[~!@#$%^&*()]+.*).{8,}$");
+        return value.matches("^(.*\\b)(?=.*[@]+.*).{8,}$");
     }
 }

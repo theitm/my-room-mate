@@ -9,7 +9,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy=PasswordValidator.class)
 @Documented
 public @interface Password {
-    String message() default "Entry password invalid, Try again! (At least one uppercase, lowercase, number, and special character, at least 8 in length)";
+    String message() default "Entry password invalid, Try again! (At least one uppercase, lowercase, number, and @, at least 8 in length)";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
