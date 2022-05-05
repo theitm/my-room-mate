@@ -12,7 +12,7 @@ body {
 </style>
 </head>
 <body>
-<h1 align="center"><span style="font-size: x-large;"><strong>MXH Phòng trọ</strong></h1>
+<h1 align="center"><span style="font-size: x-large;"><strong>My Roommate</strong></h1>
 <br>
 <p>Hi <strong>${fullName}</strong>,</p>
 <p>Forgot your password? We have sent you a new password for your account.</p>
